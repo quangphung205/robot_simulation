@@ -39,8 +39,8 @@ class MotionHandlerRobot : public MotionHandler {
   explicit MotionHandlerRobot(ArenaMobileEntity * ent)
       : MotionHandler(ent) {}
 
-  MotionHandlerRobot(const MotionHandlerRobot& other) = delete;
-  MotionHandlerRobot& operator=(const MotionHandlerRobot& other) = delete;
+  MotionHandlerRobot(const MotionHandlerRobot& other) = default;
+  MotionHandlerRobot& operator=(const MotionHandlerRobot& other) = default;
 
   /**
   * @brief Update the speed and the pose angle according to the sensor readings.

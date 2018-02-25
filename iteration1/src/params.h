@@ -21,14 +21,14 @@
  */
 
 // graphics
-#define X_DIM 800
-#define Y_DIM 700
+#define X_DIM 1024
+#define Y_DIM 768
 #define TEXT_BOX_WIDTH 50
 #define GUI_MENU_WIDTH 180
 #define GUI_MENU_GAP 10
 
 // arena
-#define N_OBSTACLES 1
+#define N_OBSTACLES 4
 #define MAX_OBSTACLES 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
@@ -54,7 +54,7 @@
 #define ROBOT_COLLISION_DELTA 1
 #define ROBOT_RADIUS 30
 #define ROBOT_INIT_POS \
-  { 500, 500 , 0}
+  { 500, 200 , 0}
 #define ROBOT_COLOR \
   { 0, 0, 255 }
 

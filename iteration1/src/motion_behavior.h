@@ -38,8 +38,8 @@ class MotionBehavior {
 
   virtual ~MotionBehavior() = default;
 
-  MotionBehavior(const MotionBehavior& other) = delete;
-  MotionBehavior& operator=(const MotionBehavior& other) = delete;
+  MotionBehavior(const MotionBehavior& other) = default;
+  MotionBehavior& operator=(const MotionBehavior& other) = default;
 
   /**
    * @brief Update the position (and possibly orientation) for an

@@ -29,7 +29,7 @@ Arena::Arena(const struct arena_params *const params)
       mobile_entities_(),
       game_status_(PLAYING) {
   AddRobot();
-  AddEntity(kBase, 1);
+  AddEntity(kBase, 3);                      
   AddEntity(kObstacle, params->n_obstacles);
 }
 

@@ -34,9 +34,9 @@ class MotionBehaviorDifferential : public MotionBehavior {
         temp_vel_(0,0) {
   }
 
-  MotionBehaviorDifferential(const MotionBehaviorDifferential& other) = delete;
+  MotionBehaviorDifferential(const MotionBehaviorDifferential& other) = default;
   MotionBehaviorDifferential&
-    operator=(const MotionBehaviorDifferential& other) = delete;
+    operator=(const MotionBehaviorDifferential& other) = default;
 
   /**
    * @brief Update the pose of an entity based on its current position and how

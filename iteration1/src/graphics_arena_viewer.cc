@@ -42,6 +42,7 @@ GraphicsArenaViewer::GraphicsArenaViewer(
     gui->addButton(
       "Playing",
       std::bind(&GraphicsArenaViewer::OnPlayingBtnPressed, this));
+  gui->addButton("New game", std::bind(&GraphicsArenaViewer::OnNewGameBtnPressed, this));
   screen()->performLayout();
 }
 
@@ -52,7 +53,8 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 // This is the primary driver for state change in the arena.
 // It will be called at each iteration of nanogui::mainloop()
 void GraphicsArenaViewer::UpdateSimulation(double dt) {
-  controller_->AdvanceTime(dt);
+  if (!paused_)
+    controller_->AdvanceTime(dt);
 }
 
 /*******************************************************************************
@@ -65,6 +67,16 @@ void GraphicsArenaViewer::OnPlayingBtnPressed() {
   } else {
     playing_button_->setCaption("Paused");
   }
+
+  // @TODO: add the communication key_value
+}
+
+void GraphicsArenaViewer::OnNewGameBtnPressed() {
+  // @TODO: restart the game
+  Communication key_value = kNewGame;
+  controller_->AcceptCommunication(key_value);
+  playing_button_->setCaption("New game");
+  
 }
 
 /** OnSpecialKeyDown is called when the user presses down on one of the
@@ -79,7 +91,17 @@ void GraphicsArenaViewer::OnSpecialKeyDown(int key,
     Communication key_value = kNone;
     switch (key) {
       case GLFW_KEY_LEFT:
+	key_value = kKeyLeft;
         break;
+      case GLFW_KEY_RIGHT:
+	key_value = kKeyRight;
+        break;
+      case GLFW_KEY_UP:
+	key_value = kKeyUp;
+        break;
+      case GLFW_KEY_DOWN:
+	key_value = kKeyDown;
+	break;
       default: {}
     }
   controller_->AcceptCommunication(key_value);

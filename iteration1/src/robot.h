@@ -96,6 +96,14 @@ class Robot : public ArenaMobileEntity {
   */
   void TurnLeft();
 
+  int get_lives() { return lives_; }
+
+  void set_lives(int l) { lives_ = l; }
+
+  MotionHandlerRobot get_motion_handler() { return motion_handler_; }
+
+  MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_; }
+
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
@@ -103,7 +111,7 @@ class Robot : public ArenaMobileEntity {
   MotionBehaviorDifferential motion_behavior_;
   // Lives are decremented when the robot collides with anything.
   // When all the lives are gone, the game is lost.
-  int lives;
+  int lives_;
 };
 
 NAMESPACE_END(csci3081);

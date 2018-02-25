@@ -87,6 +87,14 @@ class GraphicsArenaViewer : public GraphicsApp {
   void OnPlayingBtnPressed();
 
   /**
+   * @brief Handle the user pressing the new game button on the GUI.
+   *
+   * This will restart the game the the new setting such as
+   * new postion for all entities and reset lives.
+   */
+  void OnNewGameBtnPressed();
+
+  /**
    * @brief Called each time the mouse moves on the screen within the GUI
    * window.
    *

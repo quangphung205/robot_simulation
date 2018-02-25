@@ -30,7 +30,7 @@ NAMESPACE_BEGIN(csci3081);
 * parameters for initializing ALL entities within the Arena.
 */
 struct arena_params {
-  size_t n_obstacles{0};
+  size_t n_obstacles{4};
   uint x_dim{ARENA_X_DIM};
   uint y_dim{ARENA_Y_DIM};
 };

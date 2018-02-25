@@ -1,0 +1,10 @@
+<map id="src/arena_params.h" name="src/arena_params.h">
+<area shape="rect" id="node2" href="$common_8h.html" title="src/common.h" alt="" coords="437,393,543,420"/>
+<area shape="rect" id="node4" href="$obstacle_8h.html" title="src/obstacle.h" alt="" coords="361,80,465,107"/>
+<area shape="rect" id="node9" href="$params_8h.html" title="src/params.h" alt="" coords="618,319,717,345"/>
+<area shape="rect" id="node6" href="$arena__immobile__entity_8h.html" title="src/arena_immobile\l_entity.h" alt="" coords="292,155,427,196"/>
+<area shape="rect" id="node8" href="$entity__type_8h.html" title="src/entity_type.h" alt="" coords="84,319,203,345"/>
+<area shape="rect" id="node10" href="$pose_8h.html" title="src/pose.h" alt="" coords="410,319,493,345"/>
+<area shape="rect" id="node7" href="$arena__entity_8h.html" title="src/arena_entity.h" alt="" coords="296,244,423,271"/>
+<area shape="rect" id="node11" href="$rgb__color_8h.html" title="src/rgb_color.h" alt="" coords="227,319,335,345"/>
+</map>

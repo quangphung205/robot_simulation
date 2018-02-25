@@ -43,8 +43,8 @@ class MotionHandler {
 
   virtual ~MotionHandler() {}
 
-  MotionHandler(const MotionHandler& other) = delete;
-  MotionHandler& operator=(const MotionHandler& other) = delete;
+  MotionHandler(const MotionHandler& other) = default;
+  MotionHandler& operator=(const MotionHandler& other) = default;
   /**
   * @brief Update the heading angle according to the touch sensor reading.
   */

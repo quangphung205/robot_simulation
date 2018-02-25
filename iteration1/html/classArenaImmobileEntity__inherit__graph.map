@@ -1,0 +1,5 @@
+<map id="ArenaImmobileEntity" name="ArenaImmobileEntity">
+<area shape="rect" id="node3" href="$classBase.html" title="Class representing a immobile base within the Arena. " alt="" coords="7,155,59,181"/>
+<area shape="rect" id="node4" href="$classObstacle.html" title="Class representing an immobile obstacle within the Arena. " alt="" coords="83,155,158,181"/>
+<area shape="rect" id="node2" href="$classArenaEntity.html" title="A base class from which all Arena entities inherit. " alt="" coords="31,5,122,32"/>
+</map>
