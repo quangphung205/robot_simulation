@@ -89,6 +89,12 @@ class Robot : public ArenaMobileEntity {
   /**
   * @brief Command that comes from the controller, then is passed to handler.
   */
+  void SetSpeed(double lv, double rv);
+
+
+  /**
+  * @brief Command that comes from the controller, then is passed to handler.
+  */
   void TurnRight();
 
   /**

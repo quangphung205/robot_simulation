@@ -79,11 +79,23 @@ void Arena::UpdateEntitiesTimestep() {
    */
   for (auto ent : entities_) {
     ent->TimestepUpdate(1);
+    //printf("arena.cc::L82 TimestepUpdate\n");
   }
 
   /*
    * Check for win/loss
    */
+  if (robot_->get_lives() < 0) {
+    game_status_ = LOST;
+  }
+
+  for (auto &ent : entities_) {
+    if (ent->get_type() != kBase) continue;
+    if (!(dynamic_cast<Base*>(ent)->IsCaptured())) {
+      break;
+    }
+    game_status_ = WON;
+  }
 
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
@@ -93,6 +105,7 @@ void Arena::UpdateEntitiesTimestep() {
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
       robot_->HandleCollision(wall);
+      game_status_ = LOST;
     }
     /* Determine if that mobile entity is colliding with any other entity.
     * Adjust the position accordingly so they don't overlap.
@@ -100,8 +113,19 @@ void Arena::UpdateEntitiesTimestep() {
     for (auto &ent2 : entities_) {
       if (ent2 == ent1) { continue; }
       if (IsColliding(ent1, ent2)) {
-        AdjustEntityOverlap(ent1, ent2);
-        robot_->HandleCollision(ent2->get_type(), ent2);
+	// Case 1: if ent2 is an obstacle: the robot stops
+	if (ent2->get_type() == kObstacle) {
+	  robot_->SetSpeed(0,0);	  
+	}
+	else {
+	// Case 2: if ent2 is a base: both the base and the robot change color
+	  AdjustEntityOverlap(ent1, ent2);
+          robot_->HandleCollision(ent2->get_type(), ent2);
+	  RgbColor color;
+	  color.Set(kOrange);
+	  ent2->set_color(color);
+	  dynamic_cast<Base*> (ent2)->set_captured(true);
+	}
       }
     }
   }
@@ -189,9 +213,17 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity * const mobile_e,
 void Arena::AcceptCommand(Communication com) {
   switch (com) {
     case(kIncreaseSpeed):
+      robot_->IncreaseSpeed();
+      break;
     case(kDecreaseSpeed):
+      robot_->DecreaseSpeed();
+      break;
     case(kTurnLeft):
+      robot_->TurnLeft();
+      break;
     case(kTurnRight):
+      robot_->TurnRight();
+      break;
     case(kPlay):
     case(kPause):
     case(kReset):

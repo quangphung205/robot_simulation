@@ -36,11 +36,16 @@ Controller::Controller() : last_dt(0) {
 void Controller::Run() { viewer_->Run(); }
 
 void Controller::AdvanceTime(double dt) {
-  if ((last_dt + dt) <= .05) {
+  /*
+  if ((last_dt + dt) <= 500) {
     last_dt += dt;
+    //printf("controller.cc::L41 Advance Time %lf\n", last_dt);
     return;
   }
   last_dt = 0;
+  */
+
+  last_dt += dt;
   arena_->AdvanceTime(dt);
 }
 
@@ -58,12 +63,19 @@ void Controller::AcceptCommunication(Communication com) {
 Communication Controller::ConvertComm(Communication com) {
   switch (com) {
     case (kKeyUp) :
+      return kIncreaseSpeed;     
     case (kKeyDown) :
+      return kDecreaseSpeed;
     case (kKeyLeft) :
+      return kTurnLeft;
     case (kKeyRight) :
+      return kTurnRight;
     case (kPlay) :
+      return kNone;
     case (kPause) :
-    case (kNewGame) : 
+      return kNone;
+    case (kNewGame) :
+      return kReset;
     default: return kNone;
   }
 }

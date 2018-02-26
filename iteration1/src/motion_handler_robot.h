@@ -63,6 +63,12 @@ class MotionHandlerRobot : public MotionHandler {
   void DecreaseSpeed() override;
 
   /**
+   * @brief Set the overall speed of the entity by (lv,rv).
+   */
+  void SetSpeed(double lv, double rv);
+
+
+  /**
    * @brief Turn the entity to the right by angle_delta (in degrees?)
    */
   void TurnRight() override;

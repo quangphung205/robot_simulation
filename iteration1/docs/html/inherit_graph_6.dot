@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="MotionBehavior",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMotionBehavior.html",tooltip="Class managing an ArenaMobileEntity&#39;s position. "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="MotionBehaviorDifferential",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMotionBehaviorDifferential.html",tooltip="A simple model of differential drive kinematics based on the notes here: ~https://chess.eecs.berkeley.edu/eecs149/documentation/differentialDrive.pdf~. "];
+}

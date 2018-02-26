@@ -57,6 +57,18 @@ struct Pose {
    */
   Pose &operator=(const Pose &other) = default;
 
+  /**
+   * @brief Subtract operator.
+   *
+   * @param other The Pose object to copy from.
+   *
+   * @return The left-hand-side Pose object that is now identical (in value)
+   * to `other`.
+   */
+  double operator-(__unused const Pose &other) {
+    return 0.0;
+  }
+
   double x{0};
   double y{0};
   double theta{0.0};

@@ -18,7 +18,7 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-// @TODO add clamped
+// @TODO add clamped (done)
 
 void MotionHandlerRobot::TurnLeft() {
   set_velocity(
@@ -34,14 +34,23 @@ void MotionHandlerRobot::TurnRight() {
 
 void MotionHandlerRobot::IncreaseSpeed() {
   set_velocity(
-    get_velocity().left  + get_speed_delta(),
-    get_velocity().right + get_speed_delta());
+    clamp_vel(get_velocity().left  + get_speed_delta()),
+    clamp_vel(get_velocity().right + get_speed_delta()));
+  //printf("motion_handler_robot.cc:L39 Left  = %lf\n", get_velocity().left);
+  //printf("motion_handler_robot.cc:L39 Right = %lf\n", get_velocity().right);
 }
 
 void MotionHandlerRobot::DecreaseSpeed() {
   set_velocity(
-    get_velocity().left  - get_speed_delta(),
-    get_velocity().right - get_speed_delta());
+    clamp_vel(get_velocity().left  - get_speed_delta()),
+    clamp_vel(get_velocity().right - get_speed_delta()));
+  //printf("motion_handler_robot.cc:L39 Left  = %lf\n", get_velocity().left);
+  //printf("motion_handler_robot.cc:L39 Right = %lf\n", get_velocity().right);
+}
+
+void MotionHandlerRobot::SetSpeed(double lv, double rv) {
+  set_velocity(lv, rv);
+  //printf("motion_handler_robot.cc::L53 vel = 0 0\n");
 }
 
 void MotionHandlerRobot::UpdateVelocity() {
@@ -51,16 +60,19 @@ void MotionHandlerRobot::UpdateVelocity() {
 }
 
 double MotionHandlerRobot::clamp_vel(double vel) {
-  // @TODO: don't go backwards
+  // @TODO: don't go backwards (done)
   double clamped = 0.0;
   if (vel > 0) {
     clamped = (vel > get_max_speed()) ?
               get_max_speed():
               vel;
   } else {
+    /*
     clamped = (vel < -get_max_speed()) ?
               -get_max_speed():
               vel;
+    */
+    clamped = 0;
   }
   return clamped;
 } /* clamp_vel() */
