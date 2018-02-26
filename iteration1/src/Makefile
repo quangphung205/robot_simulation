@@ -8,8 +8,8 @@
 ### Section 0: Change this when compiling on non-CSELabs machines ###
 
 # Path to pre-installed cs3081 support libraries (Google Test, libsimple_graphics, nanogui, ...)
-# CS3081DIR = /classes/csel-s18c3081
-CS3081DIR = ../../../csel-s18c3081
+CS3081DIR = /classes/csel-s18c3081
+# CS3081DIR = ../../../csel-s18c3081
 
 
 ### Section I: Definitions ###
