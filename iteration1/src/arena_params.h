@@ -31,6 +31,7 @@ NAMESPACE_BEGIN(csci3081);
 */
 struct arena_params {
   size_t n_obstacles{4};
+  size_t n_bases{3};
   uint x_dim{ARENA_X_DIM};
   uint y_dim{ARENA_Y_DIM};
 };

@@ -102,9 +102,11 @@ class Robot : public ArenaMobileEntity {
   */
   void TurnLeft();
 
-  int get_lives() { return lives_; }
+  int get_lives() const { return lives_; }
 
   void set_lives(int l) { lives_ = l; }
+
+  void LoseLives() { if (lives_ > 0) lives_--; }
 
   MotionHandlerRobot get_motion_handler() { return motion_handler_; }
 

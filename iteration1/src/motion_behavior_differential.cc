@@ -62,7 +62,7 @@ double MotionBehaviorDifferential::icc_radius() const {
    * Assuming a radius of 0.5, regardless of radius of actual entity. Otherwise
    * things look weird.
    */
-  return (0.5 *
+  return (0.25 *
     (temp_vel_.left + temp_vel_.right)/(temp_vel_.left - temp_vel_.right));
 } /* icc_radius() */
 

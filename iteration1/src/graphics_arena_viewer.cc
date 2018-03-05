@@ -40,10 +40,11 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   gui->addGroup("Simulation Control");
   playing_button_ =
     gui->addButton(
-      "Playing",
+      "Play",
       std::bind(&GraphicsArenaViewer::OnPlayingBtnPressed, this));
-  gui->addButton("New game", std::bind(&GraphicsArenaViewer::OnNewGameBtnPressed, this));
-  game_status_button_ = gui->addGroup("Game Status: Playing");  
+  gui->addButton("New game",
+             std::bind(&GraphicsArenaViewer::OnNewGameBtnPressed, this));
+  game_status_button_ = gui->addGroup("Game Status: Playing");
   screen()->performLayout();
 }
 
@@ -54,8 +55,20 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 // This is the primary driver for state change in the arena.
 // It will be called at each iteration of nanogui::mainloop()
 void GraphicsArenaViewer::UpdateSimulation(double dt) {
-  if (!paused_) {
-    controller_->AdvanceTime(dt);    
+  int status = arena_->get_game_status();
+  if (status == WON) {
+    game_status_button_->setCaption("Game status: Won");
+  } else if (status == LOST) {
+    game_status_button_->setCaption("Game status: Lost");
+  } else if (status == PAUSING) {
+    paused_ = true;
+    playing_button_->setCaption("Play");
+    game_status_button_->setCaption("Game status: Pausing");
+  } else {
+    paused_ = false;
+    game_status_button_->setCaption("Game status: Playing");
+    playing_button_->setCaption("Pause");
+    controller_->AdvanceTime(dt);
   }
 }
 
@@ -64,24 +77,28 @@ void GraphicsArenaViewer::UpdateSimulation(double dt) {
  ******************************************************************************/
 void GraphicsArenaViewer::OnPlayingBtnPressed() {
   // Not implemented. Sample code provided to show how to implement.
+  if (arena_->get_game_status() == WON
+      || arena_->get_game_status() == LOST)
+    return;
+
   Communication key_value = kNone;
   if (paused_) {
     paused_ = !paused_;
     key_value = kPlay;
-    playing_button_->setCaption("Playing");
+    playing_button_->setCaption("Pause");
+    game_status_button_->setCaption("Game status: Playing");
   } else {
     paused_ = !paused_;
     key_value = kPause;
-    playing_button_->setCaption("Paused");
+    playing_button_->setCaption("Play");
+    game_status_button_->setCaption("Game status: Pausing");
   }
-  
   controller_->AcceptCommunication(key_value);
-
 }
 
 void GraphicsArenaViewer::OnNewGameBtnPressed() {
   Communication key_value = kNewGame;
-  controller_->AcceptCommunication(key_value);  
+  controller_->AcceptCommunication(key_value);
 }
 
 /** OnSpecialKeyDown is called when the user presses down on one of the
@@ -93,20 +110,21 @@ void GraphicsArenaViewer::OnNewGameBtnPressed() {
  */
 void GraphicsArenaViewer::OnSpecialKeyDown(int key,
   __unused int scancode, __unused int modifiers) {
-    Communication key_value = kNone;
+  if (paused_) return;
+  Communication key_value = kNone;
     switch (key) {
       case GLFW_KEY_LEFT:
-	key_value = kKeyLeft;
+        key_value = kKeyLeft;
         break;
       case GLFW_KEY_RIGHT:
-	key_value = kKeyRight;
+        key_value = kKeyRight;
         break;
       case GLFW_KEY_UP:
-	key_value = kKeyUp;
+        key_value = kKeyUp;
         break;
       case GLFW_KEY_DOWN:
-	key_value = kKeyDown;
-	break;
+        key_value = kKeyDown;
+        break;
       default: {}
     }
   controller_->AcceptCommunication(key_value);
@@ -141,6 +159,11 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
   nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
+
+  // robot's lives
+  char lives[3];
+  snprintf(lives, sizeof(lives), "%d", robot->get_lives());
+  nvgText(ctx, 0.0, -10.0, lives, nullptr);
   nvgRestore(ctx);
   nvgRestore(ctx);
 }

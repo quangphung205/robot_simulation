@@ -33,14 +33,10 @@ Robot::Robot() :
 void Robot::TimestepUpdate(unsigned int dt) {
   // Update heading as indicated by touch sensor
   motion_handler_.UpdateVelocity();
-  
   // Use velocity and position to update position
   motion_behavior_.UpdatePose(dt, motion_handler_.get_velocity());
-
   // Reset Sensor for next cycle
   sensor_touch_->Reset();
-
-  //printf("robot.cc::L43 TimestepUpdate\n");
 } /* TimestepUpdate() */
 
 void Robot::Reset() {

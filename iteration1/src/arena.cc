@@ -27,9 +27,9 @@ Arena::Arena(const struct arena_params *const params)
       factory_(new EntityFactory),
       entities_(),
       mobile_entities_(),
-      game_status_(PLAYING) {
+      game_status_(PAUSING) {
   AddRobot();
-  AddEntity(kBase, 3);                      
+  AddEntity(kBase, 3);
   AddEntity(kObstacle, params->n_obstacles);
 }
 
@@ -50,7 +50,11 @@ void Arena::AddRobot() {
 
 void Arena::AddEntity(EntityType type, int quantity) {
   for (int i = 0; i < quantity; i++) {
-    entities_.push_back(factory_->CreateEntity(type));
+    auto* tmp = factory_->CreateEntity(type);
+    entities_.push_back(tmp);
+    if (type == kObstacle) {
+      mobile_entities_.push_back(dynamic_cast<ArenaMobileEntity*>(tmp));
+    }
   }
 }
 
@@ -79,7 +83,6 @@ void Arena::UpdateEntitiesTimestep() {
    */
   for (auto ent : entities_) {
     ent->TimestepUpdate(1);
-    //printf("arena.cc::L82 TimestepUpdate\n");
   }
 
   /*
@@ -88,14 +91,15 @@ void Arena::UpdateEntitiesTimestep() {
   if (robot_->get_lives() < 0) {
     game_status_ = LOST;
   }
-
-  for (auto &ent : entities_) {
+  bool won = true;
+  for (auto ent : entities_) {
     if (ent->get_type() != kBase) continue;
-    if (!(dynamic_cast<Base*>(ent)->IsCaptured())) {
+    if (dynamic_cast<Base*>(ent)->IsCaptured() == false) {
+      won = false;
       break;
     }
-    game_status_ = WON;
   }
+  if (won) game_status_ = WON;
 
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
@@ -104,8 +108,10 @@ void Arena::UpdateEntitiesTimestep() {
     EntityType wall = GetCollisionWall(ent1);
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
-      robot_->HandleCollision(wall);
-      game_status_ = LOST;
+      ent1->HandleCollision(wall);
+      // robot_->HandleCollision(wall);
+      // robot_->LoseLives();
+      // game_status_ = LOST;
     }
     /* Determine if that mobile entity is colliding with any other entity.
     * Adjust the position accordingly so they don't overlap.
@@ -113,19 +119,20 @@ void Arena::UpdateEntitiesTimestep() {
     for (auto &ent2 : entities_) {
       if (ent2 == ent1) { continue; }
       if (IsColliding(ent1, ent2)) {
-	// Case 1: if ent2 is an obstacle: the robot stops
-	if (ent2->get_type() == kObstacle) {
-	  robot_->SetSpeed(0,0);	  
-	}
-	else {
-	// Case 2: if ent2 is a base: both the base and the robot change color
-	  AdjustEntityOverlap(ent1, ent2);
-          robot_->HandleCollision(ent2->get_type(), ent2);
-	  RgbColor color;
-	  color.Set(kOrange);
-	  ent2->set_color(color);
-	  dynamic_cast<Base*> (ent2)->set_captured(true);
-	}
+        // Case 1: if ent2 is an obstacle: the robot stops
+        if (ent2->get_type() == kObstacle) {
+        // robot_->SetSpeed(0,0);
+          robot_->HandleCollision(kObstacle, ent2);
+          // robot_->LoseLives();
+        } else {
+          // Case 2: if ent2 is a base: both the base and the robot change color
+          AdjustEntityOverlap(ent1, ent2);
+          // robot_->HandleCollision(ent2->get_type(), ent2);
+          RgbColor color;
+          color.Set(kOrange);
+          ent2->set_color(color);
+          dynamic_cast<Base*> (ent2)->set_captured(true);
+          }
       }
     }
   }
@@ -178,7 +185,8 @@ bool Arena::IsColliding(
     double delta_y = other_e->get_pose().y - mobile_e->get_pose().y;
     double distance_between = sqrt(delta_x*delta_x + delta_y*delta_y);
     return
-    (distance_between <= (mobile_e->get_radius() + other_e->get_radius()));
+      (((mobile_e->get_radius() + other_e->get_radius()) - distance_between)
+       > COLLISION_TOLERANCE);
 }
 
 /* This is called when it is known that the two entities overlap.
@@ -225,11 +233,49 @@ void Arena::AcceptCommand(Communication com) {
       robot_->TurnRight();
       break;
     case(kPlay):
+      game_status_ = PLAYING;
+      break;
     case(kPause):
-    case(kReset):
+      game_status_ = PAUSING;
+      break;
+    case(kReset): {
+      // delete old-created entities
+      if (robot_ != NULL)
+        delete robot_;
+      if (factory_ != NULL)
+        delete factory_;
+      /*
+      for (auto tmp : entities_)
+	if (tmp != NULL) delete tmp;
+      for (auto tmp : mobile_entities_)
+	if (tmp != NULL) delete tmp;
+      */
+      entities_.clear();
+      mobile_entities_.clear();
+
+      struct arena_params params;
+      // initialize new objects
+      factory_ = new EntityFactory();
+      AddRobot();
+      AddEntity(kBase, params.n_bases);
+      AddEntity(kObstacle, params.n_obstacles);
+      game_status_ = PAUSING;
+      break;
+    }
     case(kNone):
     default: break;
   }
 } /* AcceptCommand */
 
+/*
+ * Print the info of all entities in the arena to the console
+ */
+void Arena::printEntities() {
+  for (auto e : entities_) {
+    if (e->get_type() == kBase) {
+      printf("%lf %lf %s\n", e->get_pose().x, e->get_pose().y,
+            dynamic_cast<Base*>(e)->get_captured() ? "true" : "false");
+    }
+  }
+}
 NAMESPACE_END(csci3081);

@@ -28,15 +28,18 @@
 #define GUI_MENU_GAP 10
 
 // arena
-#define N_OBSTACLES 4
+#define N_BASES 3
+#define N_OBSTACLES 6
 #define MAX_OBSTACLES 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
+#define COLLISION_TOLERANCE 1
 
 // game status
 #define WON 0
 #define LOST 1
 #define PLAYING 2
+#define PAUSING 3
 
 // entity
 #define DEFAULT_POSE \

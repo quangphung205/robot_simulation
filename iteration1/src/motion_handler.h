@@ -39,7 +39,7 @@ class MotionHandler {
    * @brief Constructor.
    */
   explicit MotionHandler(ArenaMobileEntity * ent)
-    : velocity_(0,0), entity_(ent) {}
+    : velocity_(0, 0), entity_(ent) {}
 
   virtual ~MotionHandler() {}
 
@@ -127,7 +127,6 @@ class MotionHandler {
   void set_velocity(double vl, double vr) {
     velocity_.left = vl;
     velocity_.right = vr;
-    //printf("motion_handler.h::L130 %lf %lf\n", velocity_.left, velocity_.right);
   }
 
   ArenaMobileEntity * get_entity() { return entity_; }

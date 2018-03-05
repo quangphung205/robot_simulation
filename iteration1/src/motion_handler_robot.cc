@@ -36,21 +36,16 @@ void MotionHandlerRobot::IncreaseSpeed() {
   set_velocity(
     clamp_vel(get_velocity().left  + get_speed_delta()),
     clamp_vel(get_velocity().right + get_speed_delta()));
-  //printf("motion_handler_robot.cc:L39 Left  = %lf\n", get_velocity().left);
-  //printf("motion_handler_robot.cc:L39 Right = %lf\n", get_velocity().right);
 }
 
 void MotionHandlerRobot::DecreaseSpeed() {
   set_velocity(
     clamp_vel(get_velocity().left  - get_speed_delta()),
     clamp_vel(get_velocity().right - get_speed_delta()));
-  //printf("motion_handler_robot.cc:L39 Left  = %lf\n", get_velocity().left);
-  //printf("motion_handler_robot.cc:L39 Right = %lf\n", get_velocity().right);
 }
 
 void MotionHandlerRobot::SetSpeed(double lv, double rv) {
   set_velocity(lv, rv);
-  //printf("motion_handler_robot.cc::L53 vel = 0 0\n");
 }
 
 void MotionHandlerRobot::UpdateVelocity() {

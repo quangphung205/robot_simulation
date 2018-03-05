@@ -23,6 +23,7 @@ Controller::Controller() : last_dt(0) {
   // Initialize default properties for various arena entities
   arena_params aparams;
   aparams.n_obstacles = N_OBSTACLES;
+  aparams.n_bases = N_BASES;
   aparams.x_dim = ARENA_X_DIM;
   aparams.y_dim = ARENA_Y_DIM;
 
@@ -63,7 +64,7 @@ void Controller::AcceptCommunication(Communication com) {
 Communication Controller::ConvertComm(Communication com) {
   switch (com) {
     case (kKeyUp) :
-      return kIncreaseSpeed;     
+      return kIncreaseSpeed;
     case (kKeyDown) :
       return kDecreaseSpeed;
     case (kKeyLeft) :
@@ -71,9 +72,9 @@ Communication Controller::ConvertComm(Communication com) {
     case (kKeyRight) :
       return kTurnRight;
     case (kPlay) :
-      return kNone;
+      return kPlay;
     case (kPause) :
-      return kNone;
+      return kPause;
     case (kNewGame) :
       return kReset;
     default: return kNone;

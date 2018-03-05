@@ -15,6 +15,7 @@
 #include "src/arena_entity.h"
 #include "src/common.h"
 #include "src/sensor_touch.h"
+#include "src/entity_type.h"
 
 /*******************************************************************************
  * Namespaces
@@ -53,6 +54,9 @@ class ArenaMobileEntity : public ArenaEntity {
   virtual double get_speed() { return speed_; }
   virtual void set_speed(double sp) { speed_ = sp; }
 
+  void HandleCollision(__unused EntityType etype,
+                          __unused ArenaEntity* e = NULL) {}
+
   /**
    * @brief Get a pointer to the ArenaMobileEntity's touch sensor.
   */
@@ -69,4 +73,4 @@ class ArenaMobileEntity : public ArenaEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif /* SRC_ARENA_MOBILE_ENTITY_H_ */
+#endif  // SRC_ARENA_MOBILE_ENTITY_H_

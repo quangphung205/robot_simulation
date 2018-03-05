@@ -161,6 +161,9 @@ class Arena {
   void set_game_status(int status) { game_status_ = status; }
 
  private:
+  // Print info of all entities
+  void printEntities();
+
   // Dimensions of graphics window inside which entities must operate
   double x_dim_;
   double y_dim_;

@@ -72,7 +72,12 @@ class Base : public ArenaImmobileEntity {
    */
   void set_captured(bool state) { captured_ = state; }
 
-private:
+  /**
+   * @brief Getter for captured_, which is the state of the base
+   */
+  bool get_captured() const { return captured_; }
+
+ private:
   bool captured_;
 };
 
