@@ -54,7 +54,7 @@ class ArenaMobileEntity : public ArenaEntity {
   virtual double get_speed() { return speed_; }
   virtual void set_speed(double sp) { speed_ = sp; }
 
-  void HandleCollision(__unused EntityType etype,
+  virtual void HandleCollision(__unused EntityType etype,
                           __unused ArenaEntity* e = NULL) {}
 
   /**

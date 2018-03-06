@@ -32,6 +32,12 @@ void Obstacle::set_velocity(double lv, double rv) {
 }
 
 void Obstacle::TimestepUpdate(unsigned int dt) {
+  if (backing_up_dt_ == 80) {
+    RelativeChangeHeading(+225);
+    backing_up_dt_ = 0;
+  }
+  if (backing_up_dt_ > 0)
+    backing_up_dt_++;
   // Update heading as indicated by touch sensor
   motion_handler_.UpdateVelocity();
   // Use velocity and position to update position
@@ -42,6 +48,7 @@ void Obstacle::TimestepUpdate(unsigned int dt) {
 
 void Obstacle::HandleCollision(EntityType object_type, ArenaEntity * object) {
   sensor_touch_->HandleCollision(object_type, object);
+  backing_up_dt_ = 1;
 }
 
 NAMESPACE_END(csci3081);

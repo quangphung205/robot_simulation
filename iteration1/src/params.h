@@ -33,7 +33,7 @@
 #define MAX_OBSTACLES 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
-#define COLLISION_TOLERANCE 1
+#define COLLISION_TOLERANCE 0.0005
 
 // game status
 #define WON 0

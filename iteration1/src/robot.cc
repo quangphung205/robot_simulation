@@ -21,7 +21,9 @@ NAMESPACE_BEGIN(csci3081);
 Robot::Robot() :
     motion_handler_(this),
     motion_behavior_(this),
-    lives_(9) {
+    lives_(9),
+    isInvincible_(false),
+    invi_dt_(0) {
   set_type(kRobot);
   set_color(ROBOT_COLOR);
   set_pose(ROBOT_INIT_POS);
@@ -31,10 +33,37 @@ Robot::Robot() :
  * Member Functions
  ******************************************************************************/
 void Robot::TimestepUpdate(unsigned int dt) {
+  if (isInvincible_) {
+    RgbColor color;
+    switch (invi_dt_) {
+    case 0:
+      color.Set(kGreen);
+      set_color(color);
+      break;
+    case 40:
+      color.Set(kPurple);
+      set_color(color);
+      break;
+    case 80:
+      color.Set(kBlue);
+      set_color(color);
+      break;
+    default:
+      break;
+    }
+
+    if (invi_dt_ == 80) {
+      isInvincible_ = false;
+      invi_dt_ = 0;
+    }
+    invi_dt_++;
+  }
   // Update heading as indicated by touch sensor
   motion_handler_.UpdateVelocity();
+
   // Use velocity and position to update position
   motion_behavior_.UpdatePose(dt, motion_handler_.get_velocity());
+
   // Reset Sensor for next cycle
   sensor_touch_->Reset();
 } /* TimestepUpdate() */
@@ -47,7 +76,14 @@ void Robot::Reset() {
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  sensor_touch_->HandleCollision(object_type, object);
+  if (object_type != kObstacle)
+    sensor_touch_->HandleCollision(object_type, object);
+  if (!isInvincible_) {
+    if (object_type != kBase) {
+      isInvincible_ = true;
+      invi_dt_ = 0;
+    }
+  }
 }
 
 void Robot::IncreaseSpeed() {

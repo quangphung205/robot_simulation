@@ -66,13 +66,18 @@ class Obstacle : public ArenaMobileEntity {
   /**
    * @brief Handles the collision by setting the sensor to activated.
    */
-  void HandleCollision(EntityType object_type, ArenaEntity * object = NULL);
+  void HandleCollision(EntityType object_type,
+            ArenaEntity * object = NULL) override;
 
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
+
   // Calculates changes in pose based on elapsed time and wheel velocities.
   MotionBehaviorDifferential motion_behavior_;
+
+  // keep track of backing up time
+  unsigned int backing_up_dt_ { 0 };
 };
 
 NAMESPACE_END(csci3081);

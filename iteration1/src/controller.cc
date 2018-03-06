@@ -45,7 +45,6 @@ void Controller::AdvanceTime(double dt) {
   }
   last_dt = 0;
   */
-
   last_dt += dt;
   arena_->AdvanceTime(dt);
 }

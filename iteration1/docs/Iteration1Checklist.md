@@ -41,7 +41,7 @@ but this status report can make it faster for us.
 | Obvious visual indication of winning or losing game | X |  |  |  |
 | Game stops and waits for the user upon a win or loss | X |  |  |   |
 | **__Priority Level 2__** |
-| _Obstacles_ are mobile with two same-speed wheels and moves straight |  | X |  |   |
+| _Obstacles_ are mobile with two same-speed wheels and moves straight | X |  |  |   |
 | _Obstacles_ move in a reverse arc for a fixed time after collision |  | X |  |   |
 | All entities are stationary before the "Play" button is pushed | X |  |  |   |
 | Pressing the button changes button state from "Play" to "Pause" | X |  |  |   |
@@ -51,7 +51,7 @@ but this status report can make it faster for us.
 | Number of lives remaining is depicted within the body of the robot | X |  |  |   |
 | **__Priority Level 3__** |
 | Even more obstacles | X |  |  |   |
-| Mercy invincibility is implemented |  |  |  | X |
+| Mercy invincibility is implemented | X |  |  |  |
 | For Fun | 
 | King of the Hill is implemented |  |  |  | X |
 
@@ -61,7 +61,7 @@ but this status report can make it faster for us.
 - [x] _UML_ file for the iteration 1 exists in _docs_
 - [x] The _UML_ reflects the current state of the code
 - [x] _mainpage.h_ exists in _src_
-- [ ] Front page (mainpage) has a project description for programmer audience (1 to 2 pages)
+- [x] Front page (mainpage) has a project description for programmer audience (1 to 2 pages)
 - [x] I inspected index.html in _docs/html_ folder
 - [x] Classes are documented in the doxygen web page class list
 - [x] _Classes_ list has documentation for each class, including members and methods

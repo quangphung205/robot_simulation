@@ -116,6 +116,20 @@ class Arena {
     ArenaMobileEntity * const mobile_e, ArenaEntity * const other_e);
 
   /**
+   * @brief Determine if two entities have collided in the Arena. Collision is
+   * defined as the distance between two entities being less than the sum of
+   * their radii.
+   *
+   * @param mobile_e This entity is definitely moving.
+   * @param other_e This entity might be mobile or immobile.
+   * @param[out] True if entities overlapping.
+   *
+   **/
+  bool IsColliding(
+    ArenaEntity * const mobile_e, ArenaEntity * const other_e);
+
+
+  /**
   * @brief Move the mobile entity to the edge of the other without overlap.
   * Without this, entities tend to get stuck inside one another.
   **/

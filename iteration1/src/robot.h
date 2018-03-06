@@ -69,7 +69,8 @@ class Robot : public ArenaMobileEntity {
   /**
    * @brief Handles the collision by setting the sensor to activated.
    */
-  void HandleCollision(EntityType object_type, ArenaEntity * object = NULL);
+  void HandleCollision(EntityType object_type,
+             ArenaEntity * object = NULL) override;
 
   /**
    * @brief Get the name of the Robot for visualization and for debugging.
@@ -112,14 +113,22 @@ class Robot : public ArenaMobileEntity {
 
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_; }
 
+  bool get_invincibility() { return isInvincible_; }
+
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
+
   // Calculates changes in pose based on elapsed time and wheel velocities.
   MotionBehaviorDifferential motion_behavior_;
+
   // Lives are decremented when the robot collides with anything.
   // When all the lives are gone, the game is lost.
   int lives_;
+
+  // Store the status of invincibility of the robot
+  bool isInvincible_;
+  unsigned int invi_dt_;
 };
 
 NAMESPACE_END(csci3081);
