@@ -48,5 +48,5 @@ compile_options.json
 
 # Build process
 build
-docs/html
-docs/latex
+iteration1/docs/html
+iteration1/docs/latex

@@ -136,6 +136,7 @@ void Arena::UpdateEntitiesTimestep() {
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
       if (ent1->get_type() == kRobot) {
+        robot_->SetSpeed(0, 0);
         if (!(robot_->get_invincibility())) {
           robot_->LoseLives();
         }
@@ -162,6 +163,7 @@ void Arena::UpdateEntitiesTimestep() {
             AdjustEntityOverlap(ent1, ent2);
           } else {
             AdjustEntityOverlap(ent1, ent2);
+            robot_->SetSpeed(0, 0);
             robot_->HandleCollision(ent2->get_type(), ent2);
             RgbColor color;
             color.Set(kOrange);
