@@ -260,12 +260,15 @@ bool Arena::IsColliding(
  */
 void Arena::AdjustEntityOverlap(ArenaMobileEntity *const mobile_e,
   ArenaEntity *const other_e) {
-    double delta_x = other_e->get_pose().x - mobile_e->get_pose().x;
-    double delta_y = other_e->get_pose().y - mobile_e->get_pose().y;
+  //    double delta_x = other_e->get_pose().x - mobile_e->get_pose().x;
+  //    double delta_y = other_e->get_pose().y - mobile_e->get_pose().y;
+    double delta_x = mobile_e->get_pose().x - other_e->get_pose().x;
+    double delta_y = mobile_e->get_pose().y - other_e->get_pose().y;
     double distance_between = sqrt(delta_x*delta_x + delta_y*delta_y);
     double distance_to_move =
       mobile_e->get_radius() + other_e->get_radius() - distance_between;
-    double angle = atan(delta_y/delta_x);
+    //    double angle = atan(delta_y/delta_x);
+    double angle = atan2(delta_y, delta_x);
     if (delta_x >= 0 && delta_y >= 0) {
       angle += M_PI;
     } else if (delta_x >= 0 && delta_y <= 0) {
