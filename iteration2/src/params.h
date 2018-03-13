@@ -29,8 +29,8 @@
 
 // arena
 #define N_BASES 3
-#define N_OBSTACLES 6
-#define MAX_OBSTACLES 8
+#define N_LIGHTS 6
+//#define MAX_LIGHTS 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
 #define COLLISION_TOLERANCE 0.0005
@@ -74,13 +74,13 @@
 #define BASE_COLOR \
   { 255, 0, 0 }
 
-// obstacle
-#define OBSTACLE_POSITION \
+// light
+#define LIGHT_POSITION \
   { 200, 200 }
-#define OBSTACLE_RADIUS 30
-#define OBSTACLE_MIN_RADIUS 10
-#define OBSTACLE_MAX_RADIUS 50
-#define OBSTACLE_COLOR \
+#define LIGHT_RADIUS 30
+#define LIGHT_MIN_RADIUS 10
+#define LIGHT_MAX_RADIUS 50
+#define LIGHT_COLOR \
   { 255, 255, 255 }
 
 #endif  // SRC_PARAMS_H_

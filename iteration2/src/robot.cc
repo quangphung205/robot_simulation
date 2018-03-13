@@ -76,7 +76,7 @@ void Robot::Reset() {
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  if (object_type != kObstacle)
+  if (object_type != kLight)
     sensor_touch_->HandleCollision(object_type, object);
   if (!isInvincible_) {
     if (object_type != kBase) {

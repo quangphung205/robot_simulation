@@ -36,8 +36,8 @@ ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
     case (kRobot):
       return CreateRobot();
       break;
-    case (kObstacle):
-      return CreateObstacle();
+    case (kLight):
+      return CreateLight();
       break;
     case (kBase):
       return CreateBase();
@@ -61,18 +61,18 @@ Robot* EntityFactory::CreateRobot() {
   return robot;
 }
 
-Obstacle* EntityFactory::CreateObstacle() {
-  auto* obstacle = new Obstacle;
-  obstacle->set_type(kObstacle);
-  obstacle->set_color(OBSTACLE_COLOR);
-  obstacle->set_pose(SetPoseRandomly());
-  obstacle->set_radius((random() % (OBSTACLE_MAX_RADIUS
-               - OBSTACLE_MIN_RADIUS)) + OBSTACLE_MIN_RADIUS);
-  obstacle->set_heading(random() % 360);
+Light* EntityFactory::CreateLight() {
+  auto* light = new Light;
+  light->set_type(kLight);
+  light->set_color(LIGHT_COLOR);
+  light->set_pose(SetPoseRandomly());
+  light->set_radius((random() % (LIGHT_MAX_RADIUS
+               - LIGHT_MIN_RADIUS)) + LIGHT_MIN_RADIUS);
+  light->set_heading(random() % 360);
   ++entity_count_;
-  ++obstacle_count_;
-  obstacle->set_id(obstacle_count_);
-  return obstacle;
+  ++light_count_;
+  light->set_id(light_count_);
+  return light;
 }
 
 Base* EntityFactory::CreateBase() {

@@ -12,7 +12,7 @@
  * Includes
  ******************************************************************************/
 #include "src/common.h"
-#include "src/obstacle.h"
+#include "src/light.h"
 #include "src/params.h"
 
 /*******************************************************************************
@@ -30,7 +30,7 @@ NAMESPACE_BEGIN(csci3081);
 * parameters for initializing ALL entities within the Arena.
 */
 struct arena_params {
-  size_t n_obstacles{N_OBSTACLES};
+  size_t n_lights{N_LIGHTS};
   size_t n_bases{N_BASES};
   uint x_dim{ARENA_X_DIM};
   uint y_dim{ARENA_Y_DIM};
