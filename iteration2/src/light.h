@@ -1,11 +1,11 @@
 /**
- * @file obstacle.h
+ * @file light.h
  *
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_OBSTACLE_H_
-#define SRC_OBSTACLE_H_
+#ifndef SRC_LIGHT_H_
+#define SRC_LIGHT_H_
 
 /*******************************************************************************
  * Includes
@@ -29,34 +29,34 @@ NAMESPACE_BEGIN(csci3081);
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief Class representing an immobile obstacle within the Arena.
+ * @brief Class representing an immobile light within the Arena.
  *
- * Since obstacles are immobile, the Obstacle class is very simple.
+ * Since lights are immobile, the Light class is very simple.
  */
-class Obstacle : public ArenaMobileEntity {
+class Light : public ArenaMobileEntity {
  public:
   /**
    * @brief Constructor.
    */
-  Obstacle();
+  Light();
 
   /**
-   * @brief Get the name of the Obstacle for visualization purposes, and to
+   * @brief Get the name of the Light for visualization purposes, and to
    * aid in debugging.
    */
   std::string get_name() const override {
-    return "Obstacle" + std::to_string(get_id());
+    return "Light" + std::to_string(get_id());
   }
 
   /**
-   * @brief Get the velocity of the Obstacle
+   * @brief Get the velocity of the Light
    * @param lv Left wheel velocity
    * @param rv Right wheel velocity
    */
   void set_velocity(double lv, double rv);
 
   /**
-   * @brief Update the Obstacle's position and velocity after the specified
+   * @brief Update the Light's position and velocity after the specified
    * duration has passed.
    *
    * @param dt The # of timesteps that have elapsed since the last update.
@@ -82,4 +82,4 @@ class Obstacle : public ArenaMobileEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif  //  SRC_OBSTACLE_H_
+#endif  //  SRC_LIGHT_H_

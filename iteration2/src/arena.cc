@@ -30,7 +30,7 @@ Arena::Arena(const struct arena_params *const params)
       game_status_(PAUSING) {
   AddRobot();
   AddEntity(kBase, 3);
-  AddEntity(kObstacle, params->n_obstacles);
+  AddEntity(kLight, params->n_lights);
 }
 
 Arena::~Arena() {
@@ -74,7 +74,7 @@ void Arena::AddEntity(EntityType type, int quantity) {
     } while (isColliding);
 
     entities_.push_back(tmp);
-    if (type == kObstacle) {
+    if (type == kLight) {
       mobile_entities_.push_back(dynamic_cast<ArenaMobileEntity*>(tmp));
     }
   }
@@ -153,13 +153,13 @@ void Arena::UpdateEntitiesTimestep() {
       if (ent2 == ent1) { continue; }
       if (IsColliding(ent1, ent2)) {
         if (ent1->get_type() == kRobot) {
-          // Case 1: if ent2 is an obstacle: the robot stops
-          if (ent2->get_type() == kObstacle) {
+          // Case 1: if ent2 is an light: the robot stops
+          if (ent2->get_type() == kLight) {
             robot_->SetSpeed(0, 0);
             if (!(robot_->get_invincibility())) {
               robot_->LoseLives();
             }
-            robot_->HandleCollision(kObstacle, ent2);
+            robot_->HandleCollision(kLight, ent2);
             AdjustEntityOverlap(ent1, ent2);
           } else {
             AdjustEntityOverlap(ent1, ent2);
@@ -170,9 +170,9 @@ void Arena::UpdateEntitiesTimestep() {
             ent2->set_color(color);
             dynamic_cast<Base*> (ent2)->set_captured(true);
           }
-        } else {  // ent1 is an obstacle
-          if (ent2->get_type() == kObstacle) {
-            ent1->HandleCollision(kObstacle, ent2);
+        } else {  // ent1 is an light
+          if (ent2->get_type() == kLight) {
+            ent1->HandleCollision(kLight, ent2);
           } else {
             ent1->HandleCollision(kBase, ent2);
           }
@@ -324,7 +324,7 @@ void Arena::AcceptCommand(Communication com) {
       factory_ = new EntityFactory();
       AddRobot();
       AddEntity(kBase, params.n_bases);
-      AddEntity(kObstacle, params.n_obstacles);
+      AddEntity(kLight, params.n_lights);
       game_status_ = PAUSING;
       break;
     }

@@ -1,5 +1,5 @@
 /**
- * @file obstacle.cc
+ * @file light.cc
  *
  * @copyright 2017 3081 Staff, All rights reserved.
  */
@@ -7,7 +7,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "src/obstacle.h"
+#include "src/light.h"
 #include "src/params.h"
 
 /*******************************************************************************
@@ -18,20 +18,20 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-Obstacle::Obstacle() :
+Light::Light() :
   motion_handler_(this), motion_behavior_(this) {
-  set_color(OBSTACLE_COLOR);
-  set_pose(OBSTACLE_POSITION);
-  set_radius(OBSTACLE_RADIUS);
-  set_type(kObstacle);
+  set_color(LIGHT_COLOR);
+  set_pose(LIGHT_POSITION);
+  set_radius(LIGHT_RADIUS);
+  set_type(kLight);
   set_velocity(1.0, 1.0);
 }
 
-void Obstacle::set_velocity(double lv, double rv) {
+void Light::set_velocity(double lv, double rv) {
   motion_handler_.set_velocity(lv, rv);
 }
 
-void Obstacle::TimestepUpdate(unsigned int dt) {
+void Light::TimestepUpdate(unsigned int dt) {
   if (backing_up_dt_ == 80) {
     RelativeChangeHeading(+225);
     backing_up_dt_ = 0;
@@ -46,7 +46,7 @@ void Obstacle::TimestepUpdate(unsigned int dt) {
   sensor_touch_->Reset();
 } /* TimestepUpdate() */
 
-void Obstacle::HandleCollision(EntityType object_type, ArenaEntity * object) {
+void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
   sensor_touch_->HandleCollision(object_type, object);
   backing_up_dt_ = 1;
 }

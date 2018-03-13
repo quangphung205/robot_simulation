@@ -15,7 +15,7 @@
 #include "src/base.h"
 #include "src/common.h"
 #include "src/entity_type.h"
-#include "src/obstacle.h"
+#include "src/light.h"
 #include "src/params.h"
 #include "src/pose.h"
 #include "src/rgb_color.h"
@@ -70,9 +70,9 @@ class EntityFactory {
   Robot* CreateRobot();
 
   /**
-  * @brief CreateObstacle called from within CreateEntity.
+  * @brief CreateLight called from within CreateEntity.
   */
-  Obstacle* CreateObstacle();
+  Light* CreateLight();
 
   /**
   * @brief CreateBase called from within CreateEntity.
@@ -88,7 +88,7 @@ class EntityFactory {
    * the destruction of entities */
   int entity_count_{0};
   int robot_count_{0};
-  int obstacle_count_{0};
+  int light_count_{0};
   int base_count_{0};
 };
 

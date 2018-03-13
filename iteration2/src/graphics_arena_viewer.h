@@ -221,13 +221,13 @@ class GraphicsArenaViewer : public GraphicsApp {
   void DrawRobot(NVGcontext *ctx, const class Robot *const robot);
 
   /**
-   * @brief Draw an Obstacle in the Arena using `nanogui`.
+   * @brief Draw an Light in the Arena using `nanogui`.
    *
    * This function requires an active `nanovg` drawing context (`ctx`), so it
    * should probably only be called from with DrawUsingNanoVG.
    *
    * @param[in] ctx The `nanovg` context.
-   * @param[in] obstacle The Obstacle handle.
+   * @param[in] light The Light handle.
    */
   void DrawEntity(NVGcontext *ctx, const class ArenaEntity *const entity);
 
