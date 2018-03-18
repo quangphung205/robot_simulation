@@ -30,7 +30,7 @@
 // arena
 #define N_BASES 3
 #define N_LIGHTS 6
-//#define MAX_LIGHTS 8
+#define MAXIMUM_LIGHTS 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
 #define COLLISION_TOLERANCE 0.0005
