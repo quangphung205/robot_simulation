@@ -83,4 +83,10 @@
 #define LIGHT_COLOR \
   { 255, 255, 255 }
 
+// sensor
+#define LEFT_WHEEL 0
+#define RIGHT_WHEEL 1
+#define PLUS_CONNECTION 0
+#define MINUS_CONNECTION 1
+
 #endif  // SRC_PARAMS_H_

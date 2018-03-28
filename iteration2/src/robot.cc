@@ -23,7 +23,8 @@ Robot::Robot() :
     motion_behavior_(this),
     lives_(9),
     isInvincible_(false),
-    invi_dt_(0) {
+    invi_dt_(0),
+    sensor_list_() {
   set_type(kRobot);
   set_color(ROBOT_COLOR);
   set_pose(ROBOT_INIT_POS);
