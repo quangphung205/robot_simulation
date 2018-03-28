@@ -17,13 +17,15 @@
 #include "src/motion_handler_robot.h"
 #include "src/motion_behavior_differential.h"
 #include "src/entity_type.h"
+#include "src/sensor.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
 NAMESPACE_BEGIN(csci3081);
 
-class MotionBehaviorDifferential;
+//class MotionBehaviorDifferential;
+//class MotionHandlerRobot;
 
 /*******************************************************************************
  * Class Definitions
@@ -129,6 +131,9 @@ class Robot : public ArenaMobileEntity {
   // Store the status of invincibility of the robot
   bool isInvincible_;
   unsigned int invi_dt_;
+
+  // store a list of all types of sensor
+  std::vector<Sensor *> sensor_list_;
 };
 
 NAMESPACE_END(csci3081);
