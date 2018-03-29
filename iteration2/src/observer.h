@@ -21,6 +21,8 @@ public:
   virtual void Update(const State) {};
   virtual ~Observer() {}
 
+  Subject* get_subject() { return subject_; }
+
   Observer& operator=(const Observer& other) = default;
 protected:
   Subject *subject_;

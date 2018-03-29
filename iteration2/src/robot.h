@@ -117,6 +117,7 @@ class Robot : public ArenaMobileEntity {
 
   bool get_invincibility() { return isInvincible_; }
 
+  void add_sensor(Sensor *s) { sensor_list_.push_back(s); }
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;

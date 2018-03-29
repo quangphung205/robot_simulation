@@ -19,6 +19,7 @@
 #include "src/entity_factory.h"
 #include "src/robot.h"
 #include "src/communication.h"
+#include "src/subject.h"
 
 /*******************************************************************************
  * Namespaces
@@ -40,7 +41,7 @@ struct arena_params;
  *
  */
 
-class Arena {
+class Arena : public Subject{
  public:
   /**
    * @brief Arena's constructor.
