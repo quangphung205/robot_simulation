@@ -21,8 +21,8 @@
 ### Section 0: Change this when compiling on non-CSELabs machines ###
 
 # Path to pre-installed cs3081 support libraries (Google Test, lib_simple_graphics, nanogui, ...)
-#CS3081DIR = /classes/csel-s18c3081
-CS3081DIR = ../../../csel-s18c3081
+CS3081DIR = /classes/csel-s18c3081
+#CS3081DIR = ../../../csel-s18c3081
 
 ### Section I: Definitions ###
 
@@ -31,8 +31,9 @@ CS3081DIR = ../../../csel-s18c3081
 # you should be able to uncomment each of the tests and successfully
 # build and run the unittest executable.
 
-
-DEFINES += -DMYARENA_TESTS
+DEFINES += -DLIGHT_SENSOR_TESTS
+DEFINES += -DMOTION_BEHAVIOR_TESTS
+#DEFINES += -DMYARENA_TESTS
 #DEFINES += -DARENA_TESTS
 #DEFINES += -DROBOT_TESTS
 #DEFINES += -DBASE_TESTS

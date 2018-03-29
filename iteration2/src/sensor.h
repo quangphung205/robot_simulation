@@ -8,6 +8,7 @@
 #define SRC_SENSOR_H_
 
 #include "src/observer.h"
+#include "src/params.h"
 #include <iostream>
 
 NAMESPACE_BEGIN(csci3081);
@@ -15,6 +16,7 @@ NAMESPACE_BEGIN(csci3081);
 class Sensor : public Observer{
 public:
   Sensor(Subject *s) : Observer(s), state_() {}
+  Sensor(Sensor& s) = default;
   virtual void Update(const State state) override {state_ = state; }
   virtual void calculateReading() {}
 
@@ -33,12 +35,18 @@ public:
   int get_connection_type() { return connection_type_; }
   void set_connection_type(int cType) { connection_type_ = cType; }
 
+  ArenaEntity* get_host() { return host_; }
+  void set_host(ArenaEntity *ent) { host_ = ent; }
+
+  Sensor& operator=(const Sensor& other) = default;
+  virtual ~Sensor() {}
 protected:
   State state_;
+  ArenaEntity * host_{NULL};
   double reading_{0};
   double velocity_delta_{0};
-  int wheel_type_{0};  // left or right wheel
-  int connection_type_{0};  // + or -
+  int wheel_type_{LEFT_WHEEL};  // left or right wheel
+  int connection_type_{PLUS_CONNECTION};  // + or -
 };
 
 NAMESPACE_END(csci3081);
