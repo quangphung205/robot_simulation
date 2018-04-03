@@ -22,6 +22,7 @@ public:
   virtual ~Observer() {}
 
   Subject* get_subject() { return subject_; }
+  void set_subject(Subject *s) { subject_ = s;}
 
   Observer& operator=(const Observer& other) = default;
 protected:

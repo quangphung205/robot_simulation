@@ -28,8 +28,12 @@
 #define GUI_MENU_GAP 10
 
 // arena
-#define N_BASES 3
-#define N_LIGHTS 6
+#define N_BASES 0
+#define N_LIGHTS 4
+#define N_FEAR_ROBOTS 1
+#define N_AGGRESSIVE_ROBOTS 1
+#define N_EXPLORE_ROBOTS 1
+#define N_LOVE_ROBOTS 1
 #define MAXIMUM_LIGHTS 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
@@ -55,9 +59,11 @@
 #define ROBOT_ANGLE_DELTA 1
 #define ROBOT_SPEED_DELTA 1
 #define ROBOT_COLLISION_DELTA 1
+#define ROBOT_MIN_RADIUS 8
+#define ROBOT_MAX_RADIUS 14
 #define ROBOT_RADIUS 30
 #define ROBOT_INIT_POS \
-  { 500, 200 , 0}
+  { 500, 200 , 30}
 #define ROBOT_COLOR \
   { 0, 0, 255 }
 
@@ -88,5 +94,7 @@
 #define RIGHT_WHEEL 1
 #define PLUS_CONNECTION 0
 #define MINUS_CONNECTION 1
+#define LEFT_SIDE 0
+#define RIGHT_SIDE 1
 
 #endif  // SRC_PARAMS_H_

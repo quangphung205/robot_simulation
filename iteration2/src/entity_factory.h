@@ -13,6 +13,7 @@
 #include <string>
 
 #include "src/base.h"
+#include "src/arena.h"
 #include "src/common.h"
 #include "src/entity_type.h"
 #include "src/light.h"
@@ -20,12 +21,14 @@
 #include "src/pose.h"
 #include "src/rgb_color.h"
 #include "src/robot.h"
+#include "src/sensor.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
 NAMESPACE_BEGIN(csci3081);
 
+class Arena;
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
@@ -44,11 +47,15 @@ class EntityFactory {
    *
    */
   EntityFactory();
+  EntityFactory(Arena *arena) : arena_(arena) {}
 
   /**
    * @brief Default destructor.
    */
   virtual ~EntityFactory() = default;
+
+  EntityFactory &operator=(const EntityFactory &other) = delete;
+  EntityFactory(const EntityFactory &other) = delete;
 
   /**
   * @brief CreateEntity is primary purpose of this class.
@@ -80,6 +87,26 @@ class EntityFactory {
   Base* CreateBase();
 
   /**
+  * @brief CreateFearRobot called from within CreateEntity.
+  */
+  Robot* CreateFearRobot();
+
+  /**
+  * @brief CreateAggressiveRobot called from within CreateEntity.
+  */
+  Robot* CreateAggressiveRobot();
+
+  /**
+  * @brief CreateLoveRobot called from within CreateEntity.
+  */
+  Robot* CreateLoveRobot();
+
+  /**
+  * @brief CreateExploreRobot called from within CreateEntity.
+  */
+  Robot* CreateExploreRobot();
+
+  /**
   * @brief An attempt to not overlap any of the newly constructed entities.
   */
   Pose SetPoseRandomly();
@@ -90,6 +117,7 @@ class EntityFactory {
   int robot_count_{0};
   int light_count_{0};
   int base_count_{0};
+  Arena *arena_{nullptr};
 };
 
 NAMESPACE_END(csci3081);

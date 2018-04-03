@@ -24,12 +24,36 @@ NAMESPACE_BEGIN(csci3081);
 Arena::Arena(const struct arena_params *const params)
     : x_dim_(params->x_dim),
       y_dim_(params->y_dim),
-      factory_(new EntityFactory),
+      factory_(new EntityFactory(this)),
       entities_(),
       mobile_entities_(),
       game_status_(PAUSING) {
-  AddRobot();
-  AddEntity(kBase, 3);
+  //AddRobot();
+  addEntitiesToArena(params);
+  /*
+  for (size_t i = 0; i < params->n_fear_robots; i++)
+    AddRobot(kFearRobot);
+  for (size_t i = 0; i < params->n_aggressive_robots; i++)
+    AddRobot(kAggressiveRobot);
+  for (size_t i = 0; i < params->n_explore_robots; i++)
+    AddRobot(kExploreRobot);
+  for (size_t i = 0; i < params->n_love_robots; i++)
+    AddRobot(kLoveRobot);
+  AddEntity(kBase, params->n_bases);
+  AddEntity(kLight, params->n_lights);
+  */
+}
+
+void Arena::addEntitiesToArena(const struct arena_params *const params) {
+  for (size_t i = 0; i < params->n_fear_robots; i++)
+    AddRobot(kFearRobot);
+  for (size_t i = 0; i < params->n_aggressive_robots; i++)
+    AddRobot(kAggressiveRobot);
+  for (size_t i = 0; i < params->n_explore_robots; i++)
+    AddRobot(kExploreRobot);
+  for (size_t i = 0; i < params->n_love_robots; i++)
+    AddRobot(kLoveRobot);
+  AddEntity(kBase, params->n_bases);
   AddEntity(kLight, params->n_lights);
 }
 
@@ -42,10 +66,10 @@ Arena::~Arena() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Arena::AddRobot() {
+void Arena::AddRobot(EntityType robot_type) {
   bool isColliding = true;
   do {
-    robot_ = dynamic_cast<Robot *>(factory_->CreateEntity(kRobot));
+    robot_ = dynamic_cast<Robot *>(factory_->CreateEntity(robot_type));
     for (auto tmp : entities_) {
       if (IsColliding(robot_, tmp)) {
         delete robot_;
@@ -81,9 +105,31 @@ void Arena::AddEntity(EntityType type, int quantity) {
 }
 
 void Arena::Reset() {
-  for (auto ent : entities_) {
-    ent->Reset();
-  } /* for(ent..) */
+  // delete old-created entities
+  if (robot_ != NULL)
+    delete robot_;
+  if (factory_ != NULL)
+    delete factory_;
+  /*
+  for (auto tmp : entities_)
+if (tmp != NULL) delete tmp;
+  for (auto tmp : mobile_entities_)
+if (tmp != NULL) delete tmp;
+  */
+  entities_.clear();
+  mobile_entities_.clear();
+
+  struct arena_params params;
+  // initialize new objects
+  factory_ = new EntityFactory();
+  //AddRobot();
+  //AddEntity(kBase, params.n_bases);
+  //AddEntity(kLight, params.n_lights);
+  addEntitiesToArena(&params);
+  game_status_ = PAUSING;
+  //for (auto ent : entities_) {
+  //  ent->Reset();
+   /* for(ent..) */
 } /* reset() */
 
 // The primary driver of simulation movement. Called from the Controller
@@ -101,7 +147,6 @@ void Arena::UpdateEntitiesTimestep() {
   /*
    * First, update the position of all entities, according to their current
    * velocities.
-   * @TODO: Should this be just the mobile entities ??
    */
   for (auto ent : entities_) {
     ent->TimestepUpdate(1);
@@ -110,6 +155,8 @@ void Arena::UpdateEntitiesTimestep() {
   /*
    * Check for win/loss
    */
+
+   /*
   if (robot_->get_lives() <= 0) {
     game_status_ = LOST;
     return;
@@ -127,24 +174,23 @@ void Arena::UpdateEntitiesTimestep() {
     game_status_ = WON;
     return;
   }
-
+ */
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
-   */
+   */   
   for (auto &ent1 : mobile_entities_) {
     EntityType wall = GetCollisionWall(ent1);
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
+      /*
       if (ent1->get_type() == kRobot) {
         robot_->SetSpeed(0, 0);
         if (!(robot_->get_invincibility())) {
           robot_->LoseLives();
         }
       }
+      */
       ent1->HandleCollision(wall);
-      // robot_->HandleCollision(wall);
-      // robot_->LoseLives();
-      // game_status_ = LOST;
     }
     /* Determine if that mobile entity is colliding with any other entity.
     * Adjust the position accordingly so they don't overlap.
@@ -305,27 +351,7 @@ void Arena::AcceptCommand(Communication com) {
       game_status_ = PAUSING;
       break;
     case(kReset): {
-      // delete old-created entities
-      if (robot_ != NULL)
-        delete robot_;
-      if (factory_ != NULL)
-        delete factory_;
-      /*
-      for (auto tmp : entities_)
-	if (tmp != NULL) delete tmp;
-      for (auto tmp : mobile_entities_)
-	if (tmp != NULL) delete tmp;
-      */
-      entities_.clear();
-      mobile_entities_.clear();
-
-      struct arena_params params;
-      // initialize new objects
-      factory_ = new EntityFactory();
-      AddRobot();
-      AddEntity(kBase, params.n_bases);
-      AddEntity(kLight, params.n_lights);
-      game_status_ = PAUSING;
+      Reset();
       break;
     }
     case(kNone):

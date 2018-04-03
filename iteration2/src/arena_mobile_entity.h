@@ -62,6 +62,9 @@ class ArenaMobileEntity : public ArenaEntity {
   */
   SensorTouch * get_touch_sensor() { return sensor_touch_; }
 
+  double get_old_angle() { return old_angle_; }
+  void set_old_angle(double angle) { old_angle_ = angle; }
+  
  private:
   double speed_;
 
@@ -69,6 +72,7 @@ class ArenaMobileEntity : public ArenaEntity {
   // Using protected allows for direct access to sensor within entity.
   // It was awkward to have get_touch_sensor()->get_output() .
   SensorTouch * sensor_touch_;
+  double old_angle_{0};
 };
 
 NAMESPACE_END(csci3081);

@@ -17,6 +17,7 @@
 #include "src/params.h"
 #include "src/pose.h"
 #include "src/rgb_color.h"
+#include "src/light_sensor.h"
 
 /*******************************************************************************
  * Namespaces
@@ -42,6 +43,18 @@ ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
     case (kBase):
       return CreateBase();
       break;
+    case (kFearRobot):
+      return CreateFearRobot();
+      break;
+    case (kAggressiveRobot):
+      return CreateAggressiveRobot();
+      break;
+    case (kLoveRobot):
+      return CreateLoveRobot();
+      break;
+    case (kExploreRobot):
+      return CreateExploreRobot();
+      break;
     default:
       std::cout << "FATAL: Bad entity type on creation\n";
       assert(false);
@@ -53,11 +66,89 @@ Robot* EntityFactory::CreateRobot() {
   auto* robot = new Robot;
   robot->set_type(kRobot);
   robot->set_color(ROBOT_COLOR);
-  robot->set_pose(ROBOT_INIT_POS);
-  robot->set_radius(ROBOT_RADIUS);
+  robot->set_pose(SetPoseRandomly());
+  //robot->set_radius(ROBOT_RADIUS);
+  robot->set_radius((random() % (ROBOT_MAX_RADIUS
+                  - ROBOT_MIN_RADIUS)) + ROBOT_MIN_RADIUS);
   ++entity_count_;
   ++robot_count_;
   robot->set_id(robot_count_);
+  return robot;
+}
+
+Robot* EntityFactory::CreateFearRobot() {
+  Robot *robot = CreateRobot();
+  robot->set_type(kFearRobot);
+
+  Sensor *left_sensor = new LightSensor(arena_, LEFT_WHEEL, PLUS_CONNECTION);
+  left_sensor->set_side(LEFT_SIDE);
+  left_sensor->set_host(robot);
+  left_sensor->UpdatePosition();
+
+  Sensor *right_sensor = new LightSensor(arena_, RIGHT_WHEEL, PLUS_CONNECTION);
+  right_sensor->set_side(RIGHT_SIDE);
+  right_sensor->set_host(robot);
+  right_sensor->UpdatePosition();
+
+  robot->add_sensor(left_sensor);
+  robot->add_sensor(right_sensor);
+  return robot;
+}
+
+Robot* EntityFactory::CreateAggressiveRobot() {
+  Robot *robot = CreateRobot();
+  robot->set_type(kAggressiveRobot);
+
+  Sensor *left_sensor = new LightSensor(arena_, RIGHT_WHEEL, PLUS_CONNECTION);
+  left_sensor->set_side(LEFT_SIDE);
+  left_sensor->set_host(robot);
+  left_sensor->UpdatePosition();
+
+  Sensor *right_sensor = new LightSensor(arena_, LEFT_WHEEL, PLUS_CONNECTION);
+  right_sensor->set_side(RIGHT_SIDE);
+  right_sensor->set_host(robot);
+  right_sensor->UpdatePosition();
+
+  robot->add_sensor(left_sensor);
+  robot->add_sensor(right_sensor);
+  return robot;
+}
+
+Robot* EntityFactory::CreateLoveRobot() {
+  Robot *robot = CreateRobot();
+  robot->set_type(kLoveRobot);
+
+  Sensor *left_sensor = new LightSensor(arena_, LEFT_WHEEL, MINUS_CONNECTION);
+  left_sensor->set_side(LEFT_SIDE);
+  left_sensor->set_host(robot);
+  left_sensor->UpdatePosition();
+
+  Sensor *right_sensor = new LightSensor(arena_, RIGHT_WHEEL, MINUS_CONNECTION);
+  right_sensor->set_side(RIGHT_SIDE);
+  right_sensor->set_host(robot);
+  right_sensor->UpdatePosition();
+
+  robot->add_sensor(left_sensor);
+  robot->add_sensor(right_sensor);
+  return robot;
+}
+
+Robot* EntityFactory::CreateExploreRobot() {
+  Robot *robot = CreateRobot();
+  robot->set_type(kExploreRobot);
+
+  Sensor *left_sensor = new LightSensor(arena_, RIGHT_WHEEL, MINUS_CONNECTION);
+  left_sensor->set_side(LEFT_SIDE);
+  left_sensor->set_host(robot);
+  left_sensor->UpdatePosition();
+
+  Sensor *right_sensor = new LightSensor(arena_, LEFT_WHEEL, MINUS_CONNECTION);
+  right_sensor->set_side(RIGHT_SIDE);
+  right_sensor->set_host(robot);
+  right_sensor->UpdatePosition();
+
+  robot->add_sensor(left_sensor);
+  robot->add_sensor(right_sensor);
   return robot;
 }
 

@@ -34,6 +34,7 @@ Robot::Robot() :
  * Member Functions
  ******************************************************************************/
 void Robot::TimestepUpdate(unsigned int dt) {
+  /*
   if (isInvincible_) {
     RgbColor color;
     switch (invi_dt_) {
@@ -59,6 +60,7 @@ void Robot::TimestepUpdate(unsigned int dt) {
     }
     invi_dt_++;
   }
+  */
   // Update heading as indicated by touch sensor
   motion_handler_.UpdateVelocity();
 
@@ -77,14 +79,29 @@ void Robot::Reset() {
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
+  if (get_old_angle() > 0) {
+    SetSpeed(1, 1);
+    set_old_angle(0);
+  } else if (object_type != kLight) {
+    SetSpeed(-1, -1.2);
+    old_angle_ = pose_.theta;
+  }
+
+  if (false)
+    sensor_touch_->HandleCollision(object_type, object);
+
+  /*
   if (object_type != kLight)
     sensor_touch_->HandleCollision(object_type, object);
+    */
+    /*
   if (!isInvincible_) {
     if (object_type != kBase) {
       isInvincible_ = true;
       invi_dt_ = 0;
     }
   }
+  */
 }
 
 void Robot::IncreaseSpeed() {

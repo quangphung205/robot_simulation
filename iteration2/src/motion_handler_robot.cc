@@ -49,8 +49,17 @@ void MotionHandlerRobot::SetSpeed(double lv, double rv) {
 }
 
 void MotionHandlerRobot::UpdateVelocity() {
+  /*
   if (entity_->get_touch_sensor()->get_output()) {
     entity_->RelativeChangeHeading(+180);
+  }
+  */
+
+  if (entity_->get_old_angle() > 0) {
+    if ((entity_->get_pose().theta - entity_->get_old_angle()) > 45) {
+      entity_->set_old_angle(0);
+      SetSpeed(1, 1);
+    }
   }
 }
 
@@ -62,12 +71,12 @@ double MotionHandlerRobot::clamp_vel(double vel) {
               get_max_speed():
               vel;
   } else {
-    /*
+
     clamped = (vel < -get_max_speed()) ?
               -get_max_speed():
               vel;
-    */
-    clamped = 0;
+
+    //clamped = 0;
   }
   return clamped;
 } /* clamp_vel() */
