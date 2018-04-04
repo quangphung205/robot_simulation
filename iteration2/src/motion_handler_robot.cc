@@ -45,7 +45,15 @@ void MotionHandlerRobot::DecreaseSpeed() {
 }
 
 void MotionHandlerRobot::SetSpeed(double lv, double rv) {
-  set_velocity(lv, rv);
+  set_velocity(clamp_vel(lv), clamp_vel(rv));
+}
+
+void MotionHandlerRobot::UpdateLeftWheel(double lv) {
+  velocity_.left = clamp_vel(lv);  
+}
+
+void MotionHandlerRobot::UpdateRightWheel(double rv) {
+  velocity_.right = clamp_vel(rv);
 }
 
 void MotionHandlerRobot::UpdateVelocity() {

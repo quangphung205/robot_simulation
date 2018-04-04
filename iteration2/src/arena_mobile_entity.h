@@ -64,7 +64,8 @@ class ArenaMobileEntity : public ArenaEntity {
 
   double get_old_angle() { return old_angle_; }
   void set_old_angle(double angle) { old_angle_ = angle; }
-  
+
+
  private:
   double speed_;
 

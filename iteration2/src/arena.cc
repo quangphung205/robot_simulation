@@ -28,20 +28,7 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PAUSING) {
-  //AddRobot();
   addEntitiesToArena(params);
-  /*
-  for (size_t i = 0; i < params->n_fear_robots; i++)
-    AddRobot(kFearRobot);
-  for (size_t i = 0; i < params->n_aggressive_robots; i++)
-    AddRobot(kAggressiveRobot);
-  for (size_t i = 0; i < params->n_explore_robots; i++)
-    AddRobot(kExploreRobot);
-  for (size_t i = 0; i < params->n_love_robots; i++)
-    AddRobot(kLoveRobot);
-  AddEntity(kBase, params->n_bases);
-  AddEntity(kLight, params->n_lights);
-  */
 }
 
 void Arena::addEntitiesToArena(const struct arena_params *const params) {
@@ -118,18 +105,13 @@ if (tmp != NULL) delete tmp;
   */
   entities_.clear();
   mobile_entities_.clear();
+  observers_.clear();
 
   struct arena_params params;
   // initialize new objects
-  factory_ = new EntityFactory();
-  //AddRobot();
-  //AddEntity(kBase, params.n_bases);
-  //AddEntity(kLight, params.n_lights);
+  factory_ = new EntityFactory(this);
   addEntitiesToArena(&params);
   game_status_ = PAUSING;
-  //for (auto ent : entities_) {
-  //  ent->Reset();
-   /* for(ent..) */
 } /* reset() */
 
 // The primary driver of simulation movement. Called from the Controller
@@ -138,9 +120,7 @@ void Arena::AdvanceTime(double dt) {
   if (!(dt > 0)) {
     return;
   }
-  for (size_t i = 0; i < 1; ++i) {
-    UpdateEntitiesTimestep();
-  } /* for(i..) */
+  UpdateEntitiesTimestep();
 } /* AdvanceTime() */
 
 void Arena::UpdateEntitiesTimestep() {
@@ -148,48 +128,21 @@ void Arena::UpdateEntitiesTimestep() {
    * First, update the position of all entities, according to their current
    * velocities.
    */
-  for (auto ent : entities_) {
+  for (auto ent : mobile_entities_) {
     ent->TimestepUpdate(1);
-  }
-
-  /*
-   * Check for win/loss
-   */
-
-   /*
-  if (robot_->get_lives() <= 0) {
-    game_status_ = LOST;
-    return;
-  }
-
-  bool won = true;
-  for (auto ent : entities_) {
-    if (ent->get_type() != kBase) continue;
-    if (dynamic_cast<Base*>(ent)->IsCaptured() == false) {
-      won = false;
-      break;
+    if (ent->get_type() == kLight) {
+      state_.ent_ = ent;
+      notify();
     }
   }
-  if (won) {
-    game_status_ = WON;
-    return;
-  }
- */
+
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
-   */   
+   */
   for (auto &ent1 : mobile_entities_) {
     EntityType wall = GetCollisionWall(ent1);
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
-      /*
-      if (ent1->get_type() == kRobot) {
-        robot_->SetSpeed(0, 0);
-        if (!(robot_->get_invincibility())) {
-          robot_->LoseLives();
-        }
-      }
-      */
       ent1->HandleCollision(wall);
     }
     /* Determine if that mobile entity is colliding with any other entity.
@@ -201,28 +154,24 @@ void Arena::UpdateEntitiesTimestep() {
         if (ent1->get_type() == kRobot) {
           // Case 1: if ent2 is an light: the robot stops
           if (ent2->get_type() == kLight) {
+            continue;
+            /*
             robot_->SetSpeed(0, 0);
             if (!(robot_->get_invincibility())) {
               robot_->LoseLives();
             }
             robot_->HandleCollision(kLight, ent2);
             AdjustEntityOverlap(ent1, ent2);
+            */
           } else {
             AdjustEntityOverlap(ent1, ent2);
-            robot_->SetSpeed(0, 0);
             robot_->HandleCollision(ent2->get_type(), ent2);
-            RgbColor color;
-            color.Set(kOrange);
-            ent2->set_color(color);
-            dynamic_cast<Base*> (ent2)->set_captured(true);
           }
         } else {  // ent1 is an light
           if (ent2->get_type() == kLight) {
+            AdjustEntityOverlap(ent1, ent2);
             ent1->HandleCollision(kLight, ent2);
-          } else {
-            ent1->HandleCollision(kBase, ent2);
           }
-          AdjustEntityOverlap(ent1, ent2);
         }
       }
     }
@@ -332,6 +281,7 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity *const mobile_e,
   */
 void Arena::AcceptCommand(Communication com) {
   switch (com) {
+    /*
     case(kIncreaseSpeed):
       robot_->IncreaseSpeed();
       break;
@@ -344,6 +294,7 @@ void Arena::AcceptCommand(Communication com) {
     case(kTurnRight):
       robot_->TurnRight();
       break;
+      */
     case(kPlay):
       game_status_ = PLAYING;
       break;
@@ -370,4 +321,11 @@ void Arena::printEntities() {
     }
   }
 }
+
+void Arena::notify() {
+  for (Observer *obs : observers_) {
+    obs->Update(state_);
+  }
+}
+
 NAMESPACE_END(csci3081);

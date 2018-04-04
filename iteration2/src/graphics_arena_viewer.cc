@@ -159,14 +159,8 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
-
-  // robot's lives
-  /*
-  char lives[3];
-  snprintf(lives, sizeof(lives), "%d", robot->get_lives());
-  nvgText(ctx, 0.0, -10.0, lives, nullptr);
-  */
+  //nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
+  nvgText(ctx, 0.0, 0.0, robot->get_name().c_str(), nullptr);  
 
   // robot's left sensor
   nvgRestore(ctx);
@@ -250,8 +244,13 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
   DrawArena(ctx);
   std::vector<ArenaEntity *> entities = arena_->get_entities();
   for (auto &entity : entities) {
-    DrawEntity(ctx, entity);
-  } /* for(i..) */  
+    if (entity->get_type() == kLight || entity->get_type() == kBase) {
+      DrawEntity(ctx, entity);
+    } else {
+      DrawRobot(ctx, dynamic_cast<Robot*>(entity));
+    }
+
+  } /* for(i..) */
 }
 
 NAMESPACE_END(csci3081);

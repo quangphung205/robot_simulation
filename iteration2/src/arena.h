@@ -175,6 +175,7 @@ class Arena : public Subject{
   int get_game_status() const { return game_status_; }
   void set_game_status(int status) { game_status_ = status; }
 
+  void notify() override;
  private:
   // Print info of all entities
   void printEntities();

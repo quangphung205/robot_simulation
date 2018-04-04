@@ -67,6 +67,8 @@ class MotionHandlerRobot : public MotionHandler {
    */
   void SetSpeed(double lv, double rv);
 
+  void UpdateLeftWheel(double lv);
+  void UpdateRightWheel(double rv);
 
   /**
    * @brief Turn the entity to the right by angle_delta (in degrees?)
@@ -78,7 +80,7 @@ class MotionHandlerRobot : public MotionHandler {
    */
   void TurnLeft() override;
 
- private:
+public:
   double clamp_vel(double vel);
 };
 

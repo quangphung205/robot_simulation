@@ -26,7 +26,7 @@ NAMESPACE_BEGIN(csci3081);
 
 //class MotionBehaviorDifferential;
 //class MotionHandlerRobot;
-
+class Sensor;
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
@@ -77,7 +77,7 @@ class Robot : public ArenaMobileEntity {
   /**
    * @brief Get the name of the Robot for visualization and for debugging.
    */
-  std::string get_name() const override { return "Robot"; }
+  std::string get_name() const override { return "R"; }
 
   /**
    * @brief Command that comes from the controller, then is passed to handler.
@@ -94,7 +94,8 @@ class Robot : public ArenaMobileEntity {
   */
   void SetSpeed(double lv, double rv);
 
-
+  void UpdateLeftWheel(double lv);
+  void UpdateRightWheel(double rv);
   /**
   * @brief Command that comes from the controller, then is passed to handler.
   */

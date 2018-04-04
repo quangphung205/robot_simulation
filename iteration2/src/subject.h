@@ -8,6 +8,7 @@
 #define SRC_SUBJECT_H_
 
 #include "src/observer.h"
+#include "src/state.h"
 #include <iostream>
 #include <vector>
 
@@ -17,7 +18,7 @@ class Observer;
 
 class Subject {
 public:
-  Subject() : observers_() {}
+  Subject() : state_(), observers_() {}
   void registerObserver(Observer *obs) {
     observers_.push_back(obs);
   }
@@ -25,6 +26,7 @@ public:
   virtual void notify() {}
   virtual ~Subject() {}
 protected:
+  State state_;
   std::vector<Observer *> observers_;
 };
 

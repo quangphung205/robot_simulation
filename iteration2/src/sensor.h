@@ -10,9 +10,12 @@
 #include "src/observer.h"
 #include "src/params.h"
 #include "src/pose.h"
+#include "src/robot.h"
 #include <iostream>
 
 NAMESPACE_BEGIN(csci3081);
+
+class Robot;
 
 class Sensor : public Observer{
 public:
@@ -38,8 +41,8 @@ public:
   int get_connection_type() const { return connection_type_; }
   void set_connection_type(int cType) { connection_type_ = cType; }
 
-  ArenaEntity* get_host() const { return host_; }
-  void set_host(ArenaEntity *ent) { host_ = ent; }
+  Robot* get_host() const { return host_; }
+  void set_host(Robot *ent) { host_ = ent; }
 
   int get_side() const {return side_; }
   void set_side(int side) { side_ = side; }
@@ -60,7 +63,7 @@ public:
 
 protected:
   State state_;
-  ArenaEntity * host_{NULL};
+  Robot * host_{NULL};
   double reading_{0};
   double velocity_delta_{0};
   Pose pose_{0, 0};

@@ -29,11 +29,11 @@
 
 // arena
 #define N_BASES 0
-#define N_LIGHTS 4
-#define N_FEAR_ROBOTS 1
+#define N_LIGHTS 1
+#define N_FEAR_ROBOTS 0
 #define N_AGGRESSIVE_ROBOTS 1
-#define N_EXPLORE_ROBOTS 1
-#define N_LOVE_ROBOTS 1
+#define N_EXPLORE_ROBOTS 0
+#define N_LOVE_ROBOTS 0
 #define MAXIMUM_LIGHTS 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
@@ -69,7 +69,8 @@
 
 #define ROBOT_HEADING 270
 #define ROBOT_INIT_SPEED 0
-#define ROBOT_MAX_SPEED 10
+#define ROBOT_MAX_SPEED 5
+#define ROBOT_MIN_SPEED 0.7
 #define ROBOT_MAX_ANGLE 360
 
 // base
@@ -84,8 +85,8 @@
 #define LIGHT_POSITION \
   { 200, 200 }
 #define LIGHT_RADIUS 30
-#define LIGHT_MIN_RADIUS 10
-#define LIGHT_MAX_RADIUS 50
+#define LIGHT_MIN_RADIUS 20
+#define LIGHT_MAX_RADIUS 30
 #define LIGHT_COLOR \
   { 255, 255, 255 }
 
