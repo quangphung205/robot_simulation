@@ -45,7 +45,7 @@ class Light : public ArenaMobileEntity {
    * aid in debugging.
    */
   std::string get_name() const override {
-    return "Light" + std::to_string(get_id());
+    return "L";// + std::to_string(get_id());
   }
 
   /**

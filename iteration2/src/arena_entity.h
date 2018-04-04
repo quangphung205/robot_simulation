@@ -93,7 +93,7 @@ class ArenaEntity {
    * @brief Setter method for heading within entity pose variable.
    */
   void set_heading(const double t) {pose_.theta = t;}
-
+  double get_heading() const { return pose_.theta; }
   /**
    * @brief Setter for heading within pose, but change is relative to current
    * value.
@@ -129,7 +129,7 @@ class ArenaEntity {
    */
   void set_mobility(bool value) { is_mobile_ = value; }
 
- private:
+protected:
   double radius_{DEFAULT_RADIUS};
   Pose pose_;
   RgbColor color_;

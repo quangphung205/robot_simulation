@@ -30,7 +30,7 @@ NAMESPACE_BEGIN(csci3081);
  * Class Definitions
  ******************************************************************************/
 struct arena_params;
-
+class EntityFactory;
 /**
  * @brief The main class for the simulation of a 2D world with many entities
  * running around.
@@ -70,7 +70,7 @@ class Arena : public Subject{
    */
   void AdvanceTime(double dt);
 
-  void AddRobot();
+  void AddRobot(EntityType robot_type);
   void AddEntity(EntityType type, int quantity);
 
   /**
@@ -175,16 +175,17 @@ class Arena : public Subject{
   int get_game_status() const { return game_status_; }
   void set_game_status(int status) { game_status_ = status; }
 
+  void notify() override;
  private:
   // Print info of all entities
   void printEntities();
-
+  void addEntitiesToArena(const struct arena_params *const params);
   // Dimensions of graphics window inside which entities must operate
   double x_dim_;
   double y_dim_;
 
   // Used to create all entities within the arena
-  EntityFactory *factory_;
+  EntityFactory *factory_{nullptr};
 
   // Robot is special. It's also stored in the entity vectors.
   Robot *robot_{nullptr};

@@ -125,14 +125,14 @@ class MotionHandler {
    * .right components.
    */
   void set_velocity(double vl, double vr) {
-    velocity_.left = vl;
-    velocity_.right = vr;
+    velocity_.left = (vl > max_speed_) ? max_speed_ : vl;
+    velocity_.right = (vr > max_speed_) ? max_speed_ : vr;
   }
 
   ArenaMobileEntity * get_entity() { return entity_; }
 
- private:
-  double max_speed_{10};
+protected:
+  double max_speed_{ROBOT_MAX_SPEED};
   double max_angle_{360};
   double speed_delta_{1};
   double angle_delta_{1};

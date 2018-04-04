@@ -56,6 +56,7 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 // It will be called at each iteration of nanogui::mainloop()
 void GraphicsArenaViewer::UpdateSimulation(double dt) {
   int status = arena_->get_game_status();
+
   if (status == WON) {
     game_status_button_->setCaption("Game status: Won");
   } else if (status == LOST) {
@@ -158,13 +159,44 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
+  //nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
+  nvgText(ctx, 0.0, 0.0, robot->get_name().c_str(), nullptr);  
 
-  // robot's lives
-  char lives[3];
-  snprintf(lives, sizeof(lives), "%d", robot->get_lives());
-  nvgText(ctx, 0.0, -10.0, lives, nullptr);
+  // robot's left sensor
   nvgRestore(ctx);
+  nvgRestore(ctx);
+  nvgSave(ctx);
+  double lTheta = (-40 + robot->get_pose().theta) * M_PI / 180.0;
+  //std::cout << robot->get_pose().theta << std::endl;
+  double lx = robot->get_radius() * std::cos(lTheta) + robot->get_pose().x;
+  double ly = robot->get_radius() * std::sin(lTheta) + robot->get_pose().y;
+  //std::cout << robot->get_pose().x << " " << robot->get_pose().y << std::endl;
+  //std::cout << lx << " " << ly << std::endl;
+  nvgTranslate(ctx,
+               static_cast<float>(lx),
+               static_cast<float>(ly));
+  nvgBeginPath(ctx);
+  nvgCircle(ctx, 0.0, 0.0, 3);
+  nvgFillColor(ctx, nvgRGBA(255, 255, 100, 255));
+  nvgFill(ctx);
+  nvgStrokeColor(ctx, nvgRGBA(0, 0, 0, 255));
+  nvgStroke(ctx);
+
+  // robot's right sensor
+  nvgRestore(ctx);
+  nvgSave(ctx);
+  double rTheta = (40 + robot->get_pose().theta) * M_PI / 180.0;
+  nvgTranslate(ctx,
+               static_cast<float>(robot->get_radius() * std::cos(rTheta) + robot->get_pose().x),
+               static_cast<float>(robot->get_radius() * std::sin(rTheta) + robot->get_pose().y));
+
+  nvgBeginPath(ctx);
+  nvgCircle(ctx, 0.0, 0.0, 3);
+  nvgFillColor(ctx, nvgRGBA(255, 255, 100, 255));
+  nvgFill(ctx);
+  nvgStrokeColor(ctx, nvgRGBA(0, 0, 0, 255));
+  nvgStroke(ctx);
+
   nvgRestore(ctx);
 }
 void GraphicsArenaViewer::DrawArena(NVGcontext *ctx) {
@@ -191,11 +223,17 @@ void GraphicsArenaViewer::DrawEntity(NVGcontext *ctx,
   nvgStroke(ctx);
 
   // light id text label
+  nvgSave(ctx);
+  nvgTranslate(ctx,
+               static_cast<float>(entity->get_pose().x),
+               static_cast<float>(entity->get_pose().y));
+  nvgRotate(ctx,
+               static_cast<float>(entity->get_pose().theta * M_PI / 180.0));
+  nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgText(ctx,
-          static_cast<float>(entity->get_pose().x),
-          static_cast<float>(entity->get_pose().y),
+  nvgText(ctx, 0, 0,
           entity->get_name().c_str(), nullptr);
+  nvgRestore(ctx);
 }
 
 void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
@@ -206,9 +244,13 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
   DrawArena(ctx);
   std::vector<ArenaEntity *> entities = arena_->get_entities();
   for (auto &entity : entities) {
-    DrawEntity(ctx, entity);
+    if (entity->get_type() == kLight || entity->get_type() == kBase) {
+      DrawEntity(ctx, entity);
+    } else {
+      DrawRobot(ctx, dynamic_cast<Robot*>(entity));
+    }
+
   } /* for(i..) */
-  DrawRobot(ctx, arena_->robot());
 }
 
 NAMESPACE_END(csci3081);

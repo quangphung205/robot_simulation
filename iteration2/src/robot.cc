@@ -34,39 +34,16 @@ Robot::Robot() :
  * Member Functions
  ******************************************************************************/
 void Robot::TimestepUpdate(unsigned int dt) {
-  if (isInvincible_) {
-    RgbColor color;
-    switch (invi_dt_) {
-    case 0:
-      color.Set(kGreen);
-      set_color(color);
-      break;
-    case 40:
-      color.Set(kPurple);
-      set_color(color);
-      break;
-    case 80:
-      color.Set(kBlue);
-      set_color(color);
-      break;
-    default:
-      break;
-    }
-
-    if (invi_dt_ == 80) {
-      isInvincible_ = false;
-      invi_dt_ = 0;
-    }
-    invi_dt_++;
-  }
   // Update heading as indicated by touch sensor
   motion_handler_.UpdateVelocity();
 
   // Use velocity and position to update position
   motion_behavior_.UpdatePose(dt, motion_handler_.get_velocity());
 
-  // Reset Sensor for next cycle
-  sensor_touch_->Reset();
+  // Update the position for all sensors attached to the robot
+  for(Sensor *s : sensor_list_) {
+    s->UpdatePosition();
+  }
 } /* TimestepUpdate() */
 
 void Robot::Reset() {
@@ -77,14 +54,29 @@ void Robot::Reset() {
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
+  if (get_old_angle() > 0) {
+    SetSpeed(1, 1);
+    set_old_angle(0);
+  } else if (object_type != kLight) {
+    SetSpeed(-1, -1.2);
+    old_angle_ = pose_.theta;
+  }
+
+  if (false)
+    sensor_touch_->HandleCollision(object_type, object);
+
+  /*
   if (object_type != kLight)
     sensor_touch_->HandleCollision(object_type, object);
+    */
+    /*
   if (!isInvincible_) {
     if (object_type != kBase) {
       isInvincible_ = true;
       invi_dt_ = 0;
     }
   }
+  */
 }
 
 void Robot::IncreaseSpeed() {
@@ -102,6 +94,13 @@ void Robot::TurnLeft() {
 
 void Robot::SetSpeed(double lv, double rv) {
   motion_handler_.SetSpeed(lv, rv);
+}
+
+void Robot::UpdateLeftWheel(double lv) {
+  motion_handler_.UpdateLeftWheel(lv);
+}
+void Robot::UpdateRightWheel(double rv) {
+  motion_handler_.UpdateRightWheel(rv);
 }
 
 NAMESPACE_END(csci3081);

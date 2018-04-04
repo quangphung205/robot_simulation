@@ -32,12 +32,14 @@ void Light::set_velocity(double lv, double rv) {
 }
 
 void Light::TimestepUpdate(unsigned int dt) {
+  /*
   if (backing_up_dt_ == 80) {
     RelativeChangeHeading(+225);
     backing_up_dt_ = 0;
   }
   if (backing_up_dt_ > 0)
     backing_up_dt_++;
+    */
   // Update heading as indicated by touch sensor
   motion_handler_.UpdateVelocity();
   // Use velocity and position to update position
@@ -47,8 +49,18 @@ void Light::TimestepUpdate(unsigned int dt) {
 } /* TimestepUpdate() */
 
 void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  sensor_touch_->HandleCollision(object_type, object);
-  backing_up_dt_ = 1;
+  //sensor_touch_->HandleCollision(object_type, object);
+  //backing_up_dt_ = 1;
+  if (get_old_angle() > 0) {
+    motion_handler_.SetSpeed(1, 1);
+    set_old_angle(0);
+  } else if (object_type != kRobot) {
+    motion_handler_.SetSpeed(-1, -1.2);
+    old_angle_ = pose_.theta;
+  }
+
+  if (false)
+    sensor_touch_->HandleCollision(object_type, object);
 }
 
 NAMESPACE_END(csci3081);
