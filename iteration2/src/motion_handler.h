@@ -25,7 +25,7 @@ NAMESPACE_BEGIN(csci3081);
  * Classes
  ******************************************************************************/
 /**
- * @brief Base class for managing the pose and wheel velocity of the entity.
+ * @brief Food class for managing the pose and wheel velocity of the entity.
  *
  * The pose.heading will change when the entity collides.
  * The pose position will change at each timestep, which is determined by the

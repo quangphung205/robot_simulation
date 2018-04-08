@@ -28,7 +28,7 @@ NAMESPACE_BEGIN(csci3081);
  ******************************************************************************/
 
 /**
- * @brief Class managing a Robot's speed and heading angle based
+ * @brief Class managing a Robot's speed and heading angle Foodd
  * on collisions and user inputs.
  *
  * Currently, both wheels are always going at maximum speed, and

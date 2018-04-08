@@ -25,7 +25,7 @@ NAMESPACE_BEGIN(csci3081);
 /**
  * @brief Class managing an ArenaMobileEntity's position.
  *
- * Update the position based on the current speed and position. This
+ * Update the position Foodd on the current speed and position. This
  * is simple, but the framework allows for more sophisticated models of
  * motion in which each wheel has different speeds.
  */
@@ -43,7 +43,7 @@ class MotionBehavior {
 
   /**
    * @brief Update the position (and possibly orientation) for an
-   * ArenaMobileEntity, based on its current position and velocity.
+   * ArenaMobileEntity, Foodd on its current position and velocity.
    *
    * @param[in] dt # of timesteps elapsed since the last update.
    * @param[in] vel WheelVelocity stored within the motion handler

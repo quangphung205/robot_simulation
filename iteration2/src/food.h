@@ -1,11 +1,11 @@
 /**
- * @file base.h
+ * @file food.h
  *
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_BASE_H_
-#define SRC_BASE_H_
+#ifndef SRC_FOOD_H_
+#define SRC_FOOD_H_
 
 /*******************************************************************************
  * Includes
@@ -25,55 +25,55 @@ NAMESPACE_BEGIN(csci3081);
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief Class representing a immobile base within the Arena.
+ * @brief Class representing a immobile Food within the Arena.
  *
- * Base can enhance a Robot. If a Robot touches the Base, it becomes
+ * Food can enhance a Robot. If a Robot touches the Food, it becomes
  * a super robot.
  *
- * Base have the capability of updating their own position when asked, and
+ * Food have the capability of updating their own position when asked, and
  * also track their own velocity and heading. They have a touch sensor for
  * responding to collision events which is activated/deactivated on collision
  * events.
  *
  */
-class Base : public ArenaImmobileEntity {
+class Food : public ArenaImmobileEntity {
  public:
   /**
    * @brief Constructor.
    *
-   * @param params A base_params passed down from main.cc for the
-   * initialization of the Base.
+   * @param params A Food_params passed down from main.cc for the
+   * initialization of the Food.
    */
-  Base();
+  Food();
 
   /**
-   * @brief Reset the Base using the initialization parameters received
+   * @brief Reset the Food using the initialization parameters received
    * by the constructor.
    */
   void Reset() override;
 
   /**
-   * @brief Get the name of the Base for visualization purposes, and to
+   * @brief Get the name of the Food for visualization purposes, and to
    * aid in debugging.
    *
-   * @return Name of the Base.
+   * @return Name of the Food.
    */
-  std::string get_name() const override { return "Base"; }
+  std::string get_name() const override { return "Food"; }
 
   /**
-   * @brief Getter for captured_, which is the state of the base
+   * @brief Getter for captured_, which is the state of the Food
    *
    * @return true if captured.
    */
   bool IsCaptured() const { return captured_; }
 
   /**
-   * @brief Setter for captured_, which is the state of the base
+   * @brief Setter for captured_, which is the state of the Food
    */
   void set_captured(bool state) { captured_ = state; }
 
   /**
-   * @brief Getter for captured_, which is the state of the base
+   * @brief Getter for captured_, which is the state of the Food
    */
   bool get_captured() const { return captured_; }
 
@@ -83,4 +83,4 @@ class Base : public ArenaImmobileEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_BASE_H_
+#endif  // SRC_FOOD_H_

@@ -19,7 +19,7 @@ NAMESPACE_BEGIN(csci3081);
 
 enum EntityType {
   kRobot, kFearRobot, kLoveRobot, kAggressiveRobot,
-  kExploreRobot, kLight, kBase, kEntity,
+  kExploreRobot, kLight, kFood, kEntity,
   kRightWall, kLeftWall, kTopWall, kBottomWall,
   kUndefined
 };

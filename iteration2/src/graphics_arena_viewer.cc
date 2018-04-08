@@ -244,7 +244,7 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
   DrawArena(ctx);
   std::vector<ArenaEntity *> entities = arena_->get_entities();
   for (auto &entity : entities) {
-    if (entity->get_type() == kLight || entity->get_type() == kBase) {
+    if (entity->get_type() == kLight || entity->get_type() == kFood) {
       DrawEntity(ctx, entity);
     } else {
       DrawRobot(ctx, dynamic_cast<Robot*>(entity));

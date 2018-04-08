@@ -73,7 +73,7 @@ class Light : public ArenaMobileEntity {
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
 
-  // Calculates changes in pose based on elapsed time and wheel velocities.
+  // Calculates changes in pose Foodd on elapsed time and wheel velocities.
   MotionBehaviorDifferential motion_behavior_;
 
   // keep track of backing up time
