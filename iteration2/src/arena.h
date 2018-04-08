@@ -15,7 +15,7 @@
 #include <vector>
 
 #include "src/common.h"
-#include "src/base.h"
+#include "src/food.h"
 #include "src/entity_factory.h"
 #include "src/robot.h"
 #include "src/communication.h"

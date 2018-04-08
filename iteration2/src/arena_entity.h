@@ -27,7 +27,7 @@ NAMESPACE_BEGIN(csci3081);
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief A base class from which all Arena entities inherit.
+ * @brief A Food class from which all Arena entities inherit.
  *
  * All entities know how to:
  *

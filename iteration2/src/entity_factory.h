@@ -12,7 +12,7 @@
  ******************************************************************************/
 #include <string>
 
-#include "src/base.h"
+#include "src/food.h"
 #include "src/arena.h"
 #include "src/common.h"
 #include "src/entity_type.h"
@@ -82,9 +82,9 @@ class EntityFactory {
   Light* CreateLight();
 
   /**
-  * @brief CreateBase called from within CreateEntity.
+  * @brief CreateFood called from within CreateEntity.
   */
-  Base* CreateBase();
+  Food* CreateFood();
 
   /**
   * @brief CreateFearRobot called from within CreateEntity.
@@ -116,7 +116,7 @@ class EntityFactory {
   int entity_count_{0};
   int robot_count_{0};
   int light_count_{0};
-  int base_count_{0};
+  int food_count_{0};
   Arena *arena_{nullptr};
 };
 

@@ -31,7 +31,7 @@ NAMESPACE_BEGIN(csci3081);
 */
 struct arena_params {
   size_t n_lights{N_LIGHTS};
-  size_t n_bases{N_BASES};
+  size_t n_foods{N_FOODS};
   size_t n_fear_robots{N_FEAR_ROBOTS};
   size_t n_aggressive_robots{N_AGGRESSIVE_ROBOTS};
   size_t n_explore_robots{N_EXPLORE_ROBOTS};

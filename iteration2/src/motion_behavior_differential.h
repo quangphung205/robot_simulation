@@ -24,7 +24,7 @@ NAMESPACE_BEGIN(csci3081);
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief A simple model of differential drive kinematics based on the notes
+ * @brief A simple model of differential drive kinematics Foodd on the notes
  * here: ~https://chess.eecs.berkeley.edu/eecs149/documentation/differentialDrive.pdf~
  */
 class MotionBehaviorDifferential : public MotionBehavior {
@@ -39,13 +39,13 @@ class MotionBehaviorDifferential : public MotionBehavior {
     operator=(const MotionBehaviorDifferential& other) = default;
 
   /**
-   * @brief Update the pose of an entity based on its current position and how
+   * @brief Update the pose of an entity Foodd on its current position and how
    * many seconds have elapsed since the last update.
    *
    * @param[in] dt Elapsed time interval.
    * @param[in] vel The WheelVelocity stored within the motion handler.
    *
-   * Calculates the new pose (i.e. position and heading) based on a model of
+   * Calculates the new pose (i.e. position and heading) Foodd on a model of
    * differential drive. If both wheels have equivalent velocity, it travels
    * in the direction of its heading. If one wheel is faster than the other,
    * this drives the entity in an arc (e.g. if WheelVelocity.right > .left,

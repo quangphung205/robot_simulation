@@ -40,7 +40,7 @@ void Arena::addEntitiesToArena(const struct arena_params *const params) {
     AddRobot(kExploreRobot);
   for (size_t i = 0; i < params->n_love_robots; i++)
     AddRobot(kLoveRobot);
-  AddEntity(kBase, params->n_bases);
+  AddEntity(kFood, params->n_foods);
   AddEntity(kLight, params->n_lights);
 }
 
@@ -247,7 +247,7 @@ bool Arena::IsColliding(
 */
 /* @TODO: Add functionality to Pose to determine the distance distance_between two instances (e.g. overload operator -)
 */
-/* @BUG: The robot will pass through the home base on occasion. The problem
+/* @BUG: The robot will pass through the home Food on occasion. The problem
  * is likely due to the adjustment being in the wrong direction. This could
  * be because the cos/sin generate the wrong sign of the distance_to_move
  * when the collision is in a specific quadrant relative to the center of the
@@ -315,9 +315,9 @@ void Arena::AcceptCommand(Communication com) {
  */
 void Arena::printEntities() {
   for (auto e : entities_) {
-    if (e->get_type() == kBase) {
+    if (e->get_type() == kFood) {
       printf("%lf %lf %s\n", e->get_pose().x, e->get_pose().y,
-            dynamic_cast<Base*>(e)->get_captured() ? "true" : "false");
+            dynamic_cast<Food*>(e)->get_captured() ? "true" : "false");
     }
   }
 }

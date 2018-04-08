@@ -37,7 +37,7 @@ class Sensor;
  * These classes interact to maintain the pose (position and heading) of the
  * robot. At each time step, the wheel velocities are used to calculate the
  * next pose of the robot. The handler manages the pose and user requests. The
- * behavior calculates the new pose based on wheel velocities.
+ * behavior calculates the new pose Foodd on wheel velocities.
  *
  * Robots can be controlled through keypress, which modify wheel velocities.
  *
@@ -125,7 +125,7 @@ class Robot : public ArenaMobileEntity {
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
 
-  // Calculates changes in pose based on elapsed time and wheel velocities.
+  // Calculates changes in pose Foodd on elapsed time and wheel velocities.
   MotionBehaviorDifferential motion_behavior_;
 
   // Lives are decremented when the robot collides with anything.

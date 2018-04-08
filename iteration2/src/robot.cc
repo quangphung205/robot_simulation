@@ -71,7 +71,7 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
     */
     /*
   if (!isInvincible_) {
-    if (object_type != kBase) {
+    if (object_type != kFood) {
       isInvincible_ = true;
       invi_dt_ = 0;
     }

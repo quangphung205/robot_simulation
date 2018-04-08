@@ -37,7 +37,7 @@ void MotionBehaviorDifferential::UpdatePose(double dt, WheelVelocity vel) {
       printf("icc radius: %f\n", icc_radius());
       printf("icc: %f %f\n", icc.x, icc.y);
     }
-    // Based on differential drive model cited in the header.
+    // Foodd on differential drive model cited in the header.
     x_prime = (pose.x - icc.x) * std::cos(omega() * dt) +
               (pose.y - icc.y) * -std::sin(omega() * dt) + icc.x;
     y_prime = (pose.x - icc.x) * std::sin(omega() * dt) +

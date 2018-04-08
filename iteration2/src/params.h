@@ -28,12 +28,12 @@
 #define GUI_MENU_GAP 10
 
 // arena
-#define N_BASES 0
-#define N_LIGHTS 1
-#define N_FEAR_ROBOTS 0
+#define N_FOODS 4
+#define N_LIGHTS 4
+#define N_FEAR_ROBOTS 1
 #define N_AGGRESSIVE_ROBOTS 1
-#define N_EXPLORE_ROBOTS 0
-#define N_LOVE_ROBOTS 0
+#define N_EXPLORE_ROBOTS 1
+#define N_LOVE_ROBOTS 1
 #define MAXIMUM_LIGHTS 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
@@ -73,12 +73,12 @@
 #define ROBOT_MIN_SPEED 0.7
 #define ROBOT_MAX_ANGLE 360
 
-// base
-#define BASE_RADIUS 20
-#define BASE_COLLISION_DELTA 1
-#define BASE_INIT_POS \
+// Food
+#define FOOD_RADIUS 20
+#define FOOD_COLLISION_DELTA 1
+#define FOOD_INIT_POS \
   { 400, 400 }
-#define BASE_COLOR \
+#define FOOD_COLOR \
   { 255, 0, 0 }
 
 // light
