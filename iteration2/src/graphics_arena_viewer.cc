@@ -57,8 +57,8 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 void GraphicsArenaViewer::UpdateSimulation(double dt) {
   int status = arena_->get_game_status();
 
-  if (status == WON) {
-    game_status_button_->setCaption("Game status: Won");
+  if (status == STOPPED) {
+    game_status_button_->setCaption("Game status: Stopped");
   } else if (status == LOST) {
     game_status_button_->setCaption("Game status: Lost");
   } else if (status == PAUSING) {
@@ -160,7 +160,11 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
   //nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
-  nvgText(ctx, 0.0, 0.0, robot->get_name().c_str(), nullptr);  
+  //nvgText(ctx, 0.0, 0.0, robot->get_name().c_str(), nullptr);
+  char buff[10];
+  int hunger_time = robot->get_hunger_time();
+  snprintf(buff, 9, "%d", hunger_time);
+  nvgText(ctx, 0.0, 0.0, buff, nullptr);
 
   // robot's left sensor
   nvgRestore(ctx);

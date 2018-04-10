@@ -36,15 +36,7 @@ Controller::Controller() : last_dt(0) {
 
 void Controller::Run() { viewer_->Run(); }
 
-void Controller::AdvanceTime(double dt) {
-  /*
-  if ((last_dt + dt) <= 500) {
-    last_dt += dt;
-    //printf("controller.cc::L41 Advance Time %lf\n", last_dt);
-    return;
-  }
-  last_dt = 0;
-  */
+void Controller::AdvanceTime(double dt) {  
   last_dt += dt;
   arena_->AdvanceTime(dt);
 }
