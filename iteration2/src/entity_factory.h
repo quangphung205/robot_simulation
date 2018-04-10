@@ -47,7 +47,7 @@ class EntityFactory {
    *
    */
   EntityFactory();
-  EntityFactory(Arena *arena) : arena_(arena) {}
+  EntityFactory(Arena *arena) : arena_(arena) { srand(time(nullptr)); }
 
   /**
    * @brief Default destructor.

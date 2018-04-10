@@ -88,7 +88,7 @@ class Arena : public Subject{
    *
    * @return A pointer to the Robot.
    */
-  class Robot *robot() const { return robot_; }
+  //class Robot *robot() const { return robot_; }
 
   /**
    * @brief Under certain circumstance, the compiler requires that the
@@ -126,7 +126,7 @@ class Arena : public Subject{
    * @param[out] True if entities overlapping.
    *
    **/
-  bool IsColliding(
+  bool IsColliding2(
     ArenaEntity * const mobile_e, ArenaEntity * const other_e);
 
 
@@ -188,7 +188,7 @@ class Arena : public Subject{
   EntityFactory *factory_{nullptr};
 
   // Robot is special. It's also stored in the entity vectors.
-  Robot *robot_{nullptr};
+  //Robot *robot_{nullptr};
 
   // All entities mobile and immobile.
   std::vector<class ArenaEntity *> entities_;

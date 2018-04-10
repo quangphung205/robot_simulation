@@ -18,6 +18,7 @@
 #include "src/pose.h"
 #include "src/rgb_color.h"
 #include "src/light_sensor.h"
+#include "src/food_sensor.h"
 
 /*******************************************************************************
  * Namespaces
@@ -63,7 +64,7 @@ ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
 }
 
 Robot* EntityFactory::CreateRobot() {
-  auto* robot = new Robot;
+  Robot* robot = new Robot;
   robot->set_type(kRobot);
   robot->set_color(ROBOT_COLOR);
   robot->set_pose(SetPoseRandomly());
@@ -74,11 +75,28 @@ Robot* EntityFactory::CreateRobot() {
   ++entity_count_;
   ++robot_count_;
   robot->set_id(robot_count_);
+
+  Sensor *left_sensor = new FoodSensor(arena_, RIGHT_WHEEL, PLUS_CONNECTION);
+  left_sensor->set_side(LEFT_SIDE);
+  left_sensor->set_host(robot);
+  left_sensor->UpdatePosition();
+  arena_->registerObserver(left_sensor);
+
+  Sensor *right_sensor = new FoodSensor(arena_, LEFT_WHEEL, PLUS_CONNECTION);
+  right_sensor->set_side(RIGHT_SIDE);
+  right_sensor->set_host(robot);
+  right_sensor->UpdatePosition();
+  arena_->registerObserver(right_sensor);
+
+  robot->add_sensor(left_sensor);
+  robot->add_sensor(right_sensor);
+
   return robot;
 }
 
 Robot* EntityFactory::CreateFearRobot() {
   Robot *robot = CreateRobot();
+  robot->set_name("F");
   //robot->set_type(kFearRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, LEFT_WHEEL, PLUS_CONNECTION);
@@ -100,6 +118,7 @@ Robot* EntityFactory::CreateFearRobot() {
 
 Robot* EntityFactory::CreateAggressiveRobot() {
   Robot *robot = CreateRobot();
+  robot->set_name("A");
   //robot->set_type(kAggressiveRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, RIGHT_WHEEL, PLUS_CONNECTION);
@@ -121,6 +140,7 @@ Robot* EntityFactory::CreateAggressiveRobot() {
 
 Robot* EntityFactory::CreateLoveRobot() {
   Robot *robot = CreateRobot();
+  robot->set_name("L");
   //robot->set_type(kLoveRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, LEFT_WHEEL, MINUS_CONNECTION);
@@ -142,6 +162,7 @@ Robot* EntityFactory::CreateLoveRobot() {
 
 Robot* EntityFactory::CreateExploreRobot() {
   Robot *robot = CreateRobot();
+  robot->set_name("E");
   //robot->set_type(kExploreRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, RIGHT_WHEEL, MINUS_CONNECTION);
@@ -162,7 +183,7 @@ Robot* EntityFactory::CreateExploreRobot() {
 }
 
 Light* EntityFactory::CreateLight() {
-  auto* light = new Light;
+  Light* light = new Light;
   light->set_type(kLight);
   light->set_color(LIGHT_COLOR);
   light->set_pose(SetPoseRandomly());
@@ -176,7 +197,7 @@ Light* EntityFactory::CreateLight() {
 }
 
 Food* EntityFactory::CreateFood() {
-  auto* food = new Food;
+  Food* food = new Food;
   food->set_type(kFood);
   food->set_color(FOOD_COLOR);
   food->set_pose(SetPoseRandomly());

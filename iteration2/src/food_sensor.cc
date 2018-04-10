@@ -1,21 +1,21 @@
 /**
- * @file light_sensor.h
+ * @file food_sensor.cc
  *
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#include "src/light_sensor.h"
+#include "src/food_sensor.h"
 #include "src/sensor.h"
 #include <iostream>
 
 NAMESPACE_BEGIN(csci3081);
 
-LightSensor::LightSensor(Subject *s, int wType, int cType) : Sensor(s) {
+FoodSensor::FoodSensor(Subject *s, int wType, int cType) : Sensor(s) {
   wheel_type_ = wType;
   connection_type_ = cType;
 }
 
-void LightSensor::calculateReading() {
+void FoodSensor::calculateReading() {
   Pose pose = state_.ent_->get_pose();
   double ent_rad = state_.ent_->get_radius();
   double distance = std::sqrt(std::pow(pose.x - pose_.x, 2)
@@ -25,11 +25,15 @@ void LightSensor::calculateReading() {
   if (reading_ > MAX_READ) {
     reading_ = MAX_READ;
   }
+
+  if (distance <= 5) {
+    host_->reset_hunger_time();
+  }
 }
 
-void LightSensor::Update(const State state) {
-  if (state.ent_->get_type() == kLight
-      && host_->get_light_sensor_status() == ON) {
+void FoodSensor::Update(const State state) {
+  if (state.ent_->get_type() == kFood
+      && host_->get_food_sensor_status() == ON) {
     state_ = state;
     calculateReading();
     if (connection_type_ == PLUS_CONNECTION) {
@@ -59,7 +63,7 @@ void LightSensor::Update(const State state) {
   }
 }
 
-void LightSensor::UpdatePosition() {
+void FoodSensor::UpdatePosition() {
   if (host_ != NULL) {
     double theta;
     if (side_ == LEFT_SIDE) {

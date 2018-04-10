@@ -30,10 +30,10 @@
 // arena
 #define N_FOODS 4
 #define N_LIGHTS 4
-#define N_FEAR_ROBOTS 1
-#define N_AGGRESSIVE_ROBOTS 1
-#define N_EXPLORE_ROBOTS 1
-#define N_LOVE_ROBOTS 1
+#define N_FEAR_ROBOTS 5
+#define N_AGGRESSIVE_ROBOTS 0
+#define N_EXPLORE_ROBOTS 5
+#define N_LOVE_ROBOTS 0
 #define MAXIMUM_LIGHTS 8
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
@@ -44,6 +44,7 @@
 #define LOST 1
 #define PLAYING 2
 #define PAUSING 3
+#define STOPPED 4
 
 // entity
 #define DEFAULT_POSE \
@@ -72,6 +73,9 @@
 #define ROBOT_MAX_SPEED 5
 #define ROBOT_MIN_SPEED 0.7
 #define ROBOT_MAX_ANGLE 360
+#define ROBOT_HUNGRY_TIME 30
+#define ROBOT_REALLY_HUNGRY_TIME 120
+#define ROBOT_STARVING_TIME 60
 
 // Food
 #define FOOD_RADIUS 20
@@ -97,5 +101,7 @@
 #define MINUS_CONNECTION 1
 #define LEFT_SIDE 0
 #define RIGHT_SIDE 1
+#define ON 1
+#define OFF 0
 
 #endif  // SRC_PARAMS_H_

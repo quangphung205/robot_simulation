@@ -29,6 +29,7 @@ Robot::Robot() :
   set_color(ROBOT_COLOR);
   set_pose(ROBOT_INIT_POS);
   set_radius(ROBOT_RADIUS);
+  hunger_start_point_ = clock();
 }
 /*******************************************************************************
  * Member Functions
@@ -44,6 +45,21 @@ void Robot::TimestepUpdate(unsigned int dt) {
   for(Sensor *s : sensor_list_) {
     s->UpdatePosition();
   }
+
+  hunger_end_point_ = clock();
+  hunger_time_ = static_cast<int>((hunger_end_point_ - hunger_start_point_) / CLOCKS_PER_SEC);
+  
+  if (hunger_time_ >= ROBOT_HUNGRY_TIME) {
+    turn_food_sensor_on();
+  }
+
+  if (hunger_time_ >= ROBOT_REALLY_HUNGRY_TIME) {
+    turn_light_sensor_off();
+  }
+
+  if (hunger_time_ >= ROBOT_STARVING_TIME) {
+    starving_ = true;
+  }
 } /* TimestepUpdate() */
 
 void Robot::Reset() {
@@ -53,7 +69,7 @@ void Robot::Reset() {
   sensor_touch_->Reset();
 } /* Reset() */
 
-void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
+void Robot::HandleCollision(EntityType object_type, ArenaEntity*) {
   if (get_old_angle() > 0) {
     SetSpeed(1, 1);
     set_old_angle(0);
@@ -61,22 +77,6 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
     SetSpeed(-1, -1.2);
     old_angle_ = pose_.theta;
   }
-
-  if (false)
-    sensor_touch_->HandleCollision(object_type, object);
-
-  /*
-  if (object_type != kLight)
-    sensor_touch_->HandleCollision(object_type, object);
-    */
-    /*
-  if (!isInvincible_) {
-    if (object_type != kFood) {
-      isInvincible_ = true;
-      invi_dt_ = 0;
-    }
-  }
-  */
 }
 
 void Robot::IncreaseSpeed() {
@@ -101,6 +101,13 @@ void Robot::UpdateLeftWheel(double lv) {
 }
 void Robot::UpdateRightWheel(double rv) {
   motion_handler_.UpdateRightWheel(rv);
+}
+
+void Robot::reset_hunger_time() {
+  hunger_start_point_ = clock();
+  hunger_end_point_ = hunger_start_point_;
+  hunger_time_ = 0;
+  starving_ = false;
 }
 
 NAMESPACE_END(csci3081);

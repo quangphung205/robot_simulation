@@ -18,6 +18,7 @@
 #include "src/motion_behavior_differential.h"
 #include "src/entity_type.h"
 #include "src/sensor.h"
+#include "time.h"
 
 /*******************************************************************************
  * Namespaces
@@ -77,7 +78,8 @@ class Robot : public ArenaMobileEntity {
   /**
    * @brief Get the name of the Robot for visualization and for debugging.
    */
-  std::string get_name() const override { return "R"; }
+  std::string get_name() const override { return name_; }
+  void set_name(std::string name) { name_ = name; }
 
   /**
    * @brief Command that comes from the controller, then is passed to handler.
@@ -118,9 +120,18 @@ class Robot : public ArenaMobileEntity {
 
   bool get_invincibility() { return isInvincible_; }
 
+  void turn_food_sensor_off() { food_sensor_status_ = OFF; }
+  void turn_food_sensor_on() { food_sensor_status_ = ON; }
+  void turn_light_sensor_off() { food_sensor_status_ = OFF; }
+  void turn_light_sensor_on() { food_sensor_status_ = ON; }
 
-
+  int get_food_sensor_status() { return food_sensor_status_; }
+  int get_light_sensor_status() { return light_sensor_status_; }
   void add_sensor(Sensor *s) { sensor_list_.push_back(s); }
+
+  bool isStarving() { return starving_; }
+  int get_hunger_time() const { return hunger_time_; }
+  void reset_hunger_time();
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
@@ -135,9 +146,16 @@ class Robot : public ArenaMobileEntity {
   // Store the status of invincibility of the robot
   bool isInvincible_;
   unsigned int invi_dt_;
+  std::string name_{"R"};
 
   // store a list of all types of sensor
   std::vector<Sensor *> sensor_list_;
+  int food_sensor_status_{ON};
+  int light_sensor_status_{ON};
+  int hunger_time_{0};
+  clock_t hunger_start_point_{0};
+  clock_t hunger_end_point_{0};
+  bool starving_{false};
 };
 
 NAMESPACE_END(csci3081);
