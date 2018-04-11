@@ -10,23 +10,22 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <string>
 
+#include <time.h>
+#include <string>
+#include <vector>
 #include "src/arena_mobile_entity.h"
 #include "src/common.h"
 #include "src/motion_handler_robot.h"
 #include "src/motion_behavior_differential.h"
 #include "src/entity_type.h"
 #include "src/sensor.h"
-#include "time.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
 NAMESPACE_BEGIN(csci3081);
 
-//class MotionBehaviorDifferential;
-//class MotionHandlerRobot;
 class Sensor;
 /*******************************************************************************
  * Class Definitions
@@ -51,7 +50,6 @@ class Robot : public ArenaMobileEntity {
   /**
    * @brief Constructor using initialization values from params.h.
    */
-
   Robot();
 
   /**
@@ -68,7 +66,6 @@ class Robot : public ArenaMobileEntity {
    */
   void TimestepUpdate(unsigned int dt) override;
 
-
   /**
    * @brief Handles the collision by setting the sensor to activated.
    */
@@ -79,59 +76,106 @@ class Robot : public ArenaMobileEntity {
    * @brief Get the name of the Robot for visualization and for debugging.
    */
   std::string get_name() const override { return name_; }
-  void set_name(std::string name) { name_ = name; }
-
   /**
-   * @brief Command that comes from the controller, then is passed to handler.
+   * @brief set the name of the robot
+   *
+   * @param[name] new name
    */
-  void IncreaseSpeed();
-
-  /**
-  * @brief Command that comes from the controller, then is passed to handler.
-  */
-  void DecreaseSpeed();
+  void set_name(std::string name) { name_ = name; }
 
   /**
   * @brief Command that comes from the controller, then is passed to handler.
   */
   void SetSpeed(double lv, double rv);
 
+  /**
+   * @brief udpate left wheel of the robot
+   *
+   * @param[lv] new left wheel velocity
+   */
   void UpdateLeftWheel(double lv);
+
+  /**
+   * @brief udpate right wheel of the robot
+   *
+   * @param[rv] new right wheel velocity
+   */
   void UpdateRightWheel(double rv);
-  /**
-  * @brief Command that comes from the controller, then is passed to handler.
-  */
-  void TurnRight();
 
   /**
-  * @brief Command that comes from the controller, then is passed to handler.
-  */
-  void TurnLeft();
-
-  int get_lives() const { return lives_; }
-
-  void set_lives(int l) { lives_ = l; }
-
-  void LoseLives() { if (lives_ > 0) lives_--; }
-
+   * @brief get motion handler of the robot
+   *
+   * @return motion handler of the robot
+   */
   MotionHandlerRobot get_motion_handler() { return motion_handler_; }
 
+  /**
+   * @brief get motion behavior of the robot
+   *
+   * @return motion behavior of the robot
+   */
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_; }
 
-  bool get_invincibility() { return isInvincible_; }
-
+  /**
+   * @brief turn off food sensor
+   */
   void turn_food_sensor_off() { food_sensor_status_ = OFF; }
+
+  /**
+   * @brief turn on food sensor
+   */
   void turn_food_sensor_on() { food_sensor_status_ = ON; }
+
+  /**
+   * @brief turn off light sensor
+   */
   void turn_light_sensor_off() { food_sensor_status_ = OFF; }
+
+  /**
+   * @brief turn on light sensor
+   */
   void turn_light_sensor_on() { food_sensor_status_ = ON; }
 
+  /**
+   * @brief get food sensor status
+   *
+   * @return current status of food sensor
+   */
   int get_food_sensor_status() { return food_sensor_status_; }
+
+  /**
+   * @brief get light sensor status
+   *
+   * @return current status of light sensor
+   */
   int get_light_sensor_status() { return light_sensor_status_; }
+
+  /**
+   * @brief add new sensor to a sensor list
+   *
+   * @param[s] new pointer to a sensor
+   */
   void add_sensor(Sensor *s) { sensor_list_.push_back(s); }
 
+  /**
+   * @brief get starving status
+   *
+   * @return current starving status
+   */
   bool isStarving() { return starving_; }
+
+  /**
+   * @brief get hunger time
+   *
+   * @return current hunger time
+   */
   int get_hunger_time() const { return hunger_time_; }
+
+  /**
+   * @brief reset hunger time to 0
+   */
   void reset_hunger_time();
+
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
@@ -139,22 +183,28 @@ class Robot : public ArenaMobileEntity {
   // Calculates changes in pose Foodd on elapsed time and wheel velocities.
   MotionBehaviorDifferential motion_behavior_;
 
-  // Lives are decremented when the robot collides with anything.
-  // When all the lives are gone, the game is lost.
-  int lives_;
-
-  // Store the status of invincibility of the robot
-  bool isInvincible_;
-  unsigned int invi_dt_;
+  // Name of the robot
   std::string name_{"R"};
 
   // store a list of all types of sensor
   std::vector<Sensor *> sensor_list_;
+
+  // food sensor status
   int food_sensor_status_{ON};
+
+  // light sensor status
   int light_sensor_status_{ON};
+
+  // time to the next hungry moment
   int hunger_time_{0};
+
+  // the beginning of hungry interval
   clock_t hunger_start_point_{0};
+
+  // the end of hungry interval
   clock_t hunger_end_point_{0};
+
+  // starving status of the robot
   bool starving_{false};
 };
 

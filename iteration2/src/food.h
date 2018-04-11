@@ -11,7 +11,6 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
 #include "src/arena_immobile_entity.h"
 #include "src/common.h"
 #include "src/entity_type.h"

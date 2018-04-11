@@ -49,8 +49,6 @@ void Light::TimestepUpdate(unsigned int dt) {
 } /* TimestepUpdate() */
 
 void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  //sensor_touch_->HandleCollision(object_type, object);
-  //backing_up_dt_ = 1;
   if (get_old_angle() > 0) {
     motion_handler_.SetSpeed(1, 1);
     set_old_angle(0);

@@ -36,9 +36,19 @@ class MotionBehavior {
    */
   explicit MotionBehavior(ArenaMobileEntity * ent);
 
+  /**
+   * @brief Default destructor
+   */
   virtual ~MotionBehavior() = default;
 
+  /**
+   * @brief overload assignment operator
+   */
   MotionBehavior(const MotionBehavior& other) = default;
+
+  /**
+   * @brief overload assignment operator
+   */
   MotionBehavior& operator=(const MotionBehavior& other) = default;
 
   /**

@@ -159,11 +159,9 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  //nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
-  //nvgText(ctx, 0.0, 0.0, robot->get_name().c_str(), nullptr);
   char buff[10];
   int hunger_time = robot->get_hunger_time();
-  snprintf(buff, 9, "%d", hunger_time);
+  snprintf(buff, sizeof(buff), "%d", hunger_time);
   nvgText(ctx, 0.0, 0.0, buff, nullptr);
 
   // robot's left sensor
@@ -171,11 +169,8 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgRestore(ctx);
   nvgSave(ctx);
   double lTheta = (-40 + robot->get_pose().theta) * M_PI / 180.0;
-  //std::cout << robot->get_pose().theta << std::endl;
   double lx = robot->get_radius() * std::cos(lTheta) + robot->get_pose().x;
   double ly = robot->get_radius() * std::sin(lTheta) + robot->get_pose().y;
-  //std::cout << robot->get_pose().x << " " << robot->get_pose().y << std::endl;
-  //std::cout << lx << " " << ly << std::endl;
   nvgTranslate(ctx,
                static_cast<float>(lx),
                static_cast<float>(ly));
@@ -191,8 +186,10 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   double rTheta = (40 + robot->get_pose().theta) * M_PI / 180.0;
   nvgTranslate(ctx,
-               static_cast<float>(robot->get_radius() * std::cos(rTheta) + robot->get_pose().x),
-               static_cast<float>(robot->get_radius() * std::sin(rTheta) + robot->get_pose().y));
+               static_cast<float>(robot->get_radius() * std::cos(rTheta)
+                  + robot->get_pose().x),
+               static_cast<float>(robot->get_radius() * std::sin(rTheta)
+                  + robot->get_pose().y));
 
   nvgBeginPath(ctx);
   nvgCircle(ctx, 0.0, 0.0, 3);
@@ -253,7 +250,6 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
     } else {
       DrawRobot(ctx, dynamic_cast<Robot*>(entity));
     }
-
   } /* for(i..) */
 }
 

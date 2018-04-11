@@ -7,27 +7,46 @@
 #ifndef SRC_SUBJECT_H_
 #define SRC_SUBJECT_H_
 
-#include "src/observer.h"
-#include "src/state.h"
 #include <iostream>
 #include <vector>
+#include "src/observer.h"
+#include "src/state.h"
 
 NAMESPACE_BEGIN(csci3081);
 
 class Observer;
 
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+/**
+ * @brief Class to implement the Observer Pattern
+ *
+ * Sensors will be observers and arena will be the subject
+ */
 class Subject {
-public:
+ public:
+  /**
+   * @brief default constructor for Subject class
+   */
   Subject() : state_(), observers_() {}
   void registerObserver(Observer *obs) {
     observers_.push_back(obs);
   }
 
+  /**
+   * @brief notify all observers in the list
+   */
   virtual void notify() {}
+
+  /**
+   * @brief default destructor for Subject class
+   */
   virtual ~Subject() {}
-protected:
-  State state_;
-  std::vector<Observer *> observers_;
+
+ protected:
+  State state_;  // contains stimulus information
+  std::vector<Observer *> observers_;  // list of observers
 };
 
 NAMESPACE_END(csci3081);

@@ -13,7 +13,6 @@
 #include <utility>
 #include <vector>
 #include <iostream>
-
 #include "src/common.h"
 #include "src/pose.h"
 #include "src/entity_type.h"

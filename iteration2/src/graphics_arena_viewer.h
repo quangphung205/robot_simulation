@@ -11,7 +11,6 @@
  * Includes
  ******************************************************************************/
 #include <MinGfx-1.0/mingfx.h>
-
 #include "src/arena.h"
 #include "src/controller.h"
 #include "src/common.h"

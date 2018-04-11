@@ -49,7 +49,7 @@ void MotionHandlerRobot::SetSpeed(double lv, double rv) {
 }
 
 void MotionHandlerRobot::UpdateLeftWheel(double lv) {
-  velocity_.left = clamp_vel(lv);  
+  velocity_.left = clamp_vel(lv);
 }
 
 void MotionHandlerRobot::UpdateRightWheel(double rv) {
@@ -79,12 +79,9 @@ double MotionHandlerRobot::clamp_vel(double vel) {
               get_max_speed():
               vel;
   } else {
-
     clamped = (vel < -get_max_speed()) ?
               -get_max_speed():
               vel;
-
-    //clamped = 0;
   }
   return clamped;
 } /* clamp_vel() */

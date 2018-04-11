@@ -60,6 +60,11 @@ struct RgbColor {
    */
   RgbColor(int r_in, int g_in, int b_in) : r(r_in), g(g_in), b(b_in) {}
 
+  /**
+   * @brief set the color
+   *
+   * @param value new color value
+   */
   void Set(RgbColorEnum value);
 };
 

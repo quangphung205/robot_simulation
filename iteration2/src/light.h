@@ -11,7 +11,6 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
 #include "src/arena_immobile_entity.h"
 #include "src/arena_mobile_entity.h"
 #include "src/common.h"
@@ -45,7 +44,7 @@ class Light : public ArenaMobileEntity {
    * aid in debugging.
    */
   std::string get_name() const override {
-    return "Light";// + std::to_string(get_id());
+    return "Light";
   }
 
   /**

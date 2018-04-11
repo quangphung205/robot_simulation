@@ -21,9 +21,6 @@ NAMESPACE_BEGIN(csci3081);
 Robot::Robot() :
     motion_handler_(this),
     motion_behavior_(this),
-    lives_(9),
-    isInvincible_(false),
-    invi_dt_(0),
     sensor_list_() {
   set_type(kRobot);
   set_color(ROBOT_COLOR);
@@ -42,13 +39,14 @@ void Robot::TimestepUpdate(unsigned int dt) {
   motion_behavior_.UpdatePose(dt, motion_handler_.get_velocity());
 
   // Update the position for all sensors attached to the robot
-  for(Sensor *s : sensor_list_) {
+  for (Sensor *s : sensor_list_) {
     s->UpdatePosition();
   }
 
   hunger_end_point_ = clock();
-  hunger_time_ = static_cast<int>((hunger_end_point_ - hunger_start_point_) / CLOCKS_PER_SEC);
-  
+  hunger_time_ = static_cast<int>((hunger_end_point_ - hunger_start_point_)
+                        / CLOCKS_PER_SEC);
+
   if (hunger_time_ >= ROBOT_HUNGRY_TIME) {
     turn_food_sensor_on();
   }
@@ -77,19 +75,6 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity*) {
     SetSpeed(-1, -1.2);
     old_angle_ = pose_.theta;
   }
-}
-
-void Robot::IncreaseSpeed() {
-  motion_handler_.IncreaseSpeed();
-}
-void Robot::DecreaseSpeed() {
-  motion_handler_.DecreaseSpeed();
-}
-void Robot::TurnRight() {
-  motion_handler_.TurnRight();
-}
-void Robot::TurnLeft() {
-  motion_handler_.TurnLeft();
 }
 
 void Robot::SetSpeed(double lv, double rv) {

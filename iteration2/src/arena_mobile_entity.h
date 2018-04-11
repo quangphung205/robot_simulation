@@ -40,20 +40,40 @@ class ArenaMobileEntity : public ArenaEntity {
   /**
    * @brief ArenaMobileEntity's constructor.
    */
-
   ArenaMobileEntity()
     : ArenaEntity(),
       speed_(0),
       sensor_touch_(new SensorTouch) {
         set_mobility(true);
   }
+
+  /**
+   * @brief ArenaMobileEntity's copy constructor
+   */
   ArenaMobileEntity(const ArenaMobileEntity& other) = delete;
+
+  /**
+   * @brief ArenaMobileEntity's assignment operator
+   */
   ArenaMobileEntity& operator=(const ArenaMobileEntity& other) = delete;
 
-
+  /**
+   * @brief get the speed of the entity
+   *
+   * @return current speed
+   */
   virtual double get_speed() { return speed_; }
+
+  /**
+   * @brief set the speed of the entity
+   *
+   * @param[sp] new speed
+   */
   virtual void set_speed(double sp) { speed_ = sp; }
 
+  /**
+   * @brief Handle collision if it occurs
+   */
   virtual void HandleCollision(__unused EntityType etype,
                           __unused ArenaEntity* e = NULL) {}
 
@@ -62,9 +82,19 @@ class ArenaMobileEntity : public ArenaEntity {
   */
   SensorTouch * get_touch_sensor() { return sensor_touch_; }
 
+  /**
+   * @brief get the angle of the entity
+   *
+   * @return current angle of the entity
+   */
   double get_old_angle() { return old_angle_; }
-  void set_old_angle(double angle) { old_angle_ = angle; }
 
+  /**
+   * @brief set the angle of the entity
+   *
+   * @param[angle] new angle
+   */
+  void set_old_angle(double angle) { old_angle_ = angle; }
 
  private:
   double speed_;

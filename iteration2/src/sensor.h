@@ -7,50 +7,172 @@
 #ifndef SRC_SENSOR_H_
 #define SRC_SENSOR_H_
 
+#include <iostream>
 #include "src/observer.h"
 #include "src/params.h"
 #include "src/pose.h"
 #include "src/robot.h"
-#include <iostream>
 
 NAMESPACE_BEGIN(csci3081);
 
 class Robot;
-
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+/**
+ * @brief Class to implement the Observer Pattern
+ *
+ * Sensors will be observers and arena will be the subject
+ */
 class Sensor : public Observer{
-public:
-  Sensor(Subject *s) : Observer(s), state_() {}
-  Sensor(Sensor& s) = default;
+ public:
+  /**
+   * @brief Default constructor
+   */
+  explicit Sensor(Subject *s) : Observer(s), state_() {}
 
-  virtual void Update(const State state) override {state_ = state; }
+  /**
+   * @brief Default constructor
+   */
+  Sensor(const Sensor &s) = default;
+
+  /**
+   * @brief update the state
+   *
+   * @param state new state
+   */
+  void Update(const State state) override {state_ = state; }
+
+  /**
+   * @brief update position of the sensor based on robot position
+   */
   virtual void UpdatePosition() {}
+
+  /**
+   * @brief calculate the reading of sensor
+   */
   virtual void calculateReading() {}
 
+  /**
+   * @brief get the state of the sensor
+   *
+   * @return current state
+   */
   State get_state() const { return state_; }
+
+  /**
+   * @brief set the state of the Sensor
+   *
+   * @param state new state
+   */
   void set_state(State state) { state_ = state; }
 
+  /**
+   * @brief get the reading of the sensor
+   *
+   * @return current reading
+   */
   double get_reading() const { return reading_; }
+
+  /**
+   * @brief set the reading of the Sensor
+   *
+   * @param reading new reading
+   */
   void set_reading(double reading) { reading_ = reading; }
 
+  /**
+   * @brief get the velocity delta of the sensor
+   *
+   * @return current velocity delta
+   */
   double get_vel_delta() const { return velocity_delta_; }
+
+  /**
+   * @brief set the velocity delta of the Sensor
+   *
+   * @param delta new velocity delta
+   */
   void set_vel_delta(double delta) { velocity_delta_ = delta; }
 
+  /**
+   * @brief get the wheel type of the sensor
+   *
+   * @return current wheel type
+   */
   int get_wheel_type() const { return wheel_type_; }
+
+  /**
+   * @brief set the wheel type of the Sensor
+   *
+   * @param wType new wheel type
+   */
   void set_wheel_type(int wType) { wheel_type_ = wType; }
 
+  /**
+   * @brief get the connection type of the sensor
+   *
+   * @return current connection type
+   */
   int get_connection_type() const { return connection_type_; }
+
+  /**
+   * @brief set the connection type of the Sensor
+   *
+   * @param cType new connection type
+   */
   void set_connection_type(int cType) { connection_type_ = cType; }
 
+  /**
+   * @brief get the host of the sensor
+   *
+   * @return current host
+   */
   Robot* get_host() const { return host_; }
+
+  /**
+   * @brief set the host of the Sensor
+   *
+   * @param ent new host
+   */
   void set_host(Robot *ent) { host_ = ent; }
 
+  /**
+   * @brief get the side of the sensor
+   *
+   * @return current side
+   */
   int get_side() const {return side_; }
+
+  /**
+   * @brief set the side of the Sensor
+   *
+   * @param side new side
+   */
   void set_side(int side) { side_ = side; }
 
+  /**
+   * @brief overload assignment operator
+   */
   Sensor& operator=(const Sensor& other) = default;
+
+  /**
+   * @brief Default destructor
+   */
   virtual ~Sensor() {}
 
+  /**
+   * @brief get position of the Sensor
+   *
+   * @return current position
+   */
   const Pose &get_pose() const { return pose_; }
+
+  /**
+   * @brief set the position of the sensor
+   *
+   * @param pose new position
+   */
   void set_pose(const Pose &pose) { pose_ = pose; }
 
   /**
@@ -61,7 +183,7 @@ public:
     pose_.y = iny;
   }
 
-protected:
+ protected:
   State state_;
   Robot * host_{NULL};
   double reading_{0};

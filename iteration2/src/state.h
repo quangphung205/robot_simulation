@@ -7,21 +7,36 @@
 #ifndef SRC_STATE_H_
 #define SRC_STATE_H_
 
-#include "src/arena_entity.h"
 #include <iostream>
+#include "src/arena_entity.h"
 
 NAMESPACE_BEGIN(csci3081);
-
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+/**
+ * @brief Class contains all information about the stimulus
+ */
 struct State {
-public:
-  ArenaEntity *ent_;
+ public:
+  ArenaEntity *ent_;  // contains stimuli information
 
+  /**
+   * @brief default constructor for State structure
+   */
   State() : ent_(NULL) {}
-  State(ArenaEntity *e) : ent_(e) {}
 
+  /**
+   * @brief default constructor for State structure
+   */
+  explicit State(ArenaEntity *e) : ent_(e) {}
+
+  /**
+   * @brief overload the assignment operator
+   */
   State& operator=(const State& other) = default;
 };
 
 NAMESPACE_END(csci3081);
 
-#endif
+#endif  // SRC_STATE_H_

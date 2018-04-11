@@ -67,7 +67,18 @@ class MotionHandlerRobot : public MotionHandler {
    */
   void SetSpeed(double lv, double rv);
 
+  /**
+   * @brief update left wheel velocity
+   *
+   * @param lv new left wheel velocity
+   */
   void UpdateLeftWheel(double lv);
+
+  /**
+   * @brief update right wheel velocity
+   *
+   * @param rv new right wheel velocity
+   */
   void UpdateRightWheel(double rv);
 
   /**
@@ -80,7 +91,7 @@ class MotionHandlerRobot : public MotionHandler {
    */
   void TurnLeft() override;
 
-public:
+ public:
   double clamp_vel(double vel);
 };
 

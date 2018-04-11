@@ -30,7 +30,7 @@ NAMESPACE_BEGIN(csci3081);
 struct WheelVelocity {
  public:
   /**
-   * @brief Default constructor. Initialize the pose to (0,0,0)
+   * @brief Default constructor.
    */
   WheelVelocity()
     : left(STARTING_VELOCITY), right(STARTING_VELOCITY) {}
@@ -38,8 +38,8 @@ struct WheelVelocity {
   /**
    * @brief Constructor
    *
-   * @param in_x The X component of the Pose.
-   * @param in_y The Y component of the Pose.
+   * @param[l] left volecity
+   * @param[r] right velocity
    */
   WheelVelocity(double l, double r) : left(l), right(r) {}
 
@@ -55,10 +55,10 @@ struct WheelVelocity {
    */
   WheelVelocity &operator=(const WheelVelocity &other) = default;
 
-  double left;
-  double right;
+  double left;  // left velocity wheel
+  double right;  // right velocity wheel
 };
 
 NAMESPACE_END(csci3081);
 
-#endif /* SRC_WHEEL_VELOCITY_H_ */
+#endif  // SRC_WHEEL_VELOCITY_H_

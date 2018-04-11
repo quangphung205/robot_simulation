@@ -12,7 +12,6 @@
  ******************************************************************************/
 #include <nanogui/nanogui.h>
 #include <string>
-
 #include "src/arena.h"
 #include "src/common.h"
 #include "src/communication.h"
@@ -47,7 +46,6 @@ class Controller {
    * @brief Controller's constructor that will create Arena and Viewer.
    */
   Controller();
-
 
   /**
    * @brief Run launches the graphics and starts the game.

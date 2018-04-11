@@ -41,10 +41,21 @@ class MotionHandler {
   explicit MotionHandler(ArenaMobileEntity * ent)
     : velocity_(0, 0), entity_(ent) {}
 
+  /**
+   * @brief default destructor
+   */
   virtual ~MotionHandler() {}
 
+  /**
+   * @brief overload assignment operator
+   */
   MotionHandler(const MotionHandler& other) = default;
+
+  /**
+   * @brief overload assignment operator
+   */
   MotionHandler& operator=(const MotionHandler& other) = default;
+
   /**
   * @brief Update the heading angle according to the touch sensor reading.
   */
@@ -129,9 +140,14 @@ class MotionHandler {
     velocity_.right = (vr > max_speed_) ? max_speed_ : vr;
   }
 
+  /**
+   * @brief get a list of arena mobile entities
+   *
+   * @return a pointer to a list of arena mobile entities
+   */
   ArenaMobileEntity * get_entity() { return entity_; }
 
-protected:
+ protected:
   double max_speed_{ROBOT_MAX_SPEED};
   double max_angle_{360};
   double speed_delta_{1};

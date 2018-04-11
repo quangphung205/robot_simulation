@@ -36,9 +36,12 @@ Controller::Controller() : last_dt(0) {
 
 void Controller::Run() { viewer_->Run(); }
 
-void Controller::AdvanceTime(double dt) {  
+void Controller::AdvanceTime(double dt) {
   last_dt += dt;
-  arena_->AdvanceTime(dt);
+  if (last_dt >= 0.02) {
+    arena_->AdvanceTime(dt);
+    last_dt = 0;
+  }
 }
 
 void Controller::AcceptCommunication(Communication com) {

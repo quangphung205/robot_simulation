@@ -13,7 +13,6 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
-
 #include "src/common.h"
 #include "src/food.h"
 #include "src/entity_factory.h"
@@ -70,7 +69,19 @@ class Arena : public Subject{
    */
   void AdvanceTime(double dt);
 
+  /**
+   * @brief add a robot to the arena
+   *
+   * @param robot_type kRobot
+   */
   void AddRobot(EntityType robot_type);
+
+  /**
+   * @brief add a robot to the arena
+   *
+   * @param type entity type
+   * @param quantity number of entities
+   */
   void AddEntity(EntityType type, int quantity);
 
   /**
@@ -82,13 +93,6 @@ class Arena : public Subject{
    * @brief Reset all entities in Arena.
    */
   void Reset();
-
-  /**
-   * @brief Get the Robot (there's only 1) in Arena.
-   *
-   * @return A pointer to the Robot.
-   */
-  //class Robot *robot() const { return robot_; }
 
   /**
    * @brief Under certain circumstance, the compiler requires that the
@@ -167,28 +171,65 @@ class Arena : public Subject{
    */
   void UpdateEntitiesTimestep();
 
+  /**
+   * @brief get a list of arena entities
+   *
+   * @return a list of arena entities
+   */
   std::vector<class ArenaEntity *> get_entities() const { return entities_; }
 
+  /**
+   * @brief get x dimension
+   *
+   * @return x dimension
+   */
   double get_x_dim() { return x_dim_; }
+
+  /**
+   * @brief get y dimension
+   *
+   * @return y dimension
+   */
   double get_y_dim() { return y_dim_; }
 
+  /**
+   * @brief get game status
+   *
+   * @return current game status
+   */
   int get_game_status() const { return game_status_; }
+
+  /**
+   * @brief set game status
+   *
+   * @param status new game status
+   */
   void set_game_status(int status) { game_status_ = status; }
 
+  /**
+   * @brief notify all sensors about the stimulus
+   */
   void notify() override;
+
  private:
-  // Print info of all entities
+  /**
+   * @brief Print info of all entities
+   */
   void printEntities();
+
+  /**
+   * @brief add entities to the arena
+   *
+   * @param params arena environment
+   */
   void addEntitiesToArena(const struct arena_params *const params);
+
   // Dimensions of graphics window inside which entities must operate
   double x_dim_;
   double y_dim_;
 
   // Used to create all entities within the arena
   EntityFactory *factory_{nullptr};
-
-  // Robot is special. It's also stored in the entity vectors.
-  //Robot *robot_{nullptr};
 
   // All entities mobile and immobile.
   std::vector<class ArenaEntity *> entities_;

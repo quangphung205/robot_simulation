@@ -97,7 +97,6 @@ Robot* EntityFactory::CreateRobot() {
 Robot* EntityFactory::CreateFearRobot() {
   Robot *robot = CreateRobot();
   robot->set_name("F");
-  //robot->set_type(kFearRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, LEFT_WHEEL, PLUS_CONNECTION);
   left_sensor->set_side(LEFT_SIDE);
@@ -119,7 +118,6 @@ Robot* EntityFactory::CreateFearRobot() {
 Robot* EntityFactory::CreateAggressiveRobot() {
   Robot *robot = CreateRobot();
   robot->set_name("A");
-  //robot->set_type(kAggressiveRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, RIGHT_WHEEL, PLUS_CONNECTION);
   left_sensor->set_side(LEFT_SIDE);
@@ -141,7 +139,6 @@ Robot* EntityFactory::CreateAggressiveRobot() {
 Robot* EntityFactory::CreateLoveRobot() {
   Robot *robot = CreateRobot();
   robot->set_name("L");
-  //robot->set_type(kLoveRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, LEFT_WHEEL, MINUS_CONNECTION);
   left_sensor->set_side(LEFT_SIDE);
@@ -163,7 +160,6 @@ Robot* EntityFactory::CreateLoveRobot() {
 Robot* EntityFactory::CreateExploreRobot() {
   Robot *robot = CreateRobot();
   robot->set_name("E");
-  //robot->set_type(kExploreRobot);
 
   Sensor *left_sensor = new LightSensor(arena_, RIGHT_WHEEL, MINUS_CONNECTION);
   left_sensor->set_side(LEFT_SIDE);

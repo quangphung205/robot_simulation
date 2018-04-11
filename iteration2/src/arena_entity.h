@@ -11,7 +11,6 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
 #include "src/common.h"
 #include "src/entity_type.h"
 #include "src/params.h"
@@ -47,8 +46,8 @@ NAMESPACE_BEGIN(csci3081);
 class ArenaEntity {
  public:
   /**
- * @brief ArenaEntity constructor initialized with default values from params.h
- */
+   * @brief ArenaEntity constructor initialized with default values from params.h
+   */
   ArenaEntity() : pose_(DEFAULT_POSE), color_(DEFAULT_COLOR) {}
 
   /**
@@ -77,12 +76,25 @@ class ArenaEntity {
    */
   virtual std::string get_name() const = 0;
 
-
+  /**
+   * @brief Get the position of the entity
+   *
+   * @return current position of the entity
+   */
   const Pose &get_pose() const { return pose_; }
+
+  /**
+   * @brief Set the position of the entity
+   *
+   * @param[pose] the new position
+   */
   void set_pose(const Pose &pose) { pose_ = pose; }
 
   /**
    * @brief Setter method for position within entity pose variable.
+   *
+   * @param[inx] x coordinate
+   * @param[iny] y coordinate
    */
   void set_position(const double inx, const double iny) {
     pose_.x = inx;
@@ -91,8 +103,16 @@ class ArenaEntity {
 
   /**
    * @brief Setter method for heading within entity pose variable.
+   *
+   * @param[t] new heading angle
    */
   void set_heading(const double t) {pose_.theta = t;}
+
+  /**
+   * @brief get the current heading angle of the entity
+   *
+   * @return current heading angle
+   */
   double get_heading() const { return pose_.theta; }
   /**
    * @brief Setter for heading within pose, but change is relative to current
@@ -105,31 +125,77 @@ class ArenaEntity {
     pose_.theta += delta;
   }
 
+  /**
+   * @brief get the color of the entity
+   *
+   * @return the color value
+   */
   const RgbColor &get_color() const { return color_; }
 
+  /**
+   * @brief set the color of the entity
+   *
+   * @param[color] new color
+   */
   void set_color(const RgbColor &color) { color_ = color; }
 
+  /**
+   * @brief get the radius of the entity
+   *
+   * @return current radius
+   */
   double get_radius() const { return radius_; }
 
+  /**
+   * @brief set the radius of the entity
+   *
+   * @param[radius] new radius
+   */
   void set_radius(double radius) { radius_ = radius; }
 
+  /**
+   * @brief get the type of the entity
+   *
+   * @return current type
+   */
   EntityType get_type() const { return type_; }
+
+  /**
+   * @brief set the type of the entity
+   *
+   * @param[et] new type
+   */
   void set_type(EntityType et) { type_ = et; }
 
+  /**
+   * @brief get the id of the entity
+   *
+   * @return current id
+   */
   int get_id() const { return id_; }
+
+  /**
+   * @brief set the id of the entity
+   *
+   * @param[id] new id
+   */
   void set_id(int id) { id_ = id; }
 
   /**
    * @brief Getter method for determining if entity can move or not.
+   *
+   * @return the mobility of the entity
    */
   bool is_mobile(void) { return is_mobile_; }
 
   /**
    * @brief Setter method for indicating if entity can move or not.
+   *
+   * @param[value] new mobility value
    */
   void set_mobility(bool value) { is_mobile_ = value; }
 
-protected:
+ protected:
   double radius_{DEFAULT_RADIUS};
   Pose pose_;
   RgbColor color_;

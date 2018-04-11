@@ -4,9 +4,9 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
+#include <iostream>
 #include "src/food_sensor.h"
 #include "src/sensor.h"
-#include <iostream>
 
 NAMESPACE_BEGIN(csci3081);
 
@@ -20,7 +20,7 @@ void FoodSensor::calculateReading() {
   double ent_rad = state_.ent_->get_radius();
   double distance = std::sqrt(std::pow(pose.x - pose_.x, 2)
                      + std::pow(pose.y - pose_.y, 2)) - ent_rad;
-  //printf("\nDis = %lf\n", distance);
+
   reading_ = 1010/(std::pow(1.006, distance));
   if (reading_ > MAX_READ) {
     reading_ = MAX_READ;
@@ -47,16 +47,9 @@ void FoodSensor::Update(const State state) {
     }
 
     if (host_->get_old_angle() <= 0) {
-      if (side_ == LEFT_SIDE) {
-        //printf("Left read = %lf\n", reading_);
-      } else {
-        //printf("Right read = %lf\n", reading_);
-      }
       if (wheel_type_ == LEFT_WHEEL) {
-        //printf("Left vel = %lf\n", velocity_delta_);
         host_->UpdateLeftWheel(velocity_delta_);
       } else {
-        //printf("Right vel = %lf\n", velocity_delta_);
         host_->UpdateRightWheel(velocity_delta_);
       }
     }
@@ -72,8 +65,10 @@ void FoodSensor::UpdatePosition() {
       theta = host_->get_heading() + OFF_ANGLE;
     }
 
-    pose_.x = (host_->get_radius() * std::cos(theta * M_PI / 180.0)) + host_->get_pose().x;
-    pose_.y = (host_->get_radius() * std::sin(theta * M_PI / 180.0)) + host_->get_pose().y;
+    pose_.x = (host_->get_radius() * std::cos(theta * M_PI / 180.0))
+                         + host_->get_pose().x;
+    pose_.y = (host_->get_radius() * std::sin(theta * M_PI / 180.0))
+                         + host_->get_pose().y;
 
 /*
     if (side_ == LEFT_SIDE) {

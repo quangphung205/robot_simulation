@@ -34,7 +34,14 @@ class MotionBehaviorDifferential : public MotionBehavior {
         temp_vel_(0, 0) {
   }
 
+  /**
+   * @brief overload assignment operator
+   */
   MotionBehaviorDifferential(const MotionBehaviorDifferential& other) = default;
+
+  /**
+   * @brief overload assignment operator
+   */
   MotionBehaviorDifferential&
     operator=(const MotionBehaviorDifferential& other) = default;
 

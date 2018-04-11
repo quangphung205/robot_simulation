@@ -33,7 +33,6 @@ Arena::Arena(const struct arena_params *const params)
 }
 
 void Arena::addEntitiesToArena(const struct arena_params *const params) {
-
   for (size_t i = 0; i < params->n_fear_robots; i++)
     AddRobot(kFearRobot);
   for (size_t i = 0; i < params->n_aggressive_robots; i++)
@@ -73,8 +72,7 @@ void Arena::AddRobot(EntityType robot_type) {
   if (robot_ != NULL) {
     entities_.push_back(robot_);
     mobile_entities_.push_back(robot_);
-  }
-  else {
+  } else {
     std::cout << "Cannot create robot\n";
   }
 }
@@ -82,7 +80,6 @@ void Arena::AddRobot(EntityType robot_type) {
 void Arena::AddEntity(EntityType type, int quantity) {
   for (int i = 0; i < quantity; i++) {
     bool isColliding = false;
-    //auto* tmp = factory_->CreateEntity(type);
     ArenaEntity *tmp = NULL;
     do {
       isColliding = false;
@@ -91,11 +88,9 @@ void Arena::AddEntity(EntityType type, int quantity) {
         if (tmp != NULL && ent != NULL && IsColliding2(tmp, ent)) {
           isColliding = true;
           delete tmp;
-          //auto *tmp = factory_->CreateEntity(type);
           break;
         }
       }
-
     } while (isColliding);
 
     if (tmp != NULL) {
@@ -113,9 +108,6 @@ void Arena::Reset() {
   if (factory_ != NULL)
     delete factory_;
 
-  //entities_.clear();
-  //mobile_entities_.clear();
-  //observers_.clear();
   entities_.erase(entities_.begin(), entities_.end());
   mobile_entities_.erase(mobile_entities_.begin(), mobile_entities_.end());
   observers_.erase(observers_.begin(), observers_.end());
@@ -139,7 +131,6 @@ void Arena::AdvanceTime(double dt) {
 void Arena::UpdateEntitiesTimestep() {
   for (auto ent : entities_) {
     if (ent->get_type() == kLight || ent->get_type() == kFood) {
-      //std::cout << observers_.size() << std::endl;
       state_.ent_ = ent;
       notify();
     }
@@ -173,7 +164,6 @@ void Arena::UpdateEntitiesTimestep() {
             continue;
           } else {
             AdjustEntityOverlap(ent1, ent2);
-            //robot_->HandleCollision(ent2->get_type(), ent2);
             ent1->HandleCollision(ent2->get_type(), ent2);
           }
         } else {  // ent1 is an light

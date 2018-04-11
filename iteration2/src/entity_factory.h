@@ -11,7 +11,6 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
 #include "src/food.h"
 #include "src/arena.h"
 #include "src/common.h"
@@ -47,14 +46,26 @@ class EntityFactory {
    *
    */
   EntityFactory();
-  EntityFactory(Arena *arena) : arena_(arena) { srand(time(nullptr)); }
+
+  /**
+   * @brief EntityFactory constructor.
+   *
+   */
+  explicit EntityFactory(Arena *arena) : arena_(arena) { srand(time(nullptr)); }
 
   /**
    * @brief Default destructor.
    */
   virtual ~EntityFactory() = default;
 
+  /**
+   * @brief overload assignment operator
+   */
   EntityFactory &operator=(const EntityFactory &other) = delete;
+
+  /**
+   * @brief overload assignment operator
+   */
   EntityFactory(const EntityFactory &other) = delete;
 
   /**

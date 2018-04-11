@@ -41,6 +41,13 @@ struct Pose {
    */
   Pose(double in_x, double in_y) : x(in_x), y(in_y) {}
 
+  /**
+   * @brief Constructor
+   *
+   * @param in_x The X component of the Pose.
+   * @param in_y The Y component of the Pose.
+   * @param in_theta The Theta component of the Pose
+   */
   Pose(double in_x, double in_y, double in_theta)
       : x(in_x),
         y(in_y),
