@@ -321,4 +321,8 @@ void Arena::notify() {
   }
 }
 
+void Arena::UpdateArena(__unused const struct arena_params *params) {
+
+}
+
 NAMESPACE_END(csci3081);

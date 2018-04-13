@@ -30,6 +30,7 @@
 // arena
 #define N_FOODS 4
 #define N_LIGHTS 4
+#define N_ROBOTS 10
 #define N_FEAR_ROBOTS 5
 #define N_AGGRESSIVE_ROBOTS 0
 #define N_EXPLORE_ROBOTS 5

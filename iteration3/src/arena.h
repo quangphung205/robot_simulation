@@ -211,6 +211,12 @@ class Arena : public Subject{
    */
   void notify() override;
 
+  /**
+   * @brief Update the entire arena
+   *
+   * @param params arena parameters
+   */
+  void UpdateArena(__unused const struct arena_params *params);
  private:
   /**
    * @brief Print info of all entities
@@ -236,6 +242,14 @@ class Arena : public Subject{
 
   // A subset of the entities -- only those that can move (only Robot for now).
   std::vector<class ArenaMobileEntity *> mobile_entities_;
+
+  // number of robots
+  //int num_robots_;
+
+  // number of lights
+  //int num_lights_;
+
+  // number of foods;
 
   // win/lose/playing state
   int game_status_;

@@ -60,7 +60,7 @@ class GraphicsArenaViewer : public GraphicsApp {
    * @param params A arena_params passed down from main.cc for the
    * initialization of the Arena and the entities therein.
    */
-  explicit GraphicsArenaViewer(const struct arena_params *const params,
+  explicit GraphicsArenaViewer(struct arena_params *const params,
                                Arena *arena, Controller *controller);
 
   /**
@@ -206,6 +206,12 @@ class GraphicsArenaViewer : public GraphicsApp {
    */
   GraphicsArenaViewer(const GraphicsArenaViewer &other) = delete;
 
+  /**
+   * @brief Update graphics_arena_viewer after user selection
+   *
+   * @param arena new arena instances
+   */
+  void UpdateArena(Arena *arena) { arena_ = arena;}
  private:
   void DrawArena(NVGcontext *ctx);
   /**

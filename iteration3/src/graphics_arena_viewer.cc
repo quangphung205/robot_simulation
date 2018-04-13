@@ -23,25 +23,119 @@ NAMESPACE_BEGIN(csci3081);
  * Constructors/Destructor
  ******************************************************************************/
 GraphicsArenaViewer::GraphicsArenaViewer(
-    const struct arena_params *const params,
+    struct arena_params *const params,
     Arena * arena, Controller * controller) :
     GraphicsApp(
         params->x_dim + GUI_MENU_WIDTH + GUI_MENU_GAP * 2,
+        //params->x_dim + 200,
         params->y_dim,
-        "Robot Simulation"),
+        "Robot simulation"),
     controller_(controller),
     arena_(arena) {
+  //nanogui::Screen *scr = new nanogui::Screen(Eigen::Vector2i(1024, 768), "Testing");
   auto *gui = new nanogui::FormHelper(screen());
+  //auto *gui = new nanogui::FormHelper(scr);
   nanogui::ref<nanogui::Window> window =
       gui->addWindow(
-          Eigen::Vector2i(10 + GUI_MENU_GAP, 10),
+          //Eigen::Vector2i(10 + GUI_MENU_GAP, 10),
+          Eigen::Vector2i(params->x_dim, 0),
           "Menu");
+  //window->setSize(Eigen::Vector2i(2400, 1500));
+  // GUI configuration
+  // vvvvvvvvvvvv    ADDED THIS ONE LINE to register the window  vvvvvvvvvvvv
+  // gui->addGroup creates a heading within the window
+  window->setLayout(new nanogui::GroupLayout());
+  // End of GUI configuration
 
   gui->addGroup("Simulation Control");
   playing_button_ =
     gui->addButton(
       "Play",
       std::bind(&GraphicsArenaViewer::OnPlayingBtnPressed, this));
+
+  // Without fixing the width, the button will span the entire window
+  playing_button_->setFixedWidth(100);
+
+  // vvvvvvvvvv  ADDED BELOW HERE (from nanogui example1.cc)   vvvvvvvvvvvvvvvvvvvvvvv
+
+  gui->addGroup("Arena Configuration");
+
+  // Creating a panel impacts the layout. Widgets, sliders, buttons can be
+  // assigned to either the window or the panel.
+  nanogui::Widget *panel = new nanogui::Widget(window);
+
+  // *************** SLIDER 1 ************************//
+  new nanogui::Label(panel, "Number of Robots", "sans-bold");
+  nanogui::Slider *slider = new nanogui::Slider(panel);
+  // The starting value (range is from 0 to 1)
+  // Note that below the displayed value is 10* slider value.
+  slider->setValue(0.5f);
+  slider->setFixedWidth(100);
+  slider->setRange(std::make_pair(0.1f, 1.0f));
+
+  // Display the corresponding value of the slider in this textbox
+  nanogui::TextBox *textBox = new nanogui::TextBox(panel);
+  textBox->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox->setFontSize(20);
+  textBox->setValue("5");
+
+  // This is the lambda function called while the user is moving the slider
+  slider->setCallback(
+    [textBox](float value) {
+      textBox->setValue(std::to_string(int(value*10)));
+    }
+  );
+  // This is the lambda function called once the user is no longer manipulating the slider.
+  // Note robot_count_ is set, which is a graphics_arena_ variable in this version, although
+  // you should communicate that value to the controller so that it can configure the Arena.
+  //int robot_count_;
+  slider->setFinalCallback(
+    [&](float value) {
+      //robot_count_ = int(value*10);
+      params->n_robots = int(value * 10);
+      std::cout << "Final slider value: " << value;
+      //std::cout << " robot " << robot_count_ << std::endl;
+      std::cout << " robot " << params->n_robots << std::endl;
+    }
+  );
+
+  // *************** SLIDER 2 ************************//
+  new nanogui::Label(panel, "Number of Lights", "sans-bold");
+  nanogui::Slider *slider2 = new nanogui::Slider(panel);
+  slider2->setValue(0.0f);
+  slider2->setFixedWidth(100);
+  //textBox->setUnits("%");
+
+  nanogui::TextBox *textBox2 = new nanogui::TextBox(panel);
+  textBox2->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox2->setFontSize(20);
+  textBox2->setValue("0");
+  //textBox2->setAlignment(nanogui::TextBox::Alignment::Right);
+
+  slider2->setCallback(
+    [textBox2](float value) {
+      textBox2->setValue(std::to_string(int(value*5)));
+    }
+  );
+
+  slider2->setFinalCallback(
+    [&](float value) {
+      //robot_count_ = int(value*5);
+      params->n_lights = int(value * 5);
+      std::cout << "Final slider2 value: " << value;
+      //std::cout << " robot " << robot_count_ << std::endl;
+      std::cout << " lights " << params->n_lights << std::endl;
+    }
+  );
+
+  // Lays out all the components with "15" units of inbetween spacing
+  panel->setLayout(new nanogui::BoxLayout(nanogui::Orientation::Vertical, nanogui::Alignment::Middle, 0, 15));
+
+  // ^^^^^^^^^^^^^^^^^^^^^^    ADDED TO HERE (modification of nanogui example1.cc)  ^^^^^^^^^^^^^^^^^^^^^^^^
+
+  screen()->performLayout();
+  // End of GUI configuration
+
   gui->addButton("New game",
              std::bind(&GraphicsArenaViewer::OnNewGameBtnPressed, this));
   game_status_button_ = gui->addGroup("Game Status: Playing");

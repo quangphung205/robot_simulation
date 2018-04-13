@@ -32,6 +32,7 @@ Controller::Controller() : last_dt(0) {
   // Start up the graphics (which creates the arena).
   // Run() will enter the nanogui::mainloop().
   viewer_ = new GraphicsArenaViewer(&aparams, arena_, this);
+  //arena_ = new Arena(&aparams);
 }
 
 void Controller::Run() { viewer_->Run(); }
