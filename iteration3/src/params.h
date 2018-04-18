@@ -39,6 +39,7 @@
 #define ARENA_X_DIM X_DIM
 #define ARENA_Y_DIM Y_DIM
 #define COLLISION_TOLERANCE 0.0005
+#define RATIO 0.5
 
 // game status
 #define WON 0
@@ -46,6 +47,7 @@
 #define PLAYING 2
 #define PAUSING 3
 #define STOPPED 4
+#define NEWGAME 5
 
 // entity
 #define DEFAULT_POSE \
@@ -104,5 +106,7 @@
 #define RIGHT_SIDE 1
 #define ON 1
 #define OFF 0
+#define SENSOR_SENSITIVITY 1.006
+#define DISTANCE_SENSITIVITY 1010
 
 #endif  // SRC_PARAMS_H_

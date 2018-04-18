@@ -21,18 +21,22 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-Arena::Arena(const struct arena_params *const params)
+Arena::Arena(struct arena_params *params)
     : Subject(),
       x_dim_(params->x_dim),
       y_dim_(params->y_dim),
       factory_(new EntityFactory(this)),
       entities_(),
       mobile_entities_(),
-      game_status_(PAUSING) {
-  addEntitiesToArena(params);
+      game_status_(NEWGAME),
+      params_(params) {
+  addEntitiesToArena(params_);
 }
 
-void Arena::addEntitiesToArena(const struct arena_params *const params) {
+void Arena::addEntitiesToArena(struct arena_params *params) {
+  params->n_fear_robots = static_cast<int>(params->n_robots * params->ratio_);
+  params->n_explore_robots = params->n_robots - params->n_fear_robots;
+
   for (size_t i = 0; i < params->n_fear_robots; i++)
     AddRobot(kFearRobot);
   for (size_t i = 0; i < params->n_aggressive_robots; i++)
@@ -42,7 +46,7 @@ void Arena::addEntitiesToArena(const struct arena_params *const params) {
   for (size_t i = 0; i < params->n_love_robots; i++)
     AddRobot(kLoveRobot);
 
-  AddEntity(kFood, params->n_foods);
+  AddEntity(kFood, params->n_foods);  
   AddEntity(kLight, params->n_lights);
 }
 
@@ -112,11 +116,11 @@ void Arena::Reset() {
   mobile_entities_.erase(mobile_entities_.begin(), mobile_entities_.end());
   observers_.erase(observers_.begin(), observers_.end());
 
-  struct arena_params params;
+  //struct arena_params params;
   // initialize new objects
   factory_ = new EntityFactory(this);
-  addEntitiesToArena(&params);
-  game_status_ = PAUSING;
+  addEntitiesToArena(params_);
+  game_status_ = NEWGAME;
 } /* reset() */
 
 // The primary driver of simulation movement. Called from the Controller
@@ -295,7 +299,10 @@ void Arena::AcceptCommand(Communication com) {
       game_status_ = PAUSING;
       break;
     case(kReset): {
-      Reset();
+      if (game_status_ == NEWGAME || game_status_ == STOPPED) {
+        Reset();
+        game_status_ = NEWGAME;
+      }
       break;
     }
     case(kNone):
@@ -321,8 +328,11 @@ void Arena::notify() {
   }
 }
 
-void Arena::UpdateArena(__unused const struct arena_params *params) {
-
+void Arena::UpdateSensitivity() {
+  for (Observer *obs : observers_) {
+    obs->UpdateSensitivity(params_->base_sensitivity_,
+                           params_->distance_sensitivity_);
+  }
 }
 
 NAMESPACE_END(csci3081);

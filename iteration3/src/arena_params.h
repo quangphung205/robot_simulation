@@ -39,6 +39,9 @@ struct arena_params {
   size_t n_love_robots{N_LOVE_ROBOTS};
   uint x_dim{ARENA_X_DIM};
   uint y_dim{ARENA_Y_DIM};
+  double ratio_{RATIO};
+  double base_sensitivity_{SENSOR_SENSITIVITY};
+  double distance_sensitivity_{DISTANCE_SENSITIVITY};
 };
 
 NAMESPACE_END(csci3081);

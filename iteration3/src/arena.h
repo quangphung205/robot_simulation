@@ -50,7 +50,7 @@ class Arena : public Subject{
    *
    * Initialize all private variables and entities.
    */
-  explicit Arena(const struct arena_params *const params);
+  explicit Arena(struct arena_params *params);
 
   /**
    * @brief Arena's destructor. `delete` all entities created.
@@ -211,12 +211,8 @@ class Arena : public Subject{
    */
   void notify() override;
 
-  /**
-   * @brief Update the entire arena
-   *
-   * @param params arena parameters
-   */
-  void UpdateArena(__unused const struct arena_params *params);
+  void UpdateSensitivity();
+
  private:
   /**
    * @brief Print info of all entities
@@ -228,7 +224,7 @@ class Arena : public Subject{
    *
    * @param params arena environment
    */
-  void addEntitiesToArena(const struct arena_params *const params);
+  void addEntitiesToArena(struct arena_params *params);
 
   // Dimensions of graphics window inside which entities must operate
   double x_dim_;
@@ -244,15 +240,20 @@ class Arena : public Subject{
   std::vector<class ArenaMobileEntity *> mobile_entities_;
 
   // number of robots
-  //int num_robots_;
+  int num_robots_{0};
 
   // number of lights
-  //int num_lights_;
+  int num_lights_{0};
 
   // number of foods;
+  int num_foods_{0};
 
   // win/lose/playing state
   int game_status_;
+
+ public:
+  // arena params
+  struct arena_params * params_;
 };
 
 NAMESPACE_END(csci3081);

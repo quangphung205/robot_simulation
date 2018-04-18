@@ -60,7 +60,7 @@ class GraphicsArenaViewer : public GraphicsApp {
    * @param params A arena_params passed down from main.cc for the
    * initialization of the Arena and the entities therein.
    */
-  explicit GraphicsArenaViewer(struct arena_params *const params,
+  explicit GraphicsArenaViewer(struct arena_params *params,
                                Arena *arena, Controller *controller);
 
   /**
@@ -92,6 +92,13 @@ class GraphicsArenaViewer : public GraphicsApp {
    * new postion for all entities and reset lives.
    */
   void OnNewGameBtnPressed();
+
+  /**
+   * @brief Handle the user pressing the food button on the GUI.
+   *
+   * This will turn on/off food in the arena
+   */
+  void OnFoodBtnPressed();
 
   /**
    * @brief Called each time the mouse moves on the screen within the GUI
@@ -245,6 +252,10 @@ class GraphicsArenaViewer : public GraphicsApp {
 
   // label
   nanogui::Label *game_status_button_{nullptr};
+
+  // food on/off button
+  nanogui::Button *food_button_{nullptr};
+  bool has_food_{true};
 };
 
 NAMESPACE_END(csci3081);
