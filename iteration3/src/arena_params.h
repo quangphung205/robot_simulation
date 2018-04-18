@@ -32,12 +32,16 @@ NAMESPACE_BEGIN(csci3081);
 struct arena_params {
   size_t n_lights{N_LIGHTS};
   size_t n_foods{N_FOODS};
+  size_t n_robots{N_ROBOTS};
   size_t n_fear_robots{N_FEAR_ROBOTS};
   size_t n_aggressive_robots{N_AGGRESSIVE_ROBOTS};
   size_t n_explore_robots{N_EXPLORE_ROBOTS};
   size_t n_love_robots{N_LOVE_ROBOTS};
   uint x_dim{ARENA_X_DIM};
   uint y_dim{ARENA_Y_DIM};
+  double ratio_{RATIO};
+  double base_sensitivity_{SENSOR_SENSITIVITY};
+  double distance_sensitivity_{DISTANCE_SENSITIVITY};
 };
 
 NAMESPACE_END(csci3081);

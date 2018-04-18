@@ -183,6 +183,16 @@ class Sensor : public Observer{
     pose_.y = iny;
   }
 
+  /**
+   * @brief Update sensitivity of the sensor
+   *
+   * @param bs base sensitivity
+   * @param ds distance sensitivity
+   */
+  void UpdateSensitivity(const double bs, const double ds) override {
+    base_sensitivity_ = bs;
+    dist_sensitivity_ = ds;
+  }
  protected:
   State state_;
   Robot * host_{NULL};
@@ -192,6 +202,8 @@ class Sensor : public Observer{
   int wheel_type_{LEFT_WHEEL};  // left or right wheel
   int connection_type_{PLUS_CONNECTION};  // + or -
   int side_{LEFT_SIDE};
+  double base_sensitivity_{SENSOR_SENSITIVITY};
+  double dist_sensitivity_{DISTANCE_SENSITIVITY};
 };
 
 NAMESPACE_END(csci3081);

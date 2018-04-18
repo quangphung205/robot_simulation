@@ -41,6 +41,14 @@ class Observer {
   virtual void Update(const State) {}
 
   /**
+   * @brief update sensitivity of the sensor
+   *
+   * @param bs base sensitivity
+   * @param ds distance sensitivity
+   */
+  virtual void UpdateSensitivity(const double, const double) {}
+
+  /**
    * @brief Default destructor
    */
   virtual ~Observer() {}

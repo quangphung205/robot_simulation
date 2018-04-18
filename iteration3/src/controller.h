@@ -75,6 +75,7 @@ class Controller {
   double last_dt{0};
   Arena* arena_{nullptr};
   GraphicsArenaViewer* viewer_{nullptr};
+  struct arena_params *params_{nullptr};
 };
 
 NAMESPACE_END(csci3081);

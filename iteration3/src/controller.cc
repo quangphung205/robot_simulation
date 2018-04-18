@@ -21,17 +21,21 @@ NAMESPACE_BEGIN(csci3081);
 
 Controller::Controller() : last_dt(0) {
   // Initialize default properties for various arena entities
-  arena_params aparams;
-  aparams.n_lights = N_LIGHTS;
-  aparams.n_foods = N_FOODS;
-  aparams.x_dim = ARENA_X_DIM;
-  aparams.y_dim = ARENA_Y_DIM;
+  //arena_params aparams;
+  params_ = new arena_params();
+  //aparams.n_lights = N_LIGHTS;
+  //aparams.n_foods = N_FOODS;
+  //aparams.x_dim = ARENA_X_DIM;
+  //aparams.y_dim = ARENA_Y_DIM;
 
-  arena_ = new Arena(&aparams);
+  //arena_ = new Arena(&aparams);
+  arena_ = new Arena(params_);
 
   // Start up the graphics (which creates the arena).
   // Run() will enter the nanogui::mainloop().
-  viewer_ = new GraphicsArenaViewer(&aparams, arena_, this);
+  //viewer_ = new GraphicsArenaViewer(&aparams, arena_, this);
+  viewer_ = new GraphicsArenaViewer(params_, arena_, this);
+  //arena_ = new Arena(&aparams);
 }
 
 void Controller::Run() { viewer_->Run(); }
@@ -71,8 +75,11 @@ Communication Controller::ConvertComm(Communication com) {
       return kPlay;
     case (kPause) :
       return kPause;
-    case (kNewGame) :
+    case (kNewGame) : {
       return kReset;
+    }
+
+
     default: return kNone;
   }
 }
