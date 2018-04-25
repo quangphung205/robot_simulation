@@ -22,7 +22,7 @@ void FoodSensor::calculateReading() {
                      + std::pow(pose.y - pose_.y, 2)) - ent_rad;
 
   //reading_ = 1010/(std::pow(1.006, distance));
-  reading_ = dist_sensitivity_/(std::pow(base_sensitivity_, distance));
+  reading_ = coefficient_sensitivity_/(std::pow(base_sensitivity_, distance));
   if (reading_ > MAX_READ) {
     reading_ = MAX_READ;
   }
@@ -38,20 +38,20 @@ void FoodSensor::Update(const State state) {
     state_ = state;
     calculateReading();
     if (connection_type_ == PLUS_CONNECTION) {
-      velocity_delta_ = reading_ / 200;
+      updated_velocity_ = reading_ / 200;
     } else {
-      velocity_delta_ = (MAX_READ - reading_) / 200;
+      updated_velocity_ = (MAX_READ - reading_) / 200;
     }
 
-    if (velocity_delta_ < ROBOT_MIN_SPEED) {
-      velocity_delta_ += ROBOT_MIN_SPEED;
+    if (updated_velocity_ < ROBOT_MIN_SPEED) {
+      updated_velocity_ += ROBOT_MIN_SPEED;
     }
 
     if (host_->get_old_angle() <= 0) {
       if (wheel_type_ == LEFT_WHEEL) {
-        host_->UpdateLeftWheel(velocity_delta_);
+        host_->UpdateLeftWheel(updated_velocity_);
       } else {
-        host_->UpdateRightWheel(velocity_delta_);
+        host_->UpdateRightWheel(updated_velocity_);
       }
     }
   }
