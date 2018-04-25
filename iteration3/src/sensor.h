@@ -86,14 +86,14 @@ class Sensor : public Observer{
    *
    * @return current velocity delta
    */
-  double get_vel_delta() const { return velocity_delta_; }
+  double get_vel_delta() const { return updated_velocity_; }
 
   /**
    * @brief set the velocity delta of the Sensor
    *
    * @param delta new velocity delta
    */
-  void set_vel_delta(double delta) { velocity_delta_ = delta; }
+  void set_vel_delta(double delta) { updated_velocity_ = delta; }
 
   /**
    * @brief get the wheel type of the sensor
@@ -191,19 +191,19 @@ class Sensor : public Observer{
    */
   void UpdateSensitivity(const double bs, const double ds) override {
     base_sensitivity_ = bs;
-    dist_sensitivity_ = ds;
+    coefficient_sensitivity_ = ds;
   }
  protected:
   State state_;
   Robot * host_{NULL};
   double reading_{0};
-  double velocity_delta_{0};
+  double updated_velocity_{0};
   Pose pose_{0, 0};
   int wheel_type_{LEFT_WHEEL};  // left or right wheel
   int connection_type_{PLUS_CONNECTION};  // + or -
   int side_{LEFT_SIDE};
   double base_sensitivity_{SENSOR_SENSITIVITY};
-  double dist_sensitivity_{DISTANCE_SENSITIVITY};
+  double coefficient_sensitivity_{DISTANCE_SENSITIVITY};
 };
 
 NAMESPACE_END(csci3081);
