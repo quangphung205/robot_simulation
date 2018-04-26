@@ -1,0 +1,144 @@
+\hypertarget{classObserver}{}\section{Observer Class Reference}
+\label{classObserver}\index{Observer@{Observer}}
+
+
+Class to implement the \hyperlink{classObserver}{Observer} Pattern.  
+
+
+
+
+{\ttfamily \#include $<$observer.\+h$>$}
+
+
+
+Inheritance diagram for Observer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{classObserver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Observer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{classObserver__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classObserver_af1d4b6669a3ad3bf263794283502762e}{Observer} (\hyperlink{classSubject}{Subject} $\ast$s)\hypertarget{classObserver_af1d4b6669a3ad3bf263794283502762e}{}\label{classObserver_af1d4b6669a3ad3bf263794283502762e}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classObserver_ad2baecd66bea6330488897b57c94d1b4}{Observer} (const \hyperlink{classObserver}{Observer} \&o)\hypertarget{classObserver_ad2baecd66bea6330488897b57c94d1b4}{}\label{classObserver_ad2baecd66bea6330488897b57c94d1b4}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classObserver_ad922369211cf6693c9ab541ab61a92f5}{Update} (const \hyperlink{structState}{State})
+\begin{DoxyCompactList}\small\item\em update the state \end{DoxyCompactList}\item 
+virtual void \hyperlink{classObserver_ab19e32cbf78f39315bd64a3ab98808d9}{Update\+Sensitivity} (const double, const double)
+\begin{DoxyCompactList}\small\item\em update sensitivity of the sensor \end{DoxyCompactList}\item 
+virtual \hyperlink{classObserver_afcc6b67be6c386f2f3d2c363aa59cb47}{$\sim$\+Observer} ()\hypertarget{classObserver_afcc6b67be6c386f2f3d2c363aa59cb47}{}\label{classObserver_afcc6b67be6c386f2f3d2c363aa59cb47}
+
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+\hyperlink{classSubject}{Subject} $\ast$ \hyperlink{classObserver_ad02bd7b2e34b2677e14be8964238bd80}{get\+\_\+subject} ()
+\begin{DoxyCompactList}\small\item\em get the subject \end{DoxyCompactList}\item 
+void \hyperlink{classObserver_a2548ddac97f15c7301bb2b61274974a7}{set\+\_\+subject} (\hyperlink{classSubject}{Subject} $\ast$s)
+\begin{DoxyCompactList}\small\item\em set the subject \end{DoxyCompactList}\item 
+\hyperlink{classObserver}{Observer} \& \hyperlink{classObserver_ae8d8d5e6a4f25f0f8025f0a38c0b78d1}{operator=} (const \hyperlink{classObserver}{Observer} \&other)=default\hypertarget{classObserver_ae8d8d5e6a4f25f0f8025f0a38c0b78d1}{}\label{classObserver_ae8d8d5e6a4f25f0f8025f0a38c0b78d1}
+
+\begin{DoxyCompactList}\small\item\em overload the assignment operator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSubject}{Subject} $\ast$ {\bfseries subject\+\_\+}\hypertarget{classObserver_ab402e35a5251edf4710eb66f329809c8}{}\label{classObserver_ab402e35a5251edf4710eb66f329809c8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class to implement the \hyperlink{classObserver}{Observer} Pattern. 
+
+Sensors will be observers and arena will be the subject 
+
+\subsection{Member Function Documentation}
+\index{Observer@{Observer}!get\+\_\+subject@{get\+\_\+subject}}
+\index{get\+\_\+subject@{get\+\_\+subject}!Observer@{Observer}}
+\subsubsection[{\texorpdfstring{get\+\_\+subject()}{get_subject()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Subject}$\ast$ Observer\+::get\+\_\+subject (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classObserver_ad02bd7b2e34b2677e14be8964238bd80}{}\label{classObserver_ad02bd7b2e34b2677e14be8964238bd80}
+
+
+get the subject 
+
+\begin{DoxyReturn}{Returns}
+current subject 
+\end{DoxyReturn}
+\index{Observer@{Observer}!set\+\_\+subject@{set\+\_\+subject}}
+\index{set\+\_\+subject@{set\+\_\+subject}!Observer@{Observer}}
+\subsubsection[{\texorpdfstring{set\+\_\+subject(\+Subject $\ast$s)}{set_subject(Subject *s)}}]{\setlength{\rightskip}{0pt plus 5cm}void Observer\+::set\+\_\+subject (
+\begin{DoxyParamCaption}
+\item[{{\bf Subject} $\ast$}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classObserver_a2548ddac97f15c7301bb2b61274974a7}{}\label{classObserver_a2548ddac97f15c7301bb2b61274974a7}
+
+
+set the subject 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & new subject \\
+\hline
+\end{DoxyParams}
+\index{Observer@{Observer}!Update@{Update}}
+\index{Update@{Update}!Observer@{Observer}}
+\subsubsection[{\texorpdfstring{Update(const State)}{Update(const State)}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Observer\+::\+Update (
+\begin{DoxyParamCaption}
+\item[{const {\bf State}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{classObserver_ad922369211cf6693c9ab541ab61a92f5}{}\label{classObserver_ad922369211cf6693c9ab541ab61a92f5}
+
+
+update the state 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & new state \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classSensor_ae497b2541ad92dbef53c780b71901aaf}{Sensor}, \hyperlink{classFoodSensor_a1ecad3a783f42a7957fef9748016b1f2}{Food\+Sensor}, and \hyperlink{classLightSensor_a528ac3be8f0881fcdef28bfa2660f10d}{Light\+Sensor}.
+
+\index{Observer@{Observer}!Update\+Sensitivity@{Update\+Sensitivity}}
+\index{Update\+Sensitivity@{Update\+Sensitivity}!Observer@{Observer}}
+\subsubsection[{\texorpdfstring{Update\+Sensitivity(const double, const double)}{UpdateSensitivity(const double, const double)}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Observer\+::\+Update\+Sensitivity (
+\begin{DoxyParamCaption}
+\item[{const double}]{, }
+\item[{const double}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{classObserver_ab19e32cbf78f39315bd64a3ab98808d9}{}\label{classObserver_ab19e32cbf78f39315bd64a3ab98808d9}
+
+
+update sensitivity of the sensor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bs} & base sensitivity \\
+\hline
+{\em ds} & distance sensitivity \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classSensor_a0269a89e5e108e19120d220aaf6159c8}{Sensor}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{observer_8h}{observer.\+h}\end{DoxyCompactItemize}

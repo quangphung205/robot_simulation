@@ -1,0 +1,79 @@
+\hypertarget{classLightSensor}{}\section{Light\+Sensor Class Reference}
+\label{classLightSensor}\index{Light\+Sensor@{Light\+Sensor}}
+
+
+Class represents light sensor for the \hyperlink{classRobot}{Robot}.  
+
+
+
+
+{\ttfamily \#include $<$light\+\_\+sensor.\+h$>$}
+
+
+
+Inheritance diagram for Light\+Sensor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classLightSensor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Light\+Sensor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{classLightSensor__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLightSensor_aa7ea18f2a99383fe7d4f77ea74259d08}{Light\+Sensor} (\hyperlink{classSubject}{Subject} $\ast$s)\hypertarget{classLightSensor_aa7ea18f2a99383fe7d4f77ea74259d08}{}\label{classLightSensor_aa7ea18f2a99383fe7d4f77ea74259d08}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classLightSensor_af52a3172ca7de3921249f1a0bfd92c3e}{Light\+Sensor} (\hyperlink{classSubject}{Subject} $\ast$s, int w\+Type, int c\+Type)\hypertarget{classLightSensor_af52a3172ca7de3921249f1a0bfd92c3e}{}\label{classLightSensor_af52a3172ca7de3921249f1a0bfd92c3e}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classLightSensor_a528ac3be8f0881fcdef28bfa2660f10d}{Update} (const \hyperlink{structState}{State} state) override
+\begin{DoxyCompactList}\small\item\em udpate the state of the sensor \end{DoxyCompactList}\item 
+void \hyperlink{classLightSensor_aebba8c2d9442d15b6cf80966a4c5bf77}{calculate\+Reading} () override\hypertarget{classLightSensor_aebba8c2d9442d15b6cf80966a4c5bf77}{}\label{classLightSensor_aebba8c2d9442d15b6cf80966a4c5bf77}
+
+\begin{DoxyCompactList}\small\item\em calculate the reading \end{DoxyCompactList}\item 
+void \hyperlink{classLightSensor_a3ae50dca97aa72dd3f9280767ed702f2}{Update\+Position} () override\hypertarget{classLightSensor_a3ae50dca97aa72dd3f9280767ed702f2}{}\label{classLightSensor_a3ae50dca97aa72dd3f9280767ed702f2}
+
+\begin{DoxyCompactList}\small\item\em udpate the position of the sensor based on the robot position \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class represents light sensor for the \hyperlink{classRobot}{Robot}. 
+
+\subsection{Member Function Documentation}
+\index{Light\+Sensor@{Light\+Sensor}!Update@{Update}}
+\index{Update@{Update}!Light\+Sensor@{Light\+Sensor}}
+\subsubsection[{\texorpdfstring{Update(const State state) override}{Update(const State state) override}}]{\setlength{\rightskip}{0pt plus 5cm}void Light\+Sensor\+::\+Update (
+\begin{DoxyParamCaption}
+\item[{const {\bf State}}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classLightSensor_a528ac3be8f0881fcdef28bfa2660f10d}{}\label{classLightSensor_a528ac3be8f0881fcdef28bfa2660f10d}
+
+
+udpate the state of the sensor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & new state \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classObserver_ad922369211cf6693c9ab541ab61a92f5}{Observer}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{light__sensor_8h}{light\+\_\+sensor.\+h}\item 
+src/light\+\_\+sensor.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,5 @@
+<map id="Observer" name="Observer">
+<area shape="rect" id="node2" href="$classSensor.html" title="Class to implement the Observer Pattern. " alt="" coords="77,80,140,107"/>
+<area shape="rect" id="node3" href="$classFoodSensor.html" title="Class represents food sensor for the Robot. " alt="" coords="5,155,97,181"/>
+<area shape="rect" id="node4" href="$classLightSensor.html" title="Class represents light sensor for the Robot. " alt="" coords="122,155,213,181"/>
+</map>

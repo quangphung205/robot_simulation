@@ -1,0 +1,4 @@
+<map id="ArenaImmobileEntity" name="ArenaImmobileEntity">
+<area shape="rect" id="node3" href="$classFood.html" title="Class representing a immobile Food within the Arena. " alt="" coords="51,155,102,181"/>
+<area shape="rect" id="node2" href="$classArenaEntity.html" title="A Food class from which all Arena entities inherit. " alt="" coords="31,5,122,32"/>
+</map>

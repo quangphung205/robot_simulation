@@ -1,0 +1,6 @@
+<map id="Subject" name="Subject">
+<area shape="rect" id="node2" href="$structState.html" title="Class contains all information about the stimulus. " alt="" coords="49,184,102,211"/>
+<area shape="rect" id="node3" href="$classArenaEntity.html" title="A Food class from which all Arena entities inherit. " alt="" coords="30,95,121,121"/>
+<area shape="rect" id="node4" href="$structPose.html" title="A simple representation of the position/orientation of an entity within the Arena. " alt="" coords="5,5,57,32"/>
+<area shape="rect" id="node5" href="$structRgbColor.html" title="Struct representing a rgb_color. " alt="" coords="82,5,159,32"/>
+</map>
