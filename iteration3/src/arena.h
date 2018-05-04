@@ -159,7 +159,7 @@ class Arena : public Subject{
   * @brief Move the entity to the edge of the wall without overlap.
   * Without this, entities tend to get stuck in walls.
   **/
-  void AdjustWallOverlap(ArenaMobileEntity * const ent, EntityType wall);
+  void AdjustWallOverlap(ArenaMobileEntity * const ent, EntityType object);
 
 
   /**

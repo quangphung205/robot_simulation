@@ -30,13 +30,6 @@ void MotionBehaviorDifferential::UpdatePose(double dt, WheelVelocity vel) {
   if (std::fabs(temp_vel_.left - temp_vel_.right) > 0) { /* general case */
     struct Pose icc = calc_icc(pose);
     // This can be used for debugging to improve motion control
-    if (0) {
-      printf("radius: %f\n", radius_);
-      printf("vr: %f vl: %f Omega: %f\n",
-        temp_vel_.right, temp_vel_.left, omega());
-      printf("icc radius: %f\n", icc_radius());
-      printf("icc: %f %f\n", icc.x, icc.y);
-    }
     // Foodd on differential drive model cited in the header.
     x_prime = (pose.x - icc.x) * std::cos(omega() * dt) +
               (pose.y - icc.y) * -std::sin(omega() * dt) + icc.x;

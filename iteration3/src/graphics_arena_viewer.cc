@@ -31,12 +31,10 @@ GraphicsArenaViewer::GraphicsArenaViewer(
         "Robot simulation"),
     controller_(controller),
     arena_(arena) {
-
   auto *gui = new nanogui::FormHelper(screen());
 
   nanogui::ref<nanogui::Window> window =
       gui->addWindow(
-          //Eigen::Vector2i(10 + GUI_MENU_GAP, 10),
           Eigen::Vector2i(params->x_dim, 0),
           "Menu");
 
@@ -48,7 +46,7 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 
   gui->addGroup("Simulation Control");
 
-  // vvvvvvvvvv  ADDED BELOW HERE (from nanogui example1.cc)   vvvvvvvvvvvvvvvvvvvvvvv
+  // vvvvvvvvvv  ADDED BELOW HERE (from nanogui example1.cc)   vvvvvvvvvvvvvvv
 
   gui->addGroup("Arena Configuration");
 
@@ -66,26 +64,27 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   slider->setRange(std::make_pair(0.1f, 1.0f));
 
   // Display the corresponding value of the slider in this textbox
-  nanogui::TextBox *textBox = new nanogui::TextBox(panel);
-  textBox->setFixedSize(nanogui::Vector2i(60, 25));
-  textBox->setFontSize(20);
-  textBox->setValue("10");
+  nanogui::TextBox *text_box = new nanogui::TextBox(panel);
+  text_box->setFixedSize(nanogui::Vector2i(60, 25));
+  text_box->setFontSize(20);
+  text_box->setValue("10");
 
   // This is the lambda function called while the user is moving the slider
   slider->setCallback(
-    [textBox](float value) {
-      textBox->setValue(std::to_string(int(value*10)));
-    }
-  );
-  // This is the lambda function called once the user is no longer manipulating the slider.
-  // Note robot_count_ is set, which is a graphics_arena_ variable in this version, although
-  // you should communicate that value to the controller so that it can configure the Arena.
-  //int robot_count_;
+    [text_box](float value) {
+      text_box->setValue(std::to_string(static_cast<int>(value*10)));
+    });
+  // This is the lambda function called once the user is no longer manipulating
+  // the slider.
+  // Note robot_count_ is set, which is a graphics_arena_ variable in this
+  // version, although
+  // you should communicate that value to the controller so that it can
+  // configure the Arena.
+
   slider->setFinalCallback(
     [&](float value) {
-      arena_->params_->n_robots = int(value * 10);
-    }
-  );
+      arena_->params_->n_robots = static_cast<int>(value * 10);
+    });
 
   // *************** SLIDER 2 ************************//
   new nanogui::Label(panel, "Number of Lights", "sans-bold");
@@ -93,23 +92,20 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   slider2->setValue(0.8f);
   slider2->setFixedWidth(100);
 
-  nanogui::TextBox *textBox2 = new nanogui::TextBox(panel);
-  textBox2->setFixedSize(nanogui::Vector2i(60, 25));
-  textBox2->setFontSize(20);
-  textBox2->setValue("4");
+  nanogui::TextBox *text_box2 = new nanogui::TextBox(panel);
+  text_box2->setFixedSize(nanogui::Vector2i(60, 25));
+  text_box2->setFontSize(20);
+  text_box2->setValue("4");
 
   slider2->setCallback(
-    [textBox2](float value) {
-      textBox2->setValue(std::to_string(int(value*5)));
-    }
-  );
+    [text_box2](float value) {
+      text_box2->setValue(std::to_string(static_cast<int>(value*5)));
+    });
 
   slider2->setFinalCallback(
     [&](float value) {
-      //robot_count_ = int(value*5);
-      arena_->params_->n_lights = int(value * 5);
-    }
-  );
+      arena_->params_->n_lights = static_cast<int>(value * 5);
+    });
 
   // *************** SLIDER 3 ************************//
   new nanogui::Label(panel, "Robot ratio", "sans-bold");
@@ -117,24 +113,22 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   slider3->setValue(0.5f);
   slider3->setFixedWidth(100);
 
-  nanogui::TextBox *textBox3 = new nanogui::TextBox(panel);
-  textBox3->setFixedSize(nanogui::Vector2i(60, 25));
-  textBox3->setFontSize(20);
-  textBox3->setValue("0.5");
+  nanogui::TextBox *text_box3 = new nanogui::TextBox(panel);
+  text_box3->setFixedSize(nanogui::Vector2i(60, 25));
+  text_box3->setFontSize(20);
+  text_box3->setValue("0.5");
 
   slider3->setCallback(
-    [textBox3](float value) {
+    [text_box3](float value) {
       char buff[4];
-      sprintf(buff, "%.1f", value);
-      textBox3->setValue(buff);
-    }
-  );
+      snprintf(buff, sizeof(buff), "%.1f", value);
+      text_box3->setValue(buff);
+    });
 
   slider3->setFinalCallback(
     [&](float value) {
       arena_->params_->ratio_ = value;
-    }
-  );
+    });
 
   // *************** SLIDER 4 ************************//
   new nanogui::Label(panel, "Sensor sensitivity", "sans-bold");
@@ -142,25 +136,23 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   slider4->setValue(0.503f);
   slider4->setFixedWidth(100);
 
-  nanogui::TextBox *textBox4 = new nanogui::TextBox(panel);
-  textBox4->setFixedSize(nanogui::Vector2i(60, 25));
-  textBox4->setFontSize(20);
-  textBox4->setValue("1.006");
+  nanogui::TextBox *text_box4 = new nanogui::TextBox(panel);
+  text_box4->setFixedSize(nanogui::Vector2i(60, 25));
+  text_box4->setFontSize(20);
+  text_box4->setValue("1.006");
 
   slider4->setCallback(
-    [textBox4](float value) {
+    [text_box4](float value) {
       char buff[10];
-      sprintf(buff, "%.3f", value * 2);
-      textBox4->setValue(buff);
-    }
-  );
+      snprintf(buff, sizeof(buff), "%.3f", value * 2);
+      text_box4->setValue(buff);
+    });
 
   slider4->setFinalCallback(
     [&](float value) {
       arena_->params_->base_sensitivity_ = value * 2;
       arena_->UpdateSensitivity();
-    }
-  );
+    });
 
   // add food button
   food_button_ =
@@ -174,52 +166,47 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   slider5->setValue(0.8f);
   slider5->setFixedWidth(100);
 
-  nanogui::TextBox *textBox5 = new nanogui::TextBox(panel);
-  textBox5->setFixedSize(nanogui::Vector2i(60, 25));
-  textBox5->setFontSize(20);
-  textBox5->setValue("4");
+  nanogui::TextBox *text_box5 = new nanogui::TextBox(panel);
+  text_box5->setFixedSize(nanogui::Vector2i(60, 25));
+  text_box5->setFontSize(20);
+  text_box5->setValue("4");
 
   slider5->setCallback(
-    [textBox5](float value) {
-      textBox5->setValue(std::to_string(int(value*5)));
-    }
-  );
+    [text_box5](float value) {
+      text_box5->setValue(std::to_string(static_cast<int>(value*5)));
+    });
 
   slider5->setFinalCallback(
     [&](float value) {
       if (has_food_) {
-        arena_->params_->n_foods = int(value * 5);        
+        arena_->params_->n_foods = static_cast<int>(value * 5);
       }
-    }
-  );
+    });
 
   // Lays out all the components with "15" units of inbetween spacing
-  panel->setLayout(new nanogui::BoxLayout(nanogui::Orientation::Vertical, nanogui::Alignment::Middle, 0, 15));
+  panel->setLayout(new nanogui::BoxLayout(nanogui::Orientation::Vertical,
+                     nanogui::Alignment::Middle, 0, 15));
 
-  // ^^^^^^^^^^^^^^^^^^^^^^    ADDED TO HERE (modification of nanogui example1.cc)  ^^^^^^^^^^^^^^^^^^^^^^^^
+  // ^^^^^^^^ ADDED TO HERE (modification of nanogui example1.cc)  ^^^^^^
 
   screen()->performLayout();
   // End of GUI configuration
 
-
-  //gui->addButton("Set",
-    //  std::bind(&GraphicsArenaViewer::OnSetBtnPressed, this));
   playing_button_ =
     gui->addButton(
       "Play",
       std::bind(&GraphicsArenaViewer::OnPlayingBtnPressed, this));
 
   // Without fixing the width, the button will span the entire window
-  //playing_button_->setFixedWidth(100);
   gui->addButton("New game",
              std::bind(&GraphicsArenaViewer::OnNewGameBtnPressed, this));
   game_status_button_ = gui->addGroup("Status: Playing");
   screen()->performLayout();
 }
 
-/*******************************************************************************
+/*****************************************************************************
  * Member Functions
- ******************************************************************************/
+ ****************************************************************************/
 
 // This is the primary driver for state change in the arena.
 // It will be called at each iteration of nanogui::mainloop()
@@ -250,11 +237,12 @@ void GraphicsArenaViewer::UpdateSimulation(double dt) {
 void GraphicsArenaViewer::OnPlayingBtnPressed() {
   // Not implemented. Sample code provided to show how to implement.
   if (arena_->get_game_status() == WON
-      || arena_->get_game_status() == LOST)
+      || arena_->get_game_status() == LOST) {
     return;
+  }
 
   Communication key_value = kNone;
-  //if (paused_) {
+
   if (arena_->get_game_status() == NEWGAME
     || arena_->get_game_status() == STOPPED
     || arena_->get_game_status() == PAUSING) {
@@ -285,7 +273,10 @@ void GraphicsArenaViewer::OnNewGameBtnPressed() {
  */
 void GraphicsArenaViewer::OnSpecialKeyDown(int key,
   __unused int scancode, __unused int modifiers) {
-  if (paused_) return;
+  if (paused_) {
+    return;
+  }
+
   Communication key_value = kNone;
     switch (key) {
       case GLFW_KEY_LEFT:
@@ -342,9 +333,9 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgRestore(ctx);
   nvgRestore(ctx);
   nvgSave(ctx);
-  double lTheta = (-40 + robot->get_pose().theta) * M_PI / 180.0;
-  double lx = robot->get_radius() * std::cos(lTheta) + robot->get_pose().x;
-  double ly = robot->get_radius() * std::sin(lTheta) + robot->get_pose().y;
+  double l_theta = (-40 + robot->get_pose().theta) * M_PI / 180.0;
+  double lx = robot->get_radius() * std::cos(l_theta) + robot->get_pose().x;
+  double ly = robot->get_radius() * std::sin(l_theta) + robot->get_pose().y;
   nvgTranslate(ctx,
                static_cast<float>(lx),
                static_cast<float>(ly));
@@ -358,11 +349,11 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   // robot's right sensor
   nvgRestore(ctx);
   nvgSave(ctx);
-  double rTheta = (40 + robot->get_pose().theta) * M_PI / 180.0;
+  double r_theta = (40 + robot->get_pose().theta) * M_PI / 180.0;
   nvgTranslate(ctx,
-               static_cast<float>(robot->get_radius() * std::cos(rTheta)
+               static_cast<float>(robot->get_radius() * std::cos(r_theta)
                   + robot->get_pose().x),
-               static_cast<float>(robot->get_radius() * std::sin(rTheta)
+               static_cast<float>(robot->get_radius() * std::sin(r_theta)
                   + robot->get_pose().y));
 
   nvgBeginPath(ctx);

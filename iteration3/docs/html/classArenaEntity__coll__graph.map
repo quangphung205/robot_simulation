@@ -1,4 +1,0 @@
-<map id="ArenaEntity" name="ArenaEntity">
-<area shape="rect" id="node2" href="$structPose.html" title="A simple representation of the position/orientation of an entity within the Arena. " alt="" coords="5,5,57,32"/>
-<area shape="rect" id="node3" href="$structRgbColor.html" title="Struct representing a rgb_color. " alt="" coords="82,5,159,32"/>
-</map>

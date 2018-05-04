@@ -157,6 +157,8 @@ class Robot : public ArenaMobileEntity {
    */
   void add_sensor(Sensor *s) { sensor_list_.push_back(s); }
 
+  std::vector<Sensor*> get_sensor_list() { return sensor_list_; }
+
   /**
    * @brief get starving status
    *

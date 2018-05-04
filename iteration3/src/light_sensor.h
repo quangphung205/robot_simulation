@@ -33,7 +33,7 @@ class LightSensor : public Sensor {
   /**
    * @brief Default constructor
    */
-  LightSensor(Subject *s, int wType, int cType);
+  LightSensor(Subject *s, int wheel_type, int connect_type);
 
   /**
    * @brief udpate the state of the sensor

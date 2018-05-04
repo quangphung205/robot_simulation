@@ -10,9 +10,10 @@
 
 NAMESPACE_BEGIN(csci3081);
 
-LightSensor::LightSensor(Subject *s, int wType, int cType) : Sensor(s) {
-  wheel_type_ = wType;
-  connection_type_ = cType;
+LightSensor::LightSensor(Subject *s, int wheel_type, int connect_type)
+  : Sensor(s) {
+  wheel_type_ = wheel_type;
+  connection_type_ = connect_type;
 }
 
 void LightSensor::calculateReading() {
@@ -21,7 +22,6 @@ void LightSensor::calculateReading() {
   double distance = std::sqrt(std::pow(pose.x - pose_.x, 2)
                      + std::pow(pose.y - pose_.y, 2)) - ent_rad;
 
-  //reading_ = 1010/(std::pow(1.006, distance));
   reading_ = coefficient_sensitivity_/(std::pow(base_sensitivity_, distance));
   if (reading_ > MAX_READ) {
     reading_ = MAX_READ;

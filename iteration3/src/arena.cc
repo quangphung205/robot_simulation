@@ -37,16 +37,20 @@ void Arena::addEntitiesToArena(struct arena_params *params) {
   params->n_fear_robots = static_cast<int>(params->n_robots * params->ratio_);
   params->n_explore_robots = params->n_robots - params->n_fear_robots;
 
-  for (size_t i = 0; i < params->n_fear_robots; i++)
+  for (size_t i = 0; i < params->n_fear_robots; i++) {
     AddRobot(kFearRobot);
-  for (size_t i = 0; i < params->n_aggressive_robots; i++)
+  }
+  for (size_t i = 0; i < params->n_aggressive_robots; i++) {
     AddRobot(kAggressiveRobot);
-  for (size_t i = 0; i < params->n_explore_robots; i++)
+  }
+  for (size_t i = 0; i < params->n_explore_robots; i++) {
     AddRobot(kExploreRobot);
-  for (size_t i = 0; i < params->n_love_robots; i++)
+  }
+  for (size_t i = 0; i < params->n_love_robots; i++) {
     AddRobot(kLoveRobot);
+  }
 
-  AddEntity(kFood, params->n_foods);  
+  AddEntity(kFood, params->n_foods);
   AddEntity(kLight, params->n_lights);
 }
 
@@ -60,19 +64,19 @@ Arena::~Arena() {
  * Member Functions
  ******************************************************************************/
 void Arena::AddRobot(EntityType robot_type) {
-  bool isColliding = false;
+  bool is_colliding = false;
   Robot* robot_ = NULL;
   do {
-    isColliding = false;
+    is_colliding = false;
     robot_ = dynamic_cast<Robot*>(factory_->CreateEntity(robot_type));
     for (auto tmp : entities_) {
       if (robot_ != NULL && tmp != NULL && IsColliding2(robot_, tmp)) {
-        isColliding = true;
+        is_colliding = true;
         delete robot_;
         break;
       }
     }
-  } while (isColliding);
+  } while (is_colliding);
   if (robot_ != NULL) {
     entities_.push_back(robot_);
     mobile_entities_.push_back(robot_);
@@ -83,19 +87,19 @@ void Arena::AddRobot(EntityType robot_type) {
 
 void Arena::AddEntity(EntityType type, int quantity) {
   for (int i = 0; i < quantity; i++) {
-    bool isColliding = false;
+    bool is_colliding = false;
     ArenaEntity *tmp = NULL;
     do {
-      isColliding = false;
+      is_colliding = false;
       tmp = factory_->CreateEntity(type);
       for (auto ent : entities_) {
         if (tmp != NULL && ent != NULL && IsColliding2(tmp, ent)) {
-          isColliding = true;
+          is_colliding = true;
           delete tmp;
           break;
         }
       }
-    } while (isColliding);
+    } while (is_colliding);
 
     if (tmp != NULL) {
       entities_.push_back(tmp);
@@ -109,14 +113,14 @@ void Arena::AddEntity(EntityType type, int quantity) {
 }
 
 void Arena::Reset() {
-  if (factory_ != NULL)
+  if (factory_ != NULL) {
     delete factory_;
+  }
 
   entities_.erase(entities_.begin(), entities_.end());
   mobile_entities_.erase(mobile_entities_.begin(), mobile_entities_.end());
   observers_.erase(observers_.begin(), observers_.end());
 
-  //struct arena_params params;
   // initialize new objects
   factory_ = new EntityFactory(this);
   addEntitiesToArena(params_);
@@ -185,17 +189,20 @@ void Arena::UpdateEntitiesTimestep() {
 // Determine if the entity is colliding with a wall.
 // Always returns an entity type. If not collision, returns kUndefined.
 EntityType Arena::GetCollisionWall(ArenaMobileEntity *const ent) {
+  EntityType e = kUndefined;
   if (ent->get_pose().x + ent->get_radius() >= x_dim_) {
-    return kRightWall;  // at x = x_dim_
+    e = kRightWall;  // at x = x_dim_
   } else if (ent->get_pose().x - ent->get_radius() <= 0) {
-    return kLeftWall;  // at x = 0
+    e = kLeftWall;  // at x = 0
   } else if (ent->get_pose().y + ent->get_radius() >= y_dim_) {
-    return kBottomWall;  // at y = y_dim
+    e = kBottomWall;  // at y = y_dim
   } else if (ent->get_pose().y - ent->get_radius() <= 0) {
-    return kTopWall;  // at y = 0
+    e = kTopWall;  // at y = 0
   } else {
-    return kUndefined;
+    e = kUndefined;
   }
+
+  return e;
 } /* GetCollisionWall() */
 
 /* The entity type indicates which wall the entity is colliding with.

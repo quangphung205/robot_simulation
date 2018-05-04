@@ -33,7 +33,7 @@ class FoodSensor : public Sensor {
   /**
    * @brief Default constructor
    */
-  FoodSensor(Subject *s, int wType, int cType);
+  FoodSensor(Subject *s, int wheel_type, int connect_type);
 
   /**
    * @brief update the state of a sensor

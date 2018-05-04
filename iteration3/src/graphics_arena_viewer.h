@@ -219,6 +219,7 @@ class GraphicsArenaViewer : public GraphicsApp {
    * @param arena new arena instances
    */
   void UpdateArena(Arena *arena) { arena_ = arena;}
+
  private:
   void DrawArena(NVGcontext *ctx);
   /**

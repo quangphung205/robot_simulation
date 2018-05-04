@@ -67,7 +67,8 @@ void Robot::Reset() {
   sensor_touch_->Reset();
 } /* Reset() */
 
-void Robot::HandleCollision(EntityType object_type, ArenaEntity*) {
+void Robot::HandleCollision(EntityType object_type,
+                 __unused ArenaEntity* object) {
   if (get_old_angle() > 0) {
     SetSpeed(1, 1);
     set_old_angle(0);

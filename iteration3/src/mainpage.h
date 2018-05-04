@@ -69,12 +69,20 @@
  of entities such as robots, lights, and foods. Foods are immobile entities which only stay in place for
  the whole simulation. Robots and lights are mobile entities which can move around and collide with other
  entities in the arena. Lights only collide with the wall and themselves. Robots are able to pass through
- lights and foods. Each robot contains four sensors, two for light sensors and two for food sensors. Each
- sensor has different connection types and impacts on the wheels of the robots so that it creates four
- different models of the robot: Fear, Aggression, Love, and Explore which are called Braitenberg vehicles.
- These sensor will affect the motion behavior of the robot by the position of the stimulus in the arena.
- When the game starts, robots will express Fear and Explore to the arena. After 30 seconds, the robot will
- get hungry and start to search for foods. The robot consumes food when it gets within 5 pixels of food entity.
+ lights and foods.
+ *
+ * Each robot contains four sensors, two for light sensors and two for food sensors. Each
+ sensor has different connection types and impacts on the wheels of the robots. These sensor will
+ affect the motion behavior of the robot by the position of the stimulus in the arena.
+ When the game starts, there are 10 robots, 8 lights, and 4 foods in the arena by default. A user can change
+ the quantity of these entities by adjusting the corresponding sliders on the controll board. 5 robots will
+ fear the lights which means they will try to avoid lights as much as possible. Other five robots will
+ explore the light which means they will try to come closer to the light.After 30 seconds, the robot will
+ get hungry and start to search for foods. Each robot is equipped with 2 foods sensor which helps it to
+ actively find foods in the arena. At this stage, robots' light sensors are still active so that the robots
+ still express their default behavior toward lights.
+ *
+ * The robot consumes food when it gets within 5 pixels of food entity.
  If a robot has not consumed any food for 120 seconds, it will become very hungry and start to ignore all
  lights in the arena. At this stage, the robot only focuses on food. If the robot could not consume any food
  within 150 seconds, it is considered starving and the game will end. At this stage, the user has to start

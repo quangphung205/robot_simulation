@@ -48,7 +48,8 @@ void Light::TimestepUpdate(unsigned int dt) {
   sensor_touch_->Reset();
 } /* TimestepUpdate() */
 
-void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
+void Light::HandleCollision(EntityType object_type,
+              __unused ArenaEntity * object) {
   if (get_old_angle() > 0) {
     motion_handler_.SetSpeed(1, 1);
     set_old_angle(0);
@@ -56,9 +57,6 @@ void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
     motion_handler_.SetSpeed(-1, -1.2);
     old_angle_ = pose_.theta;
   }
-
-  if (false)
-    sensor_touch_->HandleCollision(object_type, object);
 }
 
 NAMESPACE_END(csci3081);

@@ -193,6 +193,7 @@ class Sensor : public Observer{
     base_sensitivity_ = bs;
     coefficient_sensitivity_ = ds;
   }
+
  protected:
   State state_;
   Robot * host_{NULL};
