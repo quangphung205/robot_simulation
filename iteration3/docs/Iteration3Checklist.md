@@ -37,7 +37,7 @@
 | **__TESTS__** |
 | Tests for light sensor functionality exist. | X |  |  |  |
 | Tests for light sensor compile. | X |  |  |  |
-| Tests for light sensor pass. |  | X |  |  |
+| Tests for light sensor pass. | X |  |  |  |
 | Tests for wheel velocity functionality exist. | X |  |  |  |
 | Tests for wheel velocity compile. | X |  |  |  |
 | Tests for wheel velocity pass. | X |  |  |  | |
